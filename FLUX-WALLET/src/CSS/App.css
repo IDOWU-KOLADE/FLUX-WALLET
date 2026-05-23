@@ -1,0 +1,78 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.navbar-div{
+    width: 100%;
+    
+}
+body {
+    background-color: var(--color-bg);
+}
+.navbar {
+    padding-top: 15px;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    height: 40px;
+}
+.flux-logo {
+    height: inherit;
+    width: auto;
+}
+.burger-icon {
+ margin-right: 8px;
+}
+.dashboard-div{
+    margin-top: 20px;
+    padding: 20px;
+}
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+.hero-div {
+    min-height: 50vh;
+    overflow-y: hidden;
+}
+.hero-texts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.hero-texts h4 {
+    font-size: 14px;
+    color: var(--color-primary);
+}
+.hero-texts h1 {
+    font-size: 28px;
+    word-spacing: -1px;
+    letter-spacing: -1px;
+    font-weight: bold;
+}
+.hero-texts p{
+    font-size: 13px;
+    width: max(100px,65%);
+    color: var(--color-text-secondary);
+}
+.add-transact {
+    width: 50%;
+    padding: 12px 10px;
+    color: var(--color-card);
+    border-radius: 10px;
+    border: none;
+    background-color: var(--black-btn);
+}
+.hero-illustration {
+    height: 200px;
+    position: absolute;
+    right: 0px;
+    top: 60px;
+}
+

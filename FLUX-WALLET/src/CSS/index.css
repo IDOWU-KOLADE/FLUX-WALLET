@@ -1,0 +1,190 @@
+  /* This imports all css files for the pages so we can simply use them directly in the App.jsx file */
+
+@import './App.css';
+@import './Dashboard.css';
+@import './Stats.css';
+@import './Transactions.css';
+ :root {
+  /* =========================
+     PRIMARY BRAND COLORS
+  ========================== */
+
+  --color-primary: #22c55e;
+  --color-primary-dark: #16a34a;
+  --color-primary-light: #dcfce7;
+
+  /* =========================
+     EXPENSE / NEGATIVE
+  ========================== */
+
+  --color-danger: #ef4444;
+  --color-danger-light: #fee2e2;
+
+  /* =========================
+     WARNING
+  ========================== */
+
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+
+  /* =========================
+     SECONDARY ACCENT
+  ========================== */
+
+  --color-accent: #6366f1;
+  --color-accent-light: #e0e7ff;
+
+  /* =========================
+     CATEGORY COLORS
+  ========================== */
+
+  --color-food: #f97316;
+  --color-transport: #3b82f6;
+  --color-entertainment: #a855f7;
+  --color-bills: #22c55e;
+  --color-other: #94a3b8;
+
+  /* =========================
+     TEXT COLORS
+  ========================== */
+
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-light: #9ca3af;
+
+  /* =========================
+     BACKGROUNDS
+  ========================== */
+
+  --color-bg: #f8fafc;
+  --color-bg-secondary: #f1f5f9;
+  --color-card: #ffffff;
+  --color-card-hover: #f9fafb;
+  --black-btn: black;
+
+  /* =========================
+     BORDERS
+  ========================== */
+
+  --color-border: #e5e7eb;
+  --color-border-light: #f1f5f9;
+
+  /* =========================
+     NAVBAR / FOOTER
+  ========================== */
+
+  --color-nav: #ffffff;
+  --color-footer: #0f172a;
+
+  /* =========================
+     HERO SECTION
+  ========================== */
+
+  --hero-gradient:
+    linear-gradient(
+      135deg,
+      #f0fdf4,
+      #ecfeff
+    );
+
+  /* =========================
+     SHADOWS
+  ========================== */
+
+  --shadow-sm:
+    0 1px 2px rgba(0, 0, 0, 0.05);
+
+  --shadow-md:
+    0 4px 6px rgba(0, 0, 0, 0.08);
+
+  --shadow-lg:
+    0 10px 15px rgba(0, 0, 0, 0.1);
+
+  /* =========================
+     BORDER RADIUS
+  ========================== */
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /* =========================
+     TRANSITIONS
+  ========================== */
+
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+
+  /* =========================
+     LAYOUT
+  ========================== */
+
+  --max-width: 1200px;
+}
+
+.dark {
+  /* =========================
+     BACKGROUNDS
+  ========================== */
+
+  --color-bg: #0f172a;
+  --color-bg-secondary: #111827;
+  --color-card: #1e293b;
+  --color-card-hover: #273549;
+
+  /* =========================
+     TEXT
+  ========================== */
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-light: #94a3b8;
+
+  /* =========================
+     BORDERS
+  ========================== */
+
+  --color-border: #334155;
+  --color-border-light: #1e293b;
+
+  /* =========================
+     NAVBAR / FOOTER
+  ========================== */
+
+  --color-nav: #111827;
+  --color-footer: #020617;
+
+  /* =========================
+     HERO
+  ========================== */
+
+  --hero-gradient:
+    linear-gradient(
+      135deg,
+      #0f172a,
+      #111827
+    );
+
+  /* =========================
+     SHADOWS
+  ========================== */
+
+  --shadow-sm:
+    0 1px 2px rgba(0, 0, 0, 0.3);
+
+  --shadow-md:
+    0 4px 6px rgba(0, 0, 0, 0.4);
+
+  --shadow-lg:
+    0 10px 15px rgba(0, 0, 0, 0.5);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+ 
+
+
