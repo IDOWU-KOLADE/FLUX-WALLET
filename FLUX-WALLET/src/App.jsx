@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import {BrowserRouter, Routes, Route, Link, NavLink} from "react-router-dom"
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
+import { BottomNav } from '../PAGES/Dashboard'
 
 import './CSS/index.css'
 
@@ -21,6 +22,7 @@ return (
     <Route/>
     <Route/>
   </Routes>
+  <BottomNav/>
   </BrowserRouter>
 )
 
