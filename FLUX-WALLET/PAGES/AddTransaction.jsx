@@ -12,3 +12,13 @@ No empty submission (useForm custom hook)
 Redirect to /transactions after submit
 
 👉 This is the “input system” */
+
+
+function AddTransactionPage () {
+
+    return (
+        <div>
+            
+        </div>
+    )
+}

@@ -7,7 +7,7 @@ import { BottomNav } from '../PAGES/Dashboard'
 
 import './CSS/index.css'
 
-
+import { AuthPage } from '../PAGES/Auth'
 import { MainPage } from '../PAGES/Dashboard'
 import { RxHamburgerMenu } from "react-icons/rx";
 
@@ -15,14 +15,15 @@ function App() {
   
 return (
   <BrowserRouter>
-  <Navbar/>
+  {/* <Navbar/> */}
   <Routes>
+    {/* <Route path='/' element={<AuthPage/>}/> */}
     <Route path='/' element={<MainPage/>}/>
     <Route/>
     <Route/>
     <Route/>
   </Routes>
-  <BottomNav/>
+  {/* <BottomNav/> */}
   </BrowserRouter>
 )
 

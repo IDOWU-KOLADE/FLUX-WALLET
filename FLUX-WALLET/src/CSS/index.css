@@ -4,6 +4,7 @@
 @import './Dashboard.css';
 @import './Stats.css';
 @import './Transactions.css';
+@import './Auth.css';
  :root {
   /* =========================
      PRIMARY BRAND COLORS
