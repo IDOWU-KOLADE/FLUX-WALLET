@@ -17,7 +17,7 @@ return (
   <BrowserRouter>
   {/* <Navbar/> */}
   <Routes>
-    {/* <Route path='/' element={<AuthPage/>}/> */}
+    <Route path='/' element={<AuthPage/>}/>
     <Route path='/' element={<MainPage/>}/>
     <Route/>
     <Route/>
