@@ -5,6 +5,7 @@ Total Income
 Total Expenses
 Last 5 transactions
 Monthly budget progress bar */
+
 import { AiOutlineHome } from "react-icons/ai";
 import { HiOutlineClipboardList } from "react-icons/hi";
 import { AiOutlinePlusCircle } from "react-icons/ai";

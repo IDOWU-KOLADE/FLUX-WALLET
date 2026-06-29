@@ -370,6 +370,11 @@
   margin-bottom: 32px;
   width: 100%;
 }
+.auth-error {
+  color: #ef4444;
+  font-size: 13px;
+  margin: 4px 0;
+}
 
 .forgot2-header h1 {
   font-size: 20px;
@@ -423,4 +428,9 @@
 
 .forgot2-input:focus {
   border-color: #2ecc71;
+}
+.auth-error {
+  color: #ef4444;
+  font-size: 13px;
+  margin: 4px 0;
 }
