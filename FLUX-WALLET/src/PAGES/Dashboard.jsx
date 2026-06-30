@@ -5,13 +5,8 @@ Total Income
 Total Expenses
 Last 5 transactions
 Monthly budget progress bar */
-
-import { AiOutlineHome } from "react-icons/ai";
-import { HiOutlineClipboardList } from "react-icons/hi";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import { IoStatsChartOutline } from "react-icons/io5";
-import { AiOutlineUser } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
+import { Navbar } from "../COMPONENTS/FREQUENT/NB"
+import { BottomNav } from "../COMPONENTS/FREQUENT/NB"
 import { BsWallet2 } from "react-icons/bs";      // wallet
 import { HiArrowTrendingUp } from "react-icons/hi2"; // income arrow
 import { HiMinus } from "react-icons/hi";          // expenses minus
@@ -19,6 +14,8 @@ import { HiMinus } from "react-icons/hi";          // expenses minus
 export function MainPage () {
 
 return (
+  <>
+    <Navbar/>
     <div className="dashboard-div">
       <div className="main-div">
         <DashHero/>
@@ -27,6 +24,8 @@ return (
         <RecentTransaction/>
       </div>
     </div>
+    <BottomNav/>
+    </>
 )
 }
 
@@ -195,31 +194,5 @@ function RecentTransaction () {
         </div>
       </div>
     </div>
-  )
-}
-export function BottomNav() {
-  return (
-    <nav className="bottom-nav">
-      <NavLink to="/" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-        <AiOutlineHome size={22} />
-        <span>Home</span>
-      </NavLink>
-      <NavLink to="/transactions" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-        <HiOutlineClipboardList size={22} />
-        <span>Transactions</span>
-      </NavLink>
-      <NavLink to="/add" className="nav-item add-btn">
-        <AiOutlinePlusCircle size={28} />
-        <span>Add</span>
-      </NavLink>
-      <NavLink to="/stats" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-        <IoStatsChartOutline size={22} />
-        <span>Stats</span>
-      </NavLink>
-      <NavLink to="/profile" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-        <AiOutlineUser size={22} />
-        <span>Profile</span>
-      </NavLink>
-    </nav>
   )
 }

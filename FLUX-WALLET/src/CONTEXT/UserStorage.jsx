@@ -1,16 +1,13 @@
-// src/CONTEXT/UserStorage.jsx
+export function getStorage () {
+  const data = JSON.parse(localStorage.getItem('FluxData'))
+  return data? data: { users: {}, loggedInUser: null };
+}
 
-export const getStorage = () => {
-  const data = localStorage.getItem("fluxData");
-  return data ? JSON.parse(data) : { users: {}, loggedInUser: null };
-};
-
-export const saveStorage = (data) => {
-  localStorage.setItem("fluxData", JSON.stringify(data));
-};
-
-export const registerUser = (username, password, securityQuestions, securityAnswers) => {
-  const storage = getStorage();
+export function SetStorage (data) {
+  localStorage.setItem('FluxData',JSON.stringify(data))
+}
+export function registerUser (username,password, securityQuestions, SecurityAnswers,) {
+  const storage = getStorage()
   storage.users[username] = {
     password,
     monthlyBudget: '',
@@ -22,34 +19,32 @@ export const registerUser = (username, password, securityQuestions, securityAnsw
       income: ["Salary", "Freelance", "Investment", "Other Income"]
     }
   };
-  saveStorage(storage);
-};
-
-export const loginUser = (username, password) => {
+  SetStorage(storage)
+}
+export function getCurrentUser () {
   const storage = getStorage();
-  const user = storage.users[username];
-  if (!user) return { success: false, error: "Username not found" };
-  if (user.password !== password) return { success: false, error: "Wrong password" };
-  storage.loggedInUser = username;
-  saveStorage(storage);
-  return { success: true };
-};
-
-export const logoutUser = () => {
+  const currentuser = storage.loggedInUser;
+  return currentuser? {currentuser,...storage.users[currentuser]}: null;
+}
+export function loginUser (username, password) {
+    const storage = getStorage();
+    const user = storage.users[username];
+    if (!user) {
+      return {success: false, error: 'user not found'}
+    } else {
+        storage.loggedInUser= username;
+        SetStorage(storage)
+         return {success: true}
+    }
+  
+}
+export function logoutUser () {
   const storage = getStorage();
   storage.loggedInUser = null;
-  saveStorage(storage);
-};
-
-export const getCurrentUser = () => {
-  const storage = getStorage();
-  const username = storage.loggedInUser;
-  if (!username) return null;
-  return { username, ...storage.users[username] };
-};
-
+  SetStorage(storage);
+}
 export const resetPassword = (username, newPassword) => {
   const storage = getStorage();
   storage.users[username].password = newPassword;
-  saveStorage(storage);
-};
+  SetStorage(storage);
+}; 

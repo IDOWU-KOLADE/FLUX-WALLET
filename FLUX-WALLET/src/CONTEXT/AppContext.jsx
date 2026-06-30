@@ -1,4 +1,4 @@
-// src/CONTEXT/AppContext.jsx
+/* // src/CONTEXT/AppContext.jsx
 import { createContext, useContext, useState } from "react";
 import { getCurrentUser, logoutUser } from "./UserStorage";
 
@@ -25,4 +25,4 @@ export function AppProvider({ children }) {
   );
 }
 
-export const useApp = () => useContext(AppContext);
+export const useApp = () => useContext(AppContext); */
