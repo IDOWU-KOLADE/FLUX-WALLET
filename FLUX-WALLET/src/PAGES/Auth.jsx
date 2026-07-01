@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { registerUser,getStorage,SetStorage,getCurrentUser,loginUser,logoutUser,resetPassword } from "../CONTEXT/UserStorage";
 export function AuthPage () {
   const [screen,setScreen] = useState('login');
     const [selectedQuestions, setSelectedQuestions] = useState([]);
@@ -47,6 +47,7 @@ function LoginScreen ({setScreen}) {
 }
 
 function RegisterScreen () {
+   const [userdetails,setUserDetails] = useState({username:'',password: ''})
   return (
       <div className="register-page">
         <div className="logo-wrapper">
@@ -60,13 +61,13 @@ function RegisterScreen () {
           <div className="field-group">
             <label>
               <span>Username</span>
-              <input placeholder="Choose a username" />
+              <input placeholder="Choose a username" value={userdetails.username} onChange={(e)=>{setUserDetails(e.target.value)}}/>
             </label>
           </div>
           <div className="field-group">
             <label>
               <span>Password</span>
-              <input type="password" placeholder="Create a password" />
+              <input type="password" placeholder="Create a password" value={userdetails.password} onChange={(e)=> {setUserDetails(e.target.value)}} />
             </label>
           </div>
           <button className="btn-continue">Continue</button>
@@ -199,6 +200,8 @@ function ForgotStep2({ setScreen, selectedQuestions }) {
     </div>
   );
 }
+
+
 
 
 
