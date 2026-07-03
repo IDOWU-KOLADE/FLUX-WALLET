@@ -1,22 +1,23 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { registerUser,getStorage,SetStorage,getCurrentUser,loginUser,logoutUser,resetPassword,formatUsername } from "../CONTEXT/UserStorage";
+import { useApp } from "../CONTEXT/AppContext";
 export function AuthPage () {
   const [screen,setScreen] = useState('login');
   const [error,seterror] = useState('');
   const [loginDetails, setLoginDetails] = useState({username:'',password:''})
   const [userdetails,setUserDetails] = useState({username:'',password: ''})
   const [selectedQuestions, setSelectedQuestions] = useState([]);
-  if (screen === "login")        return <LoginScreen setScreen={setScreen} formatUsername={formatUsername} seterror={seterror} getStorage={getStorage} loginDetails={loginDetails} setLoginDetails={setLoginDetails}/>
-    if (screen === "register")     return <RegisterScreen setScreen={setScreen} userdetails={userdetails} formatUsername={formatUsername} setUserDetails={setUserDetails} seterror={seterror} getStorage={getStorage}/>
+  if (screen === "login")        return <LoginScreen setScreen={setScreen} loginUser={loginUser} formatUsername={formatUsername} seterror={seterror} error={error} getStorage={getStorage} loginDetails={loginDetails} setLoginDetails={setLoginDetails}/>
+    if (screen === "register")     return <RegisterScreen setScreen={setScreen} userdetails={userdetails} formatUsername={formatUsername} setUserDetails={setUserDetails} seterror={seterror} getStorage={getStorage} error={error}/>
     if (screen === "forgot-step1") return <ForgotStep1 setScreen={setScreen} setSelectedQuestions={setSelectedQuestions} selectedQuestions={selectedQuestions}  userdetails={userdetails} setUserDetails={setUserDetails}/>
     if (screen === "forgot-step2") return <ForgotStep2 setScreen={setScreen}  selectedQuestions={selectedQuestions}  userdetails={userdetails} setUserDetails={setUserDetails}/>
     if (screen === "success")      return <SuccessModal setScreen={setScreen} />
     if (screen === "security-setup") return <SecuritySetup setScreen={setScreen} />
 }
-
-  function LoginScreen ({setScreen,formatUsername,getStorage,seterror,loginDetails,setLoginDetails}) {
-    
+  function LoginScreen ({setScreen,formatUsername,getStorage,seterror,error,loginDetails,setLoginDetails,loginUser}) {
+    const navigate = useNavigate()
+    const {refreshUser}= useApp()
     return (
   <div className="login-page">
       <div className="logo-wrapper">
@@ -41,7 +42,16 @@ export function AuthPage () {
         </div>
         <p className="forgot-password">Forgot password?</p>
       </div>
-      <button className="btn-login">Login</button>
+      {error && <p style={{ color: 'red', fontSize: '13px' }}>{error}</p>}
+      <button className="btn-login" onClick={()=> {
+        const result = loginUser(loginDetails.username,loginDetails.password)
+        if (result.success) {
+          navigate('/dashboard')
+         refreshUser()
+        } else {
+          seterror(result.error)
+        }
+      }}>Login</button>
       <p className="register-row">
         Don't have an account?
         <button className="btn-register" onClick={()=> {setScreen('register')}}>Register</button>
@@ -51,7 +61,7 @@ export function AuthPage () {
   );
 }
 
-function RegisterScreen ({setScreen,userdetails,setUserDetails,getStorage,seterror,formatUsername}) {
+function RegisterScreen ({setScreen,userdetails,error,setUserDetails,getStorage,seterror,formatUsername}) {
 const FluxData= getStorage();
 const Users = FluxData.users;
   return (

@@ -17,7 +17,7 @@ return (
   <BrowserRouter>
   <Routes>
     <Route path='/' element={<AuthPage/>}/>
-    <Route path='/' element={<MainPage/>}/>
+    <Route path='/dashboard' element={<MainPage/>}/>
     <Route/>
     <Route/>
     <Route/>

@@ -37,7 +37,7 @@ export function loginUser (username, password) {
   if (user.password !== password) return { success: false, error: 'Wrong password' };
   storage.loggedInUser = username;
   SetStorage(storage);
-  return { success: true };
+  return { success: true, error: null};
   
 }
 export function logoutUser () {
