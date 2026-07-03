@@ -1,24 +1,26 @@
 import { useState } from "react";
+
 import { registerUser,getStorage,SetStorage,getCurrentUser,loginUser,logoutUser,resetPassword } from "../CONTEXT/UserStorage";
 export function AuthPage () {
   const [screen,setScreen] = useState('login');
+     const [userdetails,setUserDetails] = useState({username:'',password: ''})
     const [selectedQuestions, setSelectedQuestions] = useState([]);
   if (screen === "login")        return <LoginScreen setScreen={setScreen} />
-    if (screen === "register")     return <RegisterScreen setScreen={setScreen} />
-    if (screen === "forgot-step1") return <ForgotStep1 setScreen={setScreen} setSelectedQuestions={setSelectedQuestions} selectedQuestions={selectedQuestions}/>
-    if (screen === "forgot-step2") return <ForgotStep2 setScreen={setScreen}  selectedQuestions={selectedQuestions}/>
+    if (screen === "register")     return <RegisterScreen setScreen={setScreen} userdetails={userdetails} setUserDetails={setUserDetails}/>
+    if (screen === "forgot-step1") return <ForgotStep1 setScreen={setScreen} setSelectedQuestions={setSelectedQuestions} selectedQuestions={selectedQuestions}  userdetails={userdetails} setUserDetails={setUserDetails}/>
+    if (screen === "forgot-step2") return <ForgotStep2 setScreen={setScreen}  selectedQuestions={selectedQuestions}  userdetails={userdetails} setUserDetails={setUserDetails}/>
     if (screen === "success")      return <SuccessModal setScreen={setScreen} />
     if (screen === "security-setup") return <SecuritySetup setScreen={setScreen} />
-}
+  }
 
-function LoginScreen ({setScreen}) {
-  return (
-<div className="login-page">
+  function LoginScreen ({setScreen,userdetails}) {
+    return (
+  <div className="login-page">
       <div className="logo-wrapper">
         <img src="./public/IMAGES/Fluxlogo.png" alt="Flux Wallet" />
       </div>
       <div className="welcome-section">
-        <h1>Welcome back 👋</h1>
+        <h1>Welcome back</h1>
         <p>Login to your account</p>
       </div>
       <div className="form-section">
@@ -39,15 +41,15 @@ function LoginScreen ({setScreen}) {
       <button className="btn-login">Login</button>
       <p className="register-row">
         Don't have an account?
-        <button className="btn-register">Register</button>
+        <button className="btn-register" onClick={()=> {setScreen('register')}}>Register</button>
       </p>
       <p className="secure-footer">Secure. Simple. Seamless.</p>
     </div>
   );
 }
 
-function RegisterScreen () {
-   const [userdetails,setUserDetails] = useState({username:'',password: ''})
+function RegisterScreen ({setScreen,userdetails,setUserDetails}) {
+
   return (
       <div className="register-page">
         <div className="logo-wrapper">
@@ -61,20 +63,20 @@ function RegisterScreen () {
           <div className="field-group">
             <label>
               <span>Username</span>
-              <input placeholder="Choose a username" value={userdetails.username} onChange={(e)=>{setUserDetails(e.target.value)}}/>
+              <input placeholder="Choose a username" value={userdetails.username} onChange={(e) => setUserDetails({...userdetails, username: e.target.value})}/>
             </label>
           </div>
           <div className="field-group">
             <label>
               <span>Password</span>
-              <input type="password" placeholder="Create a password" value={userdetails.password} onChange={(e)=> {setUserDetails(e.target.value)}} />
+              <input type="password" placeholder="Create a password" value={userdetails.password} onChange={(e)=> {setUserDetails({...userdetails,password: e.target.value})}} />
             </label>
           </div>
-          <button className="btn-continue">Continue</button>
+          <button className="btn-continue" onClick={()=> {setScreen('forgot-step1')}}>Continue</button>
         </div>
         <p className="login-row">
           Already have an account?
-          <button className="btn-login-link">Login</button>
+          <button className="btn-login-link" onClick={()=> {setScreen('login')}}>Login</button>
         </p>
     </div>
   )
@@ -90,7 +92,7 @@ const SECURITY_QUESTIONS = [
   "In what city were you born?",
 ];
 
-function ForgotStep1({setScreen, setSelectedQuestions}) {
+function ForgotStep1({setScreen, setSelectedQuestions,userdetails,setUserDetails}) {
   const [selected, setSelected] = useState([]);
 
   const toggle = (q) => {
@@ -157,7 +159,7 @@ function ForgotStep1({setScreen, setSelectedQuestions}) {
   );
 }
 
-function ForgotStep2({ setScreen, selectedQuestions }) {
+function ForgotStep2({ setScreen, selectedQuestions,selected ,userdetails,setUserDetails}) {
   const [answers, setAnswers] = useState(
     Object.fromEntries(selectedQuestions.map((q) => [q, ""]))
   );
@@ -193,7 +195,12 @@ function ForgotStep2({ setScreen, selectedQuestions }) {
         className="btn-continue"
         disabled={!allAnswered}
         style={{ opacity: allAnswered ? 1 : 0.4 }}
-        onClick={() => setScreen("success")}
+        onClick={() => {
+            registerUser(userdetails.username,userdetails.password,selectedQuestions,answers)
+            setScreen('success')
+            console.log(getStorage())
+
+        }}
       >
         Continue
       </button>
@@ -201,6 +208,23 @@ function ForgotStep2({ setScreen, selectedQuestions }) {
   );
 }
 
+function SuccessModal({ setScreen }) {
+  return (
+    <div className="success-page">
+      <div className="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="12" fill="#2ecc71"/>
+          <path d="M6 12l4 4 8-8" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
+      <h1>Account Created Successfully! </h1>
+      <p>You can now login to your account.</p>
+      <button className="btn-continue" onClick={() => setScreen("login")}>
+        Go to Login
+      </button>
+    </div>
+  );
+}
 
 
 

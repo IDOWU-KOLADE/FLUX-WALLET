@@ -6,7 +6,7 @@ export function getStorage () {
 export function SetStorage (data) {
   localStorage.setItem('FluxData',JSON.stringify(data))
 }
-export function registerUser (username,password, securityQuestions, SecurityAnswers,) {
+export function registerUser (username,password, securityQuestions, securityAnswers,) {
   const storage = getStorage()
   storage.users[username] = {
     password,
@@ -23,19 +23,19 @@ export function registerUser (username,password, securityQuestions, SecurityAnsw
 }
 export function getCurrentUser () {
   const storage = getStorage();
-  const currentuser = storage.loggedInUser;
-  return currentuser? {currentuser,...storage.users[currentuser]}: null;
+  const username = storage.loggedInUser;
+  return username? {username,...storage.users[username]}: null;
 }
 export function loginUser (username, password) {
     const storage = getStorage();
     const user = storage.users[username];
     if (!user) {
       return {success: false, error: 'user not found'}
-    } else {
-        storage.loggedInUser= username;
-        SetStorage(storage)
-         return {success: true}
     }
+  if (user.password !== password) return { success: false, error: 'Wrong password' };
+  storage.loggedInUser = username;
+  SetStorage(storage);
+  return { success: true };
   
 }
 export function logoutUser () {

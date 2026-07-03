@@ -242,7 +242,6 @@
     border-radius: 10px;
     overflow-x: auto;
     scrollbar-width: none;
-    
 }
 .r-transaction-inner {
     height: 100%;
@@ -361,4 +360,7 @@
 }
 .dashboard-div {
   padding-bottom: 70px;
+}
+.page{
+    padding-bottom: 50px;
 }

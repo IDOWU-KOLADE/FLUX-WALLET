@@ -15,16 +15,19 @@ export function MainPage () {
 
 return (
   <>
+  <div className="page">
     <Navbar/>
-    <div className="dashboard-div">
-      <div className="main-div">
-        <DashHero/>
-        <BudgetAnalysis/>
-        <Summary/>
-        <RecentTransaction/>
+      <div className="dashboard-div">
+        <div className="main-div">
+          <DashHero/>
+          <BudgetAnalysis/>
+          <Summary/>
+          <RecentTransaction/>
+        </div>
       </div>
-    </div>
     <BottomNav/>
+  </div>
+
     </>
 )
 }
@@ -35,7 +38,7 @@ function DashHero () {
 			<div className="hero-div">
 				<div className="hero-section">
 					<div className="hero-texts">
-						<h4>Good morning, Skolade👋</h4>
+						<h4>Good morning, Skolade</h4>
 						<h1>Take control of your money.</h1>
 						<p>Track your income, manage expenses and reach your financial goals.</p>
 					</div>
