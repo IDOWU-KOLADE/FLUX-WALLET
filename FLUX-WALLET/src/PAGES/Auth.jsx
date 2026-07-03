@@ -1,19 +1,22 @@
 import { useState } from "react";
 
-import { registerUser,getStorage,SetStorage,getCurrentUser,loginUser,logoutUser,resetPassword } from "../CONTEXT/UserStorage";
+import { registerUser,getStorage,SetStorage,getCurrentUser,loginUser,logoutUser,resetPassword,formatUsername } from "../CONTEXT/UserStorage";
 export function AuthPage () {
   const [screen,setScreen] = useState('login');
-     const [userdetails,setUserDetails] = useState({username:'',password: ''})
-    const [selectedQuestions, setSelectedQuestions] = useState([]);
-  if (screen === "login")        return <LoginScreen setScreen={setScreen} />
-    if (screen === "register")     return <RegisterScreen setScreen={setScreen} userdetails={userdetails} setUserDetails={setUserDetails}/>
+  const [error,seterror] = useState('');
+  const [loginDetails, setLoginDetails] = useState({username:'',password:''})
+  const [userdetails,setUserDetails] = useState({username:'',password: ''})
+  const [selectedQuestions, setSelectedQuestions] = useState([]);
+  if (screen === "login")        return <LoginScreen setScreen={setScreen} formatUsername={formatUsername} seterror={seterror} getStorage={getStorage} loginDetails={loginDetails} setLoginDetails={setLoginDetails}/>
+    if (screen === "register")     return <RegisterScreen setScreen={setScreen} userdetails={userdetails} formatUsername={formatUsername} setUserDetails={setUserDetails} seterror={seterror} getStorage={getStorage}/>
     if (screen === "forgot-step1") return <ForgotStep1 setScreen={setScreen} setSelectedQuestions={setSelectedQuestions} selectedQuestions={selectedQuestions}  userdetails={userdetails} setUserDetails={setUserDetails}/>
     if (screen === "forgot-step2") return <ForgotStep2 setScreen={setScreen}  selectedQuestions={selectedQuestions}  userdetails={userdetails} setUserDetails={setUserDetails}/>
     if (screen === "success")      return <SuccessModal setScreen={setScreen} />
     if (screen === "security-setup") return <SecuritySetup setScreen={setScreen} />
-  }
+}
 
-  function LoginScreen ({setScreen,userdetails}) {
+  function LoginScreen ({setScreen,formatUsername,getStorage,seterror,loginDetails,setLoginDetails}) {
+    
     return (
   <div className="login-page">
       <div className="logo-wrapper">
@@ -27,13 +30,13 @@ export function AuthPage () {
         <div className="field-group">
           <label>
             <span>Username</span>
-            <input placeholder="Enter your username" />
+            <input placeholder="Enter your username" value={loginDetails.username} onChange={(e)=>{setLoginDetails({...loginDetails, username: formatUsername(e.target.value)})}}/>
           </label>
         </div>
         <div className="field-group">
           <label>
             <span>Password</span>
-            <input type="password" placeholder="Enter your password" />
+            <input type="password" placeholder="Enter your password" value={loginDetails.password} onChange={(e)=>{setLoginDetails({...loginDetails, password: e.target.value})}}/>
           </label>
         </div>
         <p className="forgot-password">Forgot password?</p>
@@ -48,8 +51,9 @@ export function AuthPage () {
   );
 }
 
-function RegisterScreen ({setScreen,userdetails,setUserDetails}) {
-
+function RegisterScreen ({setScreen,userdetails,setUserDetails,getStorage,seterror,formatUsername}) {
+const FluxData= getStorage();
+const Users = FluxData.users;
   return (
       <div className="register-page">
         <div className="logo-wrapper">
@@ -63,7 +67,10 @@ function RegisterScreen ({setScreen,userdetails,setUserDetails}) {
           <div className="field-group">
             <label>
               <span>Username</span>
-              <input placeholder="Choose a username" value={userdetails.username} onChange={(e) => setUserDetails({...userdetails, username: e.target.value})}/>
+              <input placeholder="Choose a username" value={userdetails.username} onChange={(e) => {
+                setUserDetails({...userdetails, username: formatUsername(e.target.value)})
+                seterror('')
+                }}/>
             </label>
           </div>
           <div className="field-group">
@@ -72,7 +79,18 @@ function RegisterScreen ({setScreen,userdetails,setUserDetails}) {
               <input type="password" placeholder="Create a password" value={userdetails.password} onChange={(e)=> {setUserDetails({...userdetails,password: e.target.value})}} />
             </label>
           </div>
-          <button className="btn-continue" onClick={()=> {setScreen('forgot-step1')}}>Continue</button>
+            {error && <p style={{ color: 'red', fontSize: '13px' }}>{error}</p>}
+          <button className="btn-continue" onClick={()=> {
+              if (Users[formatUsername(userdetails.username)]) {
+                 seterror("Username already taken! Choose another.");
+                return;
+              }
+              if (!userdetails.username.trim() || !userdetails.password.trim()) {
+                seterror("Please fill in all fields");
+                return;
+              }
+            setScreen('forgot-step1')
+            }}>Continue</button>
         </div>
         <p className="login-row">
           Already have an account?

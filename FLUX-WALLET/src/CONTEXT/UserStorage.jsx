@@ -2,7 +2,9 @@ export function getStorage () {
   const data = JSON.parse(localStorage.getItem('FluxData'))
   return data? data: { users: {}, loggedInUser: null };
 }
-
+export const formatUsername = (name) => {
+  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+}
 export function SetStorage (data) {
   localStorage.setItem('FluxData',JSON.stringify(data))
 }

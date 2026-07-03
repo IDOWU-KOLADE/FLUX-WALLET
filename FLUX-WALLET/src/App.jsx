@@ -16,7 +16,7 @@ function App() {
 return (
   <BrowserRouter>
   <Routes>
-    {/* <Route path='/' element={<AuthPage/>}/> */}
+    <Route path='/' element={<AuthPage/>}/>
     <Route path='/' element={<MainPage/>}/>
     <Route/>
     <Route/>
