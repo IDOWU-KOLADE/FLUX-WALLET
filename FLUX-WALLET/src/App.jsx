@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import {BrowserRouter, Routes, Route, Link, NavLink} from "react-router-dom"
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
-
+import { AppProvider } from './CONTEXT/AppContext.jsx'
 
 import './CSS/index.css'
 
@@ -14,15 +14,17 @@ import { RxHamburgerMenu } from "react-icons/rx";
 function App() {
   
 return (
-  <BrowserRouter>
-  <Routes>
-    <Route path='/' element={<AuthPage/>}/>
-    <Route path='/dashboard' element={<MainPage/>}/>
-    <Route/>
-    <Route/>
-    <Route/>
-  </Routes>
-  </BrowserRouter>
+  <AppProvider>
+    <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<AuthPage/>}/>
+      <Route path='/dashboard' element={<MainPage/>}/>
+      <Route/>
+      <Route/>
+      <Route/>
+    </Routes>
+    </BrowserRouter>
+  </AppProvider>
 )
 
 }

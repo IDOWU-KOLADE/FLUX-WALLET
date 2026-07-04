@@ -6,10 +6,15 @@ const AppContext = createContext();
 
 export function AppProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(getCurrentUser());
-
+  const [screen,setScreen] = useState('login');
+  const [error,seterror] = useState('');
+  const [loginDetails, setLoginDetails] = useState({username:'',password:''})
+  const [userdetails,setUserDetails] = useState({username:'',password: ''})
+  const [selectedQuestions, setSelectedQuestions] = useState([]);
   const logout = () => {
     logoutUser();
     setCurrentUser(null);
+    setScreen('login')
   };
 
   const refreshUser = () => {
@@ -17,7 +22,13 @@ export function AppProvider({ children }) {
   };
 
   return (
-    <AppContext.Provider value={{ currentUser, setCurrentUser, logout, refreshUser }}>
+    <AppContext.Provider value={{ 
+      //Global App State
+    currentUser, setCurrentUser, logout, refreshUser,
+      //  Auth Flow State
+    screen,setScreen,error,seterror,loginDetails,setLoginDetails,userdetails,setUserDetails,selectedQuestions,setSelectedQuestions
+    
+    }}>
       {children}
     </AppContext.Provider>
   );
