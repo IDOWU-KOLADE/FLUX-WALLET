@@ -9,6 +9,7 @@ import './CSS/index.css'
 
 import {AuthPage} from './PAGES/Auth.jsx'
 import { MainPage } from './PAGES/Dashboard'
+import { ProfilePage } from './PAGES/Profile.jsx'
 import { RxHamburgerMenu } from "react-icons/rx";
 
 function App() {
@@ -19,7 +20,7 @@ return (
     <Routes>
       <Route path='/' element={<AuthPage/>}/>
       <Route path='/dashboard' element={<MainPage/>}/>
-      <Route/>
+      <Route path='/profile' element={<ProfilePage/>}/>
       <Route/>
       <Route/>
     </Routes>

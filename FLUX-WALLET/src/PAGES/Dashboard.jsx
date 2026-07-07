@@ -10,9 +10,22 @@ import { BottomNav } from "../COMPONENTS/FREQUENT/NB"
 import { BsWallet2 } from "react-icons/bs";      // wallet
 import { HiArrowTrendingUp } from "react-icons/hi2"; // income arrow
 import { HiMinus } from "react-icons/hi";          // expenses minus
+import { useEffect } from "react";
+
+import { useApp } from "../CONTEXT/AppContext";
+import { getCurrentUser } from "../CONTEXT/UserStorage";
+import { useNavigate } from "react-router-dom";
 
 export function MainPage () {
-
+const {refreshUser,currentUser} = useApp()
+const navigate = useNavigate(); 
+useEffect(()=> {
+  refreshUser();
+  // Checks if there's no loggedIn user so as to return to the auth page.
+  if(!currentUser) {
+    navigate('/login')
+  }
+},[])
 return (
   <>
   <div className="page">
@@ -33,12 +46,13 @@ return (
 }
 
 function DashHero () {
-
+const {currentUser} = useApp()
+if (!currentUser) return null; // 👈 safety net
     return(
 			<div className="hero-div">
 				<div className="hero-section">
 					<div className="hero-texts">
-						<h4>Good morning, Skolade</h4>
+						<h4>Good morning, {currentUser.username}</h4>
 						<h1>Take control of your money.</h1>
 						<p>Track your income, manage expenses and reach your financial goals.</p>
 					</div>

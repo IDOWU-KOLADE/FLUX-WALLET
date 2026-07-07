@@ -2,8 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser,getStorage,SetStorage,loginUser,resetPassword,formatUsername } from "../CONTEXT/UserStorage";
 import { useApp } from "../CONTEXT/AppContext";
+
 export function AuthPage () {
-  const {screen} = useApp()
+  const {screen,currentUser} = useApp()
+  const navigate = useNavigate();
+  if (currentUser) {
+      navigate('/dashboard');
+      return null;
+  }
     if (screen === "login")        return <LoginScreen/>
     if (screen === "register")     return <RegisterScreen/>
     if (screen === "forgot-step1") return <ForgotStep1/>
