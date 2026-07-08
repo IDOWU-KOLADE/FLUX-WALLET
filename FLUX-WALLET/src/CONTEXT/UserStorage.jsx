@@ -42,9 +42,14 @@ export function loginUser (username, password) {
   
 }
 export function logoutUser () {
-  const storage = getStorage();
+    const storage = getStorage();
+  const confirmLogout = confirm('Are you sure you want to logout?')
+if (confirmLogout) {
   storage.loggedInUser = null;
   SetStorage(storage);
+  navigate()
+} else {return null}
+
 }
 export const resetPassword = (username, newPassword) => {
   const storage = getStorage();
