@@ -13,6 +13,7 @@ export function registerUser (username,password, securityQuestions, securityAnsw
   storage.users[username] = {
     password,
     monthlyBudget: '',
+    currency: 'NGN',
     securityQuestions,
     securityAnswers,
     transactions: [],

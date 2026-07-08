@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useApp } from "../CONTEXT/AppContext";
 import { getStorage, SetStorage } from "../CONTEXT/UserStorage";
 import { useNavigate } from "react-router-dom";
+import { Navbar,BottomNav } from "../COMPONENTS/FREQUENT/NB";
 
 export function ProfilePage() {
   const { currentUser, logout, refreshUser } = useApp();
@@ -40,8 +41,10 @@ export function ProfilePage() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="profile-page">
-
+       
       {/* Avatar */}
       <div className="profile-avatar-section">
         <div className="profile-avatar">
@@ -126,7 +129,8 @@ export function ProfilePage() {
           </div>
         </div>
       )}
-
+     <BottomNav/>
     </div>
+    </>
   );
 }

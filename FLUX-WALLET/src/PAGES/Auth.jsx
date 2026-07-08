@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser,getStorage,SetStorage,loginUser,resetPassword,formatUsername } from "../CONTEXT/UserStorage";
 import { useApp } from "../CONTEXT/AppContext";
@@ -6,10 +6,13 @@ import { useApp } from "../CONTEXT/AppContext";
 export function AuthPage () {
   const {screen,currentUser} = useApp()
   const navigate = useNavigate();
+  useEffect(()=>{
   if (currentUser) {
       navigate('/dashboard');
       return null;
   }
+  },[currentUser])
+
     if (screen === "login")        return <LoginScreen/>
     if (screen === "register")     return <RegisterScreen/>
     if (screen === "forgot-step1") return <ForgotStep1/>

@@ -21,11 +21,14 @@ const {refreshUser,currentUser} = useApp()
 const navigate = useNavigate(); 
 useEffect(()=> {
   refreshUser();
-  // Checks if there's no loggedIn user so as to return to the auth page.
-  if(!currentUser) {
-    navigate('/login')
-  }
 },[])
+// separate useEffect that watches currentUser
+useEffect(() => {
+  //checks if there's no loggedIn user, if t
+  if (currentUser === null) {
+    navigate('/');
+  }
+}, [currentUser]);
 return (
   <>
   <div className="page">
