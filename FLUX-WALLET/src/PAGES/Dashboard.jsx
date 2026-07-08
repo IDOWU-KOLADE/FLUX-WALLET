@@ -31,6 +31,7 @@ useEffect(() => {
 }, [currentUser]);
 return (
   <>
+  
   <div className="page">
     <Navbar/>
       <div className="dashboard-div">

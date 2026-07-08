@@ -6,7 +6,7 @@
 
 
 .dashboard-div{
-    margin-top: 20px;
+    margin-top: 45px;
     padding: 20px;
 }
 .main-div {
@@ -19,7 +19,12 @@
                                             /* NAVBAR */
 .navbar-div{
     width: 100%;
-    
+    position: fixed;
+    top: 0;
+    z-index: 99999;
+    opacity: 97%;
+    background-color: var(--color-bg);
+    padding-bottom: 10px;
 }
 .navbar {
     padding-top: 15px;
