@@ -9,7 +9,6 @@ export function AuthPage () {
   useEffect(()=>{
   if (currentUser) {
       navigate('/dashboard');
-      return null;
   }
   },[currentUser])
 
