@@ -68,35 +68,43 @@ if (!currentUser) return null; // 👈 safety net
 }
 function BudgetAnalysis () {
 const navigate = useNavigate()
-
-	return (
-      // <div className="dashAnalytics-div">
-      //   <div className="innerAnalytics">
-      //     <p className="head-p">You've used 60% of your monthly budget</p>
-      //     <div className="progress-bar-container">
-      //       <div className="progress-bar-fill" style={{ width: "60%" }}></div>
-      //     </div>
-      //     <div className="price-usage-div">
-      //       <p>#60,000 of #100,000</p>
-      //       <p>60%</p>
-      //     </div>
-      //   </div>
-      // </div>
-         <div className="budget-card budget-card-empty">
-      
-
+const {currentUser}= useApp()
+	return(
+      currentUser?.monthlyBudget ? (<BudgetProgressCard/>)
+      : (<NoBudgetCard/>)
+    );
+    }
+  
+function BudgetProgressCard () {
+  return (
+        <div className="dashAnalytics-div">
+        <div className="innerAnalytics">
+          <p className="head-p">You've used 60% of your monthly budget</p>
+          <div className="progress-bar-container">
+            <div className="progress-bar-fill" style={{ width: "60%" }}></div>
+          </div>
+          <div className="price-usage-div">
+            <p>#60,000 of #100,000</p>
+            <p>60%</p>
+          </div>
+        </div>
+      </div>
+  )
+}
+function NoBudgetCard () {
+  const navigate = useNavigate()
+  return (
+    <div className="budget-card budget-card-empty">
       <h3 className="budget-empty-title">Set a monthly budget</h3>
       <p className="budget-empty-subtext">
         See how much you've spent and what's left, at a glance.
       </p>
-
       <button className="btn-set-budget" onClick={() => navigate('/profile')}>
         Set Budget →
       </button>
     </div>
-	)
+  )
 }
-
 function Summary () {
   return (
     <div className="summary-div">
