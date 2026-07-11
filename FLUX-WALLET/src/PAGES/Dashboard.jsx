@@ -105,6 +105,7 @@ function NoBudgetCard () {
     </div>
   )
 }
+
 function Summary () {
   return (
     <div className="summary-div">
@@ -147,8 +148,36 @@ function Summary () {
 }
 
 function RecentTransaction () {
+  const {currentUser} = useApp()
   return (
-    <div className="r-transaction-div">
+      currentUser?.transactions?.length > 0 ? (<YesTransactionsCard/>) : (<NoTransactionsCard/>)
+     )
+}
+function NoTransactionsCard() {
+  return (
+    <div className="transactions-card">
+      <h3 className="transactions-card-title">Recent Transactions</h3>
+
+      <div className="transactions-empty">
+        <div className="transactions-empty-icon">
+          <svg width="45" height="45" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 3h8l4 4v14a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1z"
+              stroke="var(--color-primary)" strokeWidth="1.5" strokeLinejoin="round"/>
+            <path d="M15 3v4h4" stroke="var(--color-primary)" strokeWidth="1.5" strokeLinejoin="round"/>
+            <circle cx="12" cy="15" r="3.2" stroke="var(--color-primary)" strokeWidth="1.5"/>
+            <path d="M12 13.6v2.8M10.8 15h2.4" stroke="var(--color-primary)" strokeWidth="1.3" strokeLinecap="round"/>
+          </svg>
+        </div>
+
+        <p className="transactions-empty-title">No transactions yet</p>
+        <p className="transactions-empty-subtext">Add your first transaction to get started</p>
+      </div>
+    </div>
+  );
+}
+function YesTransactionsCard () {
+  return (
+     <div className="r-transaction-div">
       <div className="r-transaction-inner">
         <div className="top-transaction-p">
           <p className="first-p">Recent Transactions</p>
@@ -235,5 +264,6 @@ function RecentTransaction () {
         </div>
       </div>
     </div>
+
   )
 }
