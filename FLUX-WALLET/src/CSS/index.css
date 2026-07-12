@@ -3,9 +3,9 @@
 @import './App.css';
 @import './Dashboard.css';
 @import './Stats.css';
-@import './Transactions.css';
 @import './Auth.css';
 @import './Profile.css';
+@import './AddTransactions.css';
  :root {
   /* =========================
      PRIMARY BRAND COLORS

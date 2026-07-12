@@ -1,0 +1,150 @@
+.add-transaction-page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding-bottom: 100px;
+}
+
+.at-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--color-card);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.at-back-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  display: flex;
+  cursor: pointer;
+}
+
+.at-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.at-header-spacer {
+  width: 28px;
+}
+
+.at-form {
+  padding: 20px;
+}
+
+.add-transaction-form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.at-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.at-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.at-toggle {
+  display: flex;
+  gap: 10px;
+}
+
+.at-toggle-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.at-toggle-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.at-input,
+.at-select,
+.at-textarea {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  color: var(--color-text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.at-input::placeholder,
+.at-textarea::placeholder {
+  color: var(--color-text-light);
+}
+
+.at-select-wrapper,
+.at-date-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.at-select {
+  appearance: none;
+  cursor: pointer;
+  color: var(--color-text-light);
+}
+
+.at-select-chevron {
+  position: absolute;
+  right: 14px;
+  pointer-events: none;
+}
+
+.at-date-icon {
+  position: absolute;
+  right: 14px;
+  pointer-events: none;
+}
+
+.at-textarea {
+  resize: none;
+}
+
+.at-submit-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 20px;
+  background: var(--color-card);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.btn-add-transaction {
+  width: 100%;
+  padding: 15px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: var(--color-text-primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}

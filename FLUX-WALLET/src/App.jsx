@@ -22,7 +22,7 @@ return (
       <Route path='/' element={<AuthPage/>}/>
       <Route path='/dashboard' element={<MainPage/>}/>
       <Route path='/profile' element={<ProfilePage/>}/>
-      <Route path='/addtransaction' element={<AddTransactionPage/>}/>
+      <Route path='/add' element={<AddTransactionPage/>}/>
       <Route/>
     </Routes>
     </BrowserRouter>
