@@ -23,7 +23,7 @@ export function AddTransactionPage() {
   return (
     
     <div className="add-transaction-page">
-     
+     <Navbar/>
       <AddTransactionHeader />
       <div className="add-transaction-form">
         <TransactionTypeToggle />
@@ -44,11 +44,6 @@ function AddTransactionHeader() {
   const navigate = useNavigate();
   return (
     <div className="at-header">
-      <button className="at-back-btn" onClick={() => navigate(-1)}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15 18l-6-6 6-6" stroke="var(--color-text-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </button>
       <h1 className="at-title">Add Transaction</h1>
       <div className="at-header-spacer" />
     </div>
