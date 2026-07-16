@@ -150,7 +150,8 @@ function Summary () {
 function RecentTransaction () {
   const {currentUser} = useApp()
   return (
-      currentUser?.transactions?.length > 0 ? (<YesTransactionsCard/>) : (<NoTransactionsCard/>)
+      // currentUser?.transactions?.length > 0 ? (<YesTransactionsCard/>) : (<NoTransactionsCard/>)
+      <YesTransactionsCard/>
      )
 }
 function NoTransactionsCard() {

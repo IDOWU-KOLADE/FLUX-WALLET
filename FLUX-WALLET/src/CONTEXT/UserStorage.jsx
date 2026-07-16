@@ -12,16 +12,26 @@ export function registerUser (username,password, securityQuestions, securityAnsw
   const storage = getStorage()
   storage.users[username] = {
     password,
-    monthlyBudget: '',
+    monthlyBudget: null,
     currency: 'NGN',
     securityQuestions,
     securityAnswers,
     transactions: [],
-    categories: {
-      expense: ["Food & Groceries", "Transport", "Bills & Utilities", "Entertainment", "Others"],
-      income: ["Salary", "Freelance", "Investment", "Other Income"]
-    }
-  };
+    categories:  [
+    // Expense categories (5)
+    { id: crypto.randomUUID(), name: "Food & Groceries", icon: {emoji:"🍔", bg: "#fff3e0"}, type: "expense", isDefault: true, isDeleted: false },
+    { id: crypto.randomUUID(), name: "Transport",         icon: { emoji: "🚗", bg: "#e3f2fd" }, type: "expense", isDefault: true, isDeleted: false },
+    { id: crypto.randomUUID(), name: "Entertainment",     icon: { emoji: "🎬", bg: "#f3e5f5" }, type: "expense", isDefault: true, isDeleted: false },
+    { id: crypto.randomUUID(), name: "Bills & Utilities", icon: { emoji: "💡", bg: "#e8f5e9" }, type: "expense", isDefault: true, isDeleted: false },
+    { id: crypto.randomUUID(), name: "Other",             icon: { emoji: "🧾", bg: "#f1f5f9" }, type: "expense", isDefault: true, isDeleted: false },
+
+    // Income categories (4)
+    { id: crypto.randomUUID(), name: "Salary",    icon: { emoji: "💰", bg: "#fff9db" }, type: "income", isDefault: true, isDeleted: false },
+    { id: crypto.randomUUID(), name: "Freelance",  icon: { emoji: "💻", bg: "#e0e7ff" }, type: "income", isDefault: true, isDeleted: false },
+    { id: crypto.randomUUID(), name: "Gifts",      icon: { emoji: "🎁", bg: "#fce7f3" }, type: "income", isDefault: true, isDeleted: false },
+    { id: crypto.randomUUID(), name: "Other",      icon: { emoji: "💵", bg: "#dcfce7" }, type: "income", isDefault: true, isDeleted: false },
+  ]
+}
   SetStorage(storage)
 }
 export function getCurrentUser () {

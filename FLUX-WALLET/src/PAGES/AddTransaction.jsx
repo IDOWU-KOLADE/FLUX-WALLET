@@ -13,7 +13,6 @@ Redirect to /transactions after submit
 
 👉 This is the “input system” */
 
-
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../COMPONENTS/FREQUENT/NB";
 import { BottomNav } from "../COMPONENTS/FREQUENT/NB";
@@ -33,7 +32,7 @@ export function AddTransactionPage() {
         <DateField />
         <NotesField />
       </div>
-      <SubmitBar />
+      <SubmitBar/>
       <BottomNav/>
     </div>
 
