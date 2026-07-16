@@ -100,7 +100,7 @@ function NoBudgetCard () {
         See how much you've spent and what's left, at a glance.
       </p>
       <button className="btn-set-budget" onClick={() => navigate('/profile')}>
-        Set Budget →
+        Set Budget
       </button>
     </div>
   )
