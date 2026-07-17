@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import EmojiPickerModal from "./EmojiPickerModal";
+import { EmojiPickerModal } from "./EmojiPickerModal";
 
 const DEFAULT_EMOJI = { emoji: "😀", bg: "#f1f5f9" };
 
