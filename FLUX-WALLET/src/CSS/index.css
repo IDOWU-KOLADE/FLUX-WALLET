@@ -1,11 +1,11 @@
   /* This imports all css files for the pages so we can simply use them directly in the App.jsx file */
-
-@import './App.css';
-@import './Dashboard.css';
-@import './Stats.css';
 @import './Auth.css';
+@import './Stats.css';
+@import './Dashboard.css';
 @import './Profile.css';
 @import './AddTransactions.css';
+@import './Category.css';
+
  :root {
   /* =========================
      PRIMARY BRAND COLORS

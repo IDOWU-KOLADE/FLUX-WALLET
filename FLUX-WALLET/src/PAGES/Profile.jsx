@@ -71,7 +71,7 @@ export function ProfilePage() {
           </span>
         </button>
 
-        <button className="profile-item" onClick={() => {}}>
+        <button className="profile-item" onClick={() => {navigate('/category')}}>
           <span className="profile-item-label">Categories</span>
           <span className="profile-item-arrow">›</span>
         </button>
