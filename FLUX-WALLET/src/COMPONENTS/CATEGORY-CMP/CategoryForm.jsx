@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { EmojiPickerModal } from "./EmojiPickerModal";
+import { EMOJI_BACKGROUNDS, DEFAULT_EMOJI_BG } from "./EmojiData";
 
 const DEFAULT_EMOJI = { emoji: "😀", bg: "#f1f5f9" };
 
@@ -44,6 +45,7 @@ export function CategoryForm({ editingCategory, onSubmit, onCancelEdit }) {
   }
 
   return (
+    <>
     <div className="category-form">
       {isEditMode && (
         <p className="category-form-editing-label">Editing: {editingCategory.name}</p>
@@ -109,12 +111,13 @@ export function CategoryForm({ editingCategory, onSubmit, onCancelEdit }) {
           onSelect={(emoji) => {
             // bg stays whatever it was, or falls back to a neutral tint —
             // wire this to your real palette-per-emoji logic when you connect it
-            setIcon((prev) => ({ emoji, bg: prev.bg }));
+            setIcon({ emoji, bg: EMOJI_BACKGROUNDS[emoji] ?? DEFAULT_EMOJI_BG });
             setPickerOpen(false);
           }}
           onClose={() => setPickerOpen(false)}
         />
       )}
     </div>
+    </>
   );
 }

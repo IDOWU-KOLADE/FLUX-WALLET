@@ -1,3 +1,4 @@
+import { EMOJI_BACKGROUNDS, DEFAULT_EMOJI_BG } from "../COMPONENTS/CATEGORY-CMP/EmptyCategoryStatemojiData";
 export function getStorage () {
   const data = JSON.parse(localStorage.getItem('FluxData'))
   return data? data: { users: {}, loggedInUser: null };
@@ -63,3 +64,17 @@ export const resetPassword = (username, newPassword) => {
   storage.users[username].password = newPassword;
   SetStorage(storage);
 }; 
+
+export function addCategory (username, name, icon, type) {
+    const storage = getStorage();
+    const newCategory = {id:crypto.randomUUID, name, icon ,type,isDefault:false, isDeleted: false}
+    storage.users[username].categories = [...storage.users[username].categories, newCategory];
+    SetStorage(storage)
+}
+export function editCategory (username, id, updates) {
+      const storage = getStorage();
+      storage.users[username].categories = storage.users[username].categories.map((cat) =>
+        cat.id === categoryId ? { ...cat, ...updates } : cat
+      );
+      SetStorage(storage);
+}

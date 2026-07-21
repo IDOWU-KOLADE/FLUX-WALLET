@@ -8,7 +8,10 @@ import { CategoryForm } from "../COMPONENTS/CATEGORY-CMP/CategoryForm";
 import { EmptyCategoriesState } from "../COMPONENTS/CATEGORY-CMP/EmptyCategoryState";
 import { MOCK_USER_CATEGORIES } from "../COMPONENTS/CATEGORY-CMP/MockCategories";
 import { MOCK_DEFAULT_CATEGORIES } from "../COMPONENTS/CATEGORY-CMP/MockCategories";
-
+import { Navbar } from "../COMPONENTS/FREQUENT/NB";
+import { BottomNav } from "../COMPONENTS/FREQUENT/NB";
+import { useApp } from "../CONTEXT/AppContext";
+import { editCategory, addCategory } from "../CONTEXT/UserStorage";
 /**
  * Standalone Category page — UI ONLY.
  *
@@ -27,8 +30,11 @@ import { MOCK_DEFAULT_CATEGORIES } from "../COMPONENTS/CATEGORY-CMP/MockCategori
  */
 export function CategoryPage() {
   // --- mock data (swap for real currentUser.categories later) ---
-  const [defaultCategories] = useState(MOCK_DEFAULT_CATEGORIES);
-  const [userCategories, setUserCategories] = useState(MOCK_USER_CATEGORIES);
+  const {currentUser} = useApp();
+  const defaultCategories = currentUser.categories.filter(item => item.isDefault && !item.isDeleted )
+  const userCategories = currentUser.categories.filter(item => !item.isDefault && !item.isDeleted )
+  // const [defaultCategories] = useState(MOCK_DEFAULT_CATEGORIES);
+  // const [userCategories, setUserCategories] = useState(MOCK_USER_CATEGORIES);
 
   // --- ellipsis menu state ---
   const [menuTarget, setMenuTarget] = useState(null); // category the menu is open for
@@ -68,10 +74,7 @@ export function CategoryPage() {
 
   function handleFormSubmit(formValues) {
     if (editingCategory) {
-      setUserCategories((prev) =>
-        prev.map((c) => (c.id === editingCategory.id ? { ...c, ...formValues } : c))
-      );
-      setEditingCategory(null);
+       editCategory(currentUser.username, editingCategory.id,)
     } else {
       const newCategory = {
         id: crypto.randomUUID(),
@@ -84,13 +87,10 @@ export function CategoryPage() {
   }
 
   return (
+    <>
+    <Navbar/>
     <div className="category-page">
-      <header className="category-page-header">
-        <button type="button" className="category-page-back" aria-label="Back">
-          <ChevronLeft size={22} />
-        </button>
-        <h1>Categories</h1>
-      </header>
+
 
       <section className="category-section">
         <h2 className="category-section-label">Default Categories</h2>
@@ -135,5 +135,7 @@ export function CategoryPage() {
         />
       )}
     </div>
+    <BottomNav/>
+    </>
   );
 }

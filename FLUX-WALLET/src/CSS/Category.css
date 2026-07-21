@@ -6,7 +6,7 @@
 .category-page {
   max-width: 480px;
   margin: 0 auto;
-  padding: 16px 16px 32px;
+  padding: 75px 16px 32px;
 }
 
 /* ---------- Header ---------- */
@@ -353,7 +353,7 @@
 .category-form {
   background: var(--color-card);
   border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-md);
+
   padding: 16px;
 }
 
