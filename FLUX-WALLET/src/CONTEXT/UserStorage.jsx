@@ -1,4 +1,4 @@
-import { EMOJI_BACKGROUNDS, DEFAULT_EMOJI_BG } from "../COMPONENTS/CATEGORY-CMP/EmptyCategoryStatemojiData";
+import { EMOJI_BACKGROUNDS, DEFAULT_EMOJI_BG } from "../COMPONENTS/CATEGORY-CMP/EmojiData";
 export function getStorage () {
   const data = JSON.parse(localStorage.getItem('FluxData'))
   return data? data: { users: {}, loggedInUser: null };
@@ -67,14 +67,21 @@ export const resetPassword = (username, newPassword) => {
 
 export function addCategory (username, name, icon, type) {
     const storage = getStorage();
-    const newCategory = {id:crypto.randomUUID, name, icon ,type,isDefault:false, isDeleted: false}
+    const newCategory = {id:crypto.randomUUID(), name, icon ,type,isDefault:false, isDeleted: false}
     storage.users[username].categories = [...storage.users[username].categories, newCategory];
     SetStorage(storage)
 }
 export function editCategory (username, id, updates) {
       const storage = getStorage();
       storage.users[username].categories = storage.users[username].categories.map((cat) =>
-        cat.id === categoryId ? { ...cat, ...updates } : cat
+        cat.id === id ? { ...cat, ...updates } : cat
       );
       SetStorage(storage);
+}
+export function deleteCategory(username, id) {
+  const storage = getStorage();
+  storage.users[username].categories = storage.users[username].categories.map((cat) =>
+    cat.id === id ? { ...cat, isDeleted: true } : cat
+  );
+  SetStorage(storage);
 }

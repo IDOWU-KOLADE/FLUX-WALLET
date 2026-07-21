@@ -11,7 +11,7 @@ import { MOCK_DEFAULT_CATEGORIES } from "../COMPONENTS/CATEGORY-CMP/MockCategori
 import { Navbar } from "../COMPONENTS/FREQUENT/NB";
 import { BottomNav } from "../COMPONENTS/FREQUENT/NB";
 import { useApp } from "../CONTEXT/AppContext";
-import { editCategory, addCategory } from "../CONTEXT/UserStorage";
+import { deleteCategory, editCategory, addCategory} from "../CONTEXT/UserStorage";
 /**
  * Standalone Category page — UI ONLY.
  *
@@ -30,7 +30,7 @@ import { editCategory, addCategory } from "../CONTEXT/UserStorage";
  */
 export function CategoryPage() {
   // --- mock data (swap for real currentUser.categories later) ---
-  const {currentUser} = useApp();
+  const {currentUser, refreshUser} = useApp()
   const defaultCategories = currentUser.categories.filter(item => item.isDefault && !item.isDeleted )
   const userCategories = currentUser.categories.filter(item => !item.isDefault && !item.isDeleted )
   // const [defaultCategories] = useState(MOCK_DEFAULT_CATEGORIES);
@@ -66,25 +66,21 @@ export function CategoryPage() {
   }
 
   function handleConfirmDelete() {
-    // UI-only: just removes it from local mock state so the page feels real.
-    // Real version should soft-delete (isDeleted: true) via deleteCategory().
-    setUserCategories((prev) => prev.filter((c) => c.id !== categoryToDelete.id));
+    deleteCategory(currentUser.username, categoryToDelete.id);
+    refreshUser();
     setCategoryToDelete(null);
   }
 
   function handleFormSubmit(formValues) {
     if (editingCategory) {
-       editCategory(currentUser.username, editingCategory.id,)
+       editCategory(currentUser.username, editingCategory.id, formValues)
     } else {
-      const newCategory = {
-        id: crypto.randomUUID(),
-        ...formValues,
-        isDefault: false,
-        isDeleted: false,
+        addCategory(currentUser.username, formValues.name, formValues.icon, formValues.type)
       };
-      setUserCategories((prev) => [...prev, newCategory]);
+      refreshUser();
+      setEditingCategory(null)
     }
-  }
+  
 
   return (
     <>

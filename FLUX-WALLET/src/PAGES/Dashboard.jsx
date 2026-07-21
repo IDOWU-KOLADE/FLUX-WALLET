@@ -50,6 +50,7 @@ return (
 }
 
 function DashHero () {
+  const navigate = useNavigate()
 const {currentUser} = useApp()
 if (!currentUser) return null; // 👈 safety net
     return(
@@ -60,7 +61,7 @@ if (!currentUser) return null; // 👈 safety net
 						<h1>Take control of your money.</h1>
 						<p>Track your income, manage expenses and reach your financial goals.</p>
 					</div>
-					<button className="add-transact">+ Add Transaction</button>
+					<button className="add-transact" onClick={()=> {navigate('/add')}}>+ Add Transaction</button>
 					<img className="hero-illustration" src="./PUBLIC/IMAGES/Hero-illustration.png"/>
 				</div>
 			</div>
