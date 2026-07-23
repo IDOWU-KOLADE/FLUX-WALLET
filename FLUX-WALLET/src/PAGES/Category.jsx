@@ -12,6 +12,7 @@ import { Navbar } from "../COMPONENTS/FREQUENT/NB";
 import { BottomNav } from "../COMPONENTS/FREQUENT/NB";
 import { useApp } from "../CONTEXT/AppContext";
 import { deleteCategory, editCategory, addCategory} from "../CONTEXT/UserStorage";
+
 /**
  * Standalone Category page — UI ONLY.
  *
@@ -86,8 +87,6 @@ export function CategoryPage() {
     <>
     <Navbar/>
     <div className="category-page">
-
-
       <section className="category-section">
         <h2 className="category-section-label">Default Categories</h2>
         {defaultCategories.map((cat) => (

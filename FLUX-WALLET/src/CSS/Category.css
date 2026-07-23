@@ -488,3 +488,139 @@
   margin: 0;
   max-width: 260px;
 }
+
+/* ---------- Category Picker Modal (Add Transaction) ---------- */
+/* Append this block to Category.css — reuses .modal-overlay and
+   .category-form-label already defined there. */
+
+.category-picker {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 20px;
+  width: 100%;
+  max-width: 380px;
+  max-height: 80vh;        /* the cap you asked for */
+  display: flex;            /* NEW — turns this into the 3-zone layout */
+  flex-direction: column;
+  overflow: hidden;         /* NEW — nothing escapes the rounded corners */
+}
+
+.category-picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.category-picker-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.category-picker-close {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-picker-list {
+  max-height: 320px;
+  overflow-y: auto;         
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  scrollbar-width: none;
+}
+
+.category-picker-row-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: background var(--transition-fast);
+}
+
+.category-picker-row-btn:hover {
+  background: var(--color-bg-secondary);
+}
+
+/* the row itself already has its own bg/border via .category-row —
+   nesting it in a plain reset button keeps that look untouched */
+.category-picker-row-btn .category-row {
+  margin-bottom: 0;
+  border: none;
+  background: none;
+}
+
+.category-picker-empty {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  padding: 20px 0;
+}
+
+.category-picker-manage-btn {
+  flex-shrink:0;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--color-border-light);
+  margin-top: 8px;
+  padding: 14px 4px 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  cursor: pointer;
+  text-align: left;
+}
+
+/* ---------- Category Field (the trigger on Add Transaction form) ---------- */
+
+.category-field {
+  margin-bottom: 18px;
+}
+
+.category-field-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  padding: 11px 14px;
+  cursor: pointer;
+  color: var(--color-text-primary);
+}
+
+.category-field-selected {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.category-field-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.category-field-placeholder {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
