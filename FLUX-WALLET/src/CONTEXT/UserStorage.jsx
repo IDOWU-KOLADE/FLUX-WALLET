@@ -85,3 +85,17 @@ export function deleteCategory(username, id) {
   );
   SetStorage(storage);
 }
+export function addTransaction (username,{type,amount,description,categoryId,date,notes}) {
+    const storage = getStorage();
+    const newTransaction = {
+        id: crypto.randomUUID(),
+        type,
+        amount: Number(amount), 
+        description,
+        categoryId,
+        date,
+        notes,
+          };
+      storage.users[username].transactions= [...storage.users[username].transactions, newTransaction];
+      SetStorage(storage);
+}

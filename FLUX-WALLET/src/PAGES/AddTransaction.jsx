@@ -19,9 +19,10 @@ import { Navbar } from "../COMPONENTS/FREQUENT/NB";
 import { BottomNav } from "../COMPONENTS/FREQUENT/NB";
 import { CategoryField } from "../COMPONENTS/CATEGORY-CMP/CategoryField";
 import { useApp } from "../CONTEXT/AppContext";
-
+import { addTransaction } from "../CONTEXT/UserStorage";
+import { getStorage } from "../CONTEXT/UserStorage";
 export function AddTransactionPage() {
-  const { currentUser } = useApp();
+  const { currentUser, refreshUser} = useApp();
   const navigate = useNavigate();
 
   // --- all form state lives here, in the parent, and gets passed down ---
@@ -45,15 +46,16 @@ export function AddTransactionPage() {
     // no-empty-submission guard — basic version, expand later if you want
     // per-field error messages instead of one blanket return
     if (!name.trim() || !amount || !selectedCategory || !date) return;
-
-    // actual addTransaction() call + refreshUser() + navigate('/transactions')
-    // goes here once addTransaction() exists in UserStorage.jsx — not built yet
+      addTransaction(currentUser.username,{type:transactionType,amount,description:name,categoryId: selectedCategory.id,date,notes})
+      refreshUser();
+      navigate('/transactions');
+      console.log(getStorage())
   }
 
   return (
     <div className="add-transaction-page">
       <Navbar />
-      <AddTransactionHeader />
+     
       <div className="add-transaction-form">
         <TransactionTypeToggle
           transactionType={transactionType}
@@ -76,14 +78,14 @@ export function AddTransactionPage() {
   );
 }
 
-function AddTransactionHeader() {
-  return (
-    <div className="at-header">
-      <h1 className="at-title">Add Transaction</h1>
-      <div className="at-header-spacer" />
-    </div>
-  );
-}
+// function AddTransactionHeader() {
+//   return (
+//     <div className="at-header">
+//       <h1 className="at-title">Add Transaction</h1>
+//       <div className="at-header-spacer" />
+//     </div>
+//   );
+// }
 
 function TransactionTypeToggle({ transactionType, onChange }) {
   return (

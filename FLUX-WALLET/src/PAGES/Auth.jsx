@@ -253,7 +253,6 @@ function ForgotStep2() {
         onClick={() => {
             registerUser(userdetails.username,userdetails.password,selectedQuestions,answers)
             setScreen('success')
-            console.log(getStorage())
 
         }}
       >

@@ -60,7 +60,7 @@ export function CategoryField({ allCategories, transactionType, selectedCategory
             setPickerOpen(false);
           }}
           onManageCategories={() => {
-            setPickerOpen(false);
+            setPickerOpen(false); 
             navigate("/category");
           }}
           onClose={() => setPickerOpen(false)}
