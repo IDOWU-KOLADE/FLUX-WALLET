@@ -1,0 +1,633 @@
+/* ============================================
+   PAGE SHELL
+   No horizontal padding on the page itself —
+   each section below applies its own left/right
+   margin so the transaction list can go full-bleed.
+   ============================================ */
+
+.transactions-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding-top: 60px;
+  padding-bottom: 90px; /* room for BottomNav */
+}
+
+/* ============================================
+   TOP BAR
+   ============================================ */
+
+.transactions-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 12px;
+  color: var(--color-text-primary);
+}
+
+.transactions-topbar h1 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.transactions-topbar button {
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* ============================================
+   SEARCH BAR
+   ============================================ */
+
+.transactions-searchbar-wrap {
+  padding: 0 20px 12px;
+}
+
+
+.transactions-searchbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+}
+
+.transactions-searchbar-icon {
+  color: var(--color-text-light);
+  flex-shrink: 0;
+}
+
+.transactions-searchbar input {
+  border: none;
+ 
+  background: transparent;
+  width: 100%;
+  font-size: 0.9rem;
+  color: var(--color-text-primary);
+}
+
+
+.transactions-searchbar input::placeholder {
+  color: var(--color-text-light);
+}
+
+/* ============================================
+   FILTERS: TYPE TABS + CATEGORY ROW
+   ============================================ */
+
+.transactions-filters-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 20px 14px;
+}
+
+.type-tabs {
+  display: flex;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  gap: 4px;
+}
+
+.type-tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 9px 0;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.type-tab--active {
+  background: #111827; /* deliberately black, not --color-primary */
+  color: #ffffff;
+}
+
+/* Category filter row — horizontally scrolling, no visible scrollbar */
+
+.category-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px; /* avoids clipping chip shadows/borders */
+}
+
+.category-filter-row::-webkit-scrollbar {
+  display: none;
+}
+
+.category-trigger-chip {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-card);
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.category-trigger-chip--active {
+  background: #111827;
+  border-color: #111827;
+  color: #ffffff;
+}
+
+.category-selected-chip {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px 6px 10px;
+  border-radius: 999px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  font-size: 0.8rem;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.category-selected-chip-emoji {
+  font-size: 0.9rem;
+}
+
+.category-selected-chip-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-border);
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: 0;
+}
+
+/* ============================================
+   TRANSACTION LIST CONTAINER
+   One div. Header pinned, list scrolls internally.
+   Full-bleed edge to edge — inner rows carry padding.
+   ============================================ */
+
+.transactions-list-container {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-card);
+  border-top: 1px solid var(--color-border);
+  flex: 1;
+  min-height: 0; /* required for the inner scroll region to respect max-height in a flex parent */
+}
+
+.transactions-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  flex-shrink: 0; /* never scrolls with the list */
+}
+
+.transactions-month-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.transactions-jump-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.transactions-list-scroll {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  max-height: calc(100vh - 330px); /* tune against your real header stack height */
+}
+
+.transactions-list-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================
+   TRANSACTION ROW
+   Square icon, single-line clamp on description,
+   separated by a bottom border — not cards.
+   ============================================ */
+
+.transaction-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-border-light);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.transaction-row:hover {
+  background: var(--color-card-hover);
+}
+
+.transaction-row:last-child {
+  border-bottom: none;
+}
+
+.transaction-icon-square {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm); /* small radius, square — not circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.transaction-row-main {
+  flex: 1;
+  min-width: 0; /* required for text-overflow ellipsis to work in a flex child */
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.transaction-row-description {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transaction-row-meta {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+.transaction-row-side {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.transaction-row-amount {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.transaction-row-date {
+  font-size: 0.72rem;
+  color: var(--color-text-light);
+}
+
+.amount--income {
+  color: var(--color-primary);
+}
+
+.amount--expense {
+  color: var(--color-danger);
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+
+.empty-transactions-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 32px;
+  gap: 14px;
+}
+
+.empty-transactions-illustration {
+  width: 100px;
+  height: auto;
+  margin-bottom: 4px;
+}
+
+.empty-transactions-message {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  max-width: 240px;
+  line-height: 1.4;
+}
+
+.empty-transactions-cta {
+  margin-top: 6px;
+  background: #111827;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 24px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ============================================
+   MODAL OVERLAY (shared by both modals)
+   ============================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* ============================================
+   CATEGORY FILTER MODAL
+   Fixed header + scrollable grid + fixed footer.
+   ============================================ */
+
+.category-filter-modal {
+  background: var(--color-card);
+  width: 100%;
+  max-width: var(--max-width);
+  border-radius: 10px;
+  max-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* header/footer stay put, only the grid scrolls */
+}
+
+.category-filter-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.category-filter-modal-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.category-filter-modal-header button {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.category-filter-modal-grid {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 18px 20px;
+  align-content: flex-start;
+}
+
+.category-filter-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 8px;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-border);
+  background: var(--color-bg);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.category-filter-chip--active {
+  border-color: #111827;
+  background: var(--color-bg-secondary);
+}
+
+.category-filter-chip-emoji {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+.category-filter-modal-footer {
+  flex-shrink: 0;
+  padding: 16px 20px 24px;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.category-filter-apply-btn {
+  width: 100%;
+  background: #111827;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ============================================
+   JUMP TO DATE MODAL — scroll-snap wheel picker
+   ============================================ */
+
+.jump-to-date-modal {
+  background: var(--color-card);
+  width: 100%;
+  max-width: var(--max-width);
+ border-radius: 10px;
+  padding-bottom: 24px;
+  
+}
+
+.jump-to-date-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.jump-to-date-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.jump-to-date-header button {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.wheel-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 16px 0 8px;
+}
+
+.wheel-column {
+  height: 132px;
+  width: 130px;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  box-sizing: border-box;
+}
+
+.wheel-column::-webkit-scrollbar {
+  display: none;
+}
+
+.wheel-item {
+  height: 44px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  scroll-snap-align: center;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-light);
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.wheel-item--center {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.wheel-center-indicator {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 44px;
+  transform: translateY(-50%);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  pointer-events: none;
+}
+
+.jump-to-date-save-btn {
+  display: block;
+  width: calc(100% - 40px);
+  margin: 12px auto 0;
+  background: #111827;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ============================================
+   TRANSACTION DETAILS SHEET
+   Amount hero -> description -> metadata -> notes.
+   ============================================ */
+
+.transaction-details-sheet {
+  background: var(--color-card);
+  width: 100%;
+  max-width: var(--max-width);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: 12px 24px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.details-sheet-handle {
+  width: 40px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color-border);
+  margin-bottom: 20px;
+}
+
+.details-amount {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.details-description {
+  margin: 14px 0 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  max-width: 320px;
+}
+
+.details-meta {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+.details-notes {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border-light);
+  width: 100%;
+}
+
+.details-notes p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
