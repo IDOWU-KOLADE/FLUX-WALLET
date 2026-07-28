@@ -67,18 +67,23 @@ export function Transactions() {
     );
   };
 
-  const filteredTransactions = useMemo(() => {
-    return allTransactions
-      .filter((t) => {
-        if (activeTab !== "all" && t.type !== activeTab) return false;
-        if (selectedCategoryIds.length && !selectedCategoryIds.includes(t.categoryId)) return false;
-        const d = new Date(t.date);
-        if (d.getMonth() !== currentMonth || d.getFullYear() !== currentYear) return false;
-        if (searchQuery.trim() && !t.description.toLowerCase().includes(searchQuery.trim().toLowerCase())) return false;
-        return true;
-      })
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
-  }, [allTransactions, activeTab, selectedCategoryIds, currentMonth, currentYear, searchQuery]);
+const filteredTransactions = useMemo(() => {
+  return allTransactions
+    .map((t, index) => ({ ...t, __index: index })) // tag original position before sorting
+    .filter((t) => {
+      if (activeTab !== "all" && t.type !== activeTab) return false;
+      if (selectedCategoryIds.length && !selectedCategoryIds.includes(t.categoryId)) return false;
+      const d = new Date(t.date);
+      if (d.getMonth() !== currentMonth || d.getFullYear() !== currentYear) return false;
+      if (searchQuery.trim() && !t.description.toLowerCase().includes(searchQuery.trim().toLowerCase())) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      const dateDiff = new Date(b.date) - new Date(a.date);
+      if (dateDiff !== 0) return dateDiff;
+      return b.__index - a.__index; // same day: later-added (higher index) shows first
+    });
+}, [allTransactions, activeTab, selectedCategoryIds, currentMonth, currentYear, searchQuery]);
 
   const hasAnyTransactions = allTransactions.length > 0;
   let emptyMessage = null;

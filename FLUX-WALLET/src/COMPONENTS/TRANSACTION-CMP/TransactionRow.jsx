@@ -1,5 +1,7 @@
+const CURRENCY_SYMBOLS = { NGN: "₦", USD: "$" };
+
 function formatAmount(amount, currency) {
-  const symbol = currency === "NGN" ? "₦" : "";
+  const symbol = CURRENCY_SYMBOLS[currency] ?? "";
   return `${symbol}${Number(amount).toLocaleString()}`;
 }
 

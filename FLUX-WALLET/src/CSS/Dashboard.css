@@ -112,8 +112,29 @@
 
 .progress-bar-fill {
   height: 100%;
-  background-color: #4caf50; /* green */
   border-radius: 10px;
+    transition: width var(--transition-normal), background-color var(--transition-normal);
+}
+
+.budget-status--safe {
+  color: var(--color-primary);
+}
+.progress-bar-fill.budget-status--safe {
+  background-color: var(--color-primary);
+}
+
+.budget-status--warning {
+  color: var(--color-warning);
+}
+.progress-bar-fill.budget-status--warning {
+  background-color: var(--color-warning);
+}
+
+.budget-status--danger {
+  color: var(--color-danger);
+}
+.progress-bar-fill.budget-status--danger {
+  background-color: var(--color-danger);
 }
 .dashAnalytics-div {
     margin-top: 10px;
@@ -340,11 +361,13 @@
     justify-content: space-between;
     align-items: center;
     overflow-x: auto;
+    gap:25px;
     scrollbar-width: none;
 }
 .category-item {
   display: flex;
-  
+    min-width: 0;   /* new — lets this flex item shrink instead of forcing overflow */
+  flex: 1;        /* new — takes remaining space so price-details keeps its own width */
   gap: 14px;
   padding: 10px 0;
 }
@@ -370,7 +393,10 @@
 .detail .detail1 {
   font-size: 14px;
   font-weight: 600;
-  color:var(--color-text-primary)
+  color:var(--color-text-primary);
+    white-space: nowrap;      /* new */
+  overflow: hidden;         /* new */
+  text-overflow: ellipsis;  /* new */
 }
 .detail .detail2 {
     font-size: 12px;
@@ -390,7 +416,6 @@
 .price-details .first-p {
     font-size: 14px;
     font-weight: bold;
-    color: var(--color-primary);
     white-space: nowrap;
 }
 .price-details .sec-p{
@@ -480,3 +505,5 @@
   color: var(--color-text-secondary);
   margin: 0;
 }
+.amount--income { color: var(--color-primary); }
+.amount--expense { color: var(--color-danger); }

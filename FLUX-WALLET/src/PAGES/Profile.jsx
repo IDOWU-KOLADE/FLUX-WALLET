@@ -67,7 +67,9 @@ export function ProfilePage() {
         <button className="profile-item" onClick={() => setBudgetModal(true)}>
           <span className="profile-item-label">Monthly Budget</span>
           <span className="profile-item-value">
-            {currentUser?.monthlyBudget ? `₦${Number(currentUser.monthlyBudget).toLocaleString()}` : 'Not set'}
+              {currentUser?.monthlyBudget
+          ? `${CURRENCIES.find(c => c.code === (currentUser?.currency || 'NGN'))?.symbol}${Number(currentUser.monthlyBudget).toLocaleString()}`
+          : 'Not set'}
           </span>
         </button>
 
@@ -118,7 +120,11 @@ export function ProfilePage() {
         <div className="modal-overlay" onClick={() => setBudgetModal(false)}>
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
             <h3 className="modal-title">Set Monthly Budget</h3>
-            <p className="modal-subtitle">Current: {currentUser?.monthlyBudget ? `₦${Number(currentUser.monthlyBudget).toLocaleString()}` : 'Not set'}</p>
+            <p className="modal-subtitle">
+  Current: {currentUser?.monthlyBudget
+    ? `${CURRENCIES.find(c => c.code === (currentUser?.currency || 'NGN'))?.symbol}${Number(currentUser.monthlyBudget).toLocaleString()}`
+    : 'Not set'}
+</p>
             <input
               className="modal-input"
               type="number"
