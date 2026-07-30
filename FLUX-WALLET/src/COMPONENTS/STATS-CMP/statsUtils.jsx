@@ -66,31 +66,43 @@ export function getCategoryStats(transactions, categories, type, month, year) {
 // bands of the card background color) so same-length adjacent slices
 // still read as visually separate shapes.
 // buildConicGradient — replace the whole function
-export function buildConicGradient(slices, gapDeg = 3) {
+export function buildConicGradient(slices, gapDeg = 0) {
   if (!slices.length) return "none";
   const total = slices.reduce((sum, s) => sum + s.total, 0);
   if (total === 0) return "none";
 
   const bg = "var(--color-card)";
-  const halfGap = slices.length > 1 ? gapDeg / 2 : 0;
-  const feather = 0.4; // tiny blend distance so hard edges anti-alias cleanly instead of jagging
+  const hasGap = gapDeg > 0;
+  const halfGap = hasGap ? gapDeg / 2 : 0;
+  const feather = 0.4;
   let cumulative = 0;
   const stops = [];
 
-  slices.forEach((slice) => {
+  slices.forEach((slice, i) => {
     const startAngle = (cumulative / total) * 360;
     cumulative += slice.total;
     const endAngle = (cumulative / total) * 360;
 
-    const gapStart = startAngle + halfGap;
-    const gapEnd = endAngle - halfGap;
-
-    stops.push(`${bg} ${startAngle}deg`);
-    stops.push(`${bg} ${gapStart - feather}deg`);
-    stops.push(`${slice.color} ${gapStart + feather}deg`);
-    stops.push(`${slice.color} ${gapEnd - feather}deg`);
-    stops.push(`${bg} ${gapEnd + feather}deg`);
-    stops.push(`${bg} ${endAngle}deg`);
+    if (hasGap) {
+      const gapStart = startAngle + halfGap;
+      const gapEnd = endAngle - halfGap;
+      stops.push(`${bg} ${startAngle}deg`);
+      stops.push(`${bg} ${gapStart - feather}deg`);
+      stops.push(`${slice.color} ${gapStart + feather}deg`);
+      stops.push(`${slice.color} ${gapEnd - feather}deg`);
+      stops.push(`${bg} ${gapEnd + feather}deg`);
+      stops.push(`${bg} ${endAngle}deg`);
+    } else {
+      // No gap: colors meet directly. Only feather at the shared boundary,
+      // and only once per boundary (not once from each side independently).
+      if (i === 0) stops.push(`${slice.color} ${startAngle}deg`);
+      stops.push(`${slice.color} ${endAngle - feather}deg`);
+      if (i < slices.length - 1) {
+        stops.push(`${slices[i + 1].color} ${endAngle + feather}deg`);
+      } else {
+        stops.push(`${slice.color} ${endAngle}deg`);
+      }
+    }
   });
 
   return `conic-gradient(${stops.join(", ")})`;
