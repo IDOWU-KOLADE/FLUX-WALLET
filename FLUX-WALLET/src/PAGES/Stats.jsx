@@ -70,7 +70,7 @@ export function StatsPage() {
 
         <div className="stats-chart-card">
           <div className="stats-chart-header">
-            <span className="stats-chart-title">Spending by Category</span>
+            <span className="stats-chart-title">Analysis by Category</span>
             <select
               className="month-select"
               value={period}

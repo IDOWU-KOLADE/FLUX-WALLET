@@ -118,7 +118,7 @@ function NameField({ name, onChange }) {
       <input
         className="at-input"
         type="text"
-        placeholder="e.g. Salary, Groceries, Freelance"
+        placeholder="e.g. Lunch at the market"
         value={name}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -129,7 +129,7 @@ function NameField({ name, onChange }) {
 function AmountField({ amount, onChange }) {
   return (
     <div className="at-field-group">
-      <label className="at-label">Amount (₦)</label>
+      <label className="at-label">Amount</label>
       <input
         className="at-input"
         type="number"

@@ -99,3 +99,9 @@ export function addTransaction (username,{type,amount,description,categoryId,dat
       storage.users[username].transactions= [...storage.users[username].transactions, newTransaction];
       SetStorage(storage);
 }
+
+export function switchUser(username) {
+  const storage = getStorage();
+  storage.loggedInUser = username;
+  SetStorage(storage);
+}
