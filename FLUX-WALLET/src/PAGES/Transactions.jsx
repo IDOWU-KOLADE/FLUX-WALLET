@@ -11,7 +11,7 @@ import { TransactionDetailsSheet } from "../COMPONENTS/TRANSACTION-CMP/Transacti
 import { EmptyTransactionsState } from "../COMPONENTS/TRANSACTION-CMP/EmptyTransactionsState";
 import { Navbar, BottomNav } from "../COMPONENTS/FREQUENT/NB";
 import {CategoryFilterModal} from "../COMPONENTS/TRANSACTION-CMP/CategoryFilterModal"
-
+import { TypeTabs } from "../COMPONENTS/TRANSACTION-CMP/TypeTabs";
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
@@ -137,19 +137,27 @@ const filteredTransactions = useMemo(() => {
         />
       </div>
       
-      <div className="transactions-searchbar-wrap">
-        <div className="transactions-searchbar">
-          <Search size={16} className="transactions-searchbar-icon" />
-          <input
-            ref={searchInputRef}
-            type="text"
-            placeholder="Search transactions..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-        
-      </div>
+  // Replace the existing .transactions-searchbar-wrap block with this:
+<div className="transactions-searchbar-wrap">
+  <div className="transactions-searchbar">
+    <Search size={16} className="transactions-searchbar-icon" />
+    <input
+      ref={searchInputRef}
+      type="text"
+      placeholder="Search transactions..."
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+    />
+  </div>
+  <button
+    className="transactions-download-btn"
+    onClick={handleDownload}
+    disabled={filteredTransactions.length === 0}
+    aria-label="Download as PDF"
+  >
+    <Download size={18} />
+  </button>
+</div>
 
       <div className="transactions-list-container">
         <div className="transactions-list-header">
