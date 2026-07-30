@@ -1,5 +1,5 @@
 import { useState, useMemo, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation} from "react-router-dom";
 import { Search, Menu, CalendarDays } from "lucide-react";
 import { useApp } from "../CONTEXT/AppContext";
 
@@ -28,21 +28,25 @@ function getMostRecentDate(transactions) {
 export function Transactions() {
   const { currentUser } = useApp();
   const navigate = useNavigate();
+  const location = useLocation();
+const incoming = location.state ?? {};
   const searchInputRef = useRef(null);
 
   const allTransactions = currentUser?.transactions ?? [];
   const categories = (currentUser?.categories ?? []).filter((c) => !c.isDeleted);
 
-  const [activeTab, setActiveTab] = useState("all");
-  const [selectedCategoryIds, setSelectedCategoryIds] = useState([]);
+  const [activeTab, setActiveTab] = useState(incoming.type ?? "all");
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState(
+    incoming.categoryId ? [incoming.categoryId] : []
+  );
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [dateModalOpen, setDateModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   const mostRecent = getMostRecentDate(allTransactions);
-  const [currentMonth, setCurrentMonth] = useState(mostRecent.getMonth());
-  const [currentYear, setCurrentYear] = useState(mostRecent.getFullYear());
+  const [currentMonth, setCurrentMonth] = useState(incoming.month ?? mostRecent.getMonth());
+  const [currentYear, setCurrentYear] = useState(incoming.year ?? mostRecent.getFullYear());
 
   const availableYears = useMemo(
     () => [...new Set(allTransactions.map((t) => new Date(t.date).getFullYear()))].sort((a, b) => a - b),

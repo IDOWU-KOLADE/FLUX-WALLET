@@ -14,7 +14,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { AddTransactionPage } from './PAGES/AddTransaction.jsx'
 import { CategoryPage } from './PAGES/Category.jsx'
 import { Transactions } from './PAGES/Transactions.jsx'
-
+import { StatsPage } from './PAGES/Stats.jsx'
 function App() {
   
 return (
@@ -27,6 +27,7 @@ return (
       <Route path='/add' element={<AddTransactionPage/>}/>
       <Route path='/category' element={<CategoryPage/>}/>
       <Route path='/transactions' element={<Transactions/>}/>
+      <Route path='/stats' element={<StatsPage/>}/>
     </Routes>
     </BrowserRouter>
   </AppProvider>

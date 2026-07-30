@@ -292,7 +292,7 @@
   padding: 20px;
   width: 100%;
   max-width: 380px;
-  max-height: 80vh;
+  max-height: 50vh;
   overflow-y: auto;
 }
 
@@ -301,6 +301,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 16px;
+ 
 }
 
 .emoji-picker-header h3 {
