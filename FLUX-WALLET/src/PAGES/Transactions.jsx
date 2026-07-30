@@ -5,7 +5,6 @@ import { useApp } from "../CONTEXT/AppContext";
 
 import { DownloadConfirmModal } from "../COMPONENTS/TRANSACTION-CMP/DownloadConfirmModal";
 import { exportTransactionsPDF, buildFilterSummary,buildFilename } from "../utils/pdfExport";
-import { exportTransactionsPDF } from "../utils/pdfExport";
 import { CategoryFilterRow } from "../COMPONENTS/TRANSACTION-CMP/CategoryFilterRow";
 import { JumpToDateModal } from "../COMPONENTS/TRANSACTION-CMP/JumpToDateModal";
 import { TransactionRow } from "../COMPONENTS/TRANSACTION-CMP/TransactionRow";
@@ -73,7 +72,7 @@ const incoming = location.state ?? {};
       })
     );
   };
-const handleDownload = () => {
+const handleDownload = (filename) => {
   exportTransactionsPDF({
     transactions: filteredTransactions,
     categories,
@@ -82,6 +81,7 @@ const handleDownload = () => {
     selectedCategoryIds,
     currentMonth,
     currentYear,
+    overrideFilename: filename,
   });
   setDownloadModalOpen(false);
 };
@@ -206,7 +206,7 @@ const filteredTransactions = useMemo(() => {
         onConfirm={handleDownload}
         summary={buildFilterSummary(activeTab, selectedCategoryIds, categories)}
         count={filteredTransactions.length}
-        filename={buildFilename({ activeTab, selectedCategoryIds, categories, currentMonth, currentYear })}
+        defaultFilename={buildFilename({ activeTab, selectedCategoryIds, categories, currentMonth, currentYear })}
       />
       <JumpToDateModal
         isOpen={dateModalOpen}

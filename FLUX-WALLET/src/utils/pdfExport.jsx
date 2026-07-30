@@ -67,6 +67,7 @@ export async function exportTransactionsPDF({
   selectedCategoryIds,
   currentMonth,
   currentYear,
+    overrideFilename,
 }) {
   const doc = new jsPDF({ unit: "mm", format: "a4" }); // portrait is the default, so no orientation arg needed
   const pageWidth = doc.internal.pageSize.getWidth();
@@ -228,6 +229,7 @@ doc.setFont("helvetica", "normal");
 doc.setFontSize(8);
 doc.setTextColor(130, 130, 130);
 doc.text(`${transactions.length} transaction${transactions.length === 1 ? "" : "s"}`, pageWidth - margin, y, { align: "right" });
-  const filename = buildFilename({ activeTab, selectedCategoryIds, categories, currentMonth, currentYear });
+   const filename = overrideFilename ?? buildFilename({ activeTab, selectedCategoryIds, categories, currentMonth, currentYear });
   doc.save(filename);
+
 }
