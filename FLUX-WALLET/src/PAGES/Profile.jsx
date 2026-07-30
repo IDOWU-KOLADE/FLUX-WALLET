@@ -60,8 +60,9 @@ export function ProfilePage() {
 
   const handleAddProfile = () => {
     setSwitchModal(false);
+    logout();
     setScreen('register'); // ⚠️ confirm this matches your actual screen name in AuthPage.jsx
-    navigate('/');
+   navigate('/')
   };
 
   return (

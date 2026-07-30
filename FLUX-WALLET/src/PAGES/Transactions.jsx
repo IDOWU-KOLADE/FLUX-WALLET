@@ -1,8 +1,9 @@
 import { useState, useMemo, useRef } from "react";
 import { useNavigate, useLocation} from "react-router-dom";
-import { Search, Menu, CalendarDays } from "lucide-react";
+import { Search, Menu, CalendarDays, Download } from "lucide-react";
 import { useApp } from "../CONTEXT/AppContext";
 
+import { exportTransactionsPDF } from "../../utils/pdfExport";
 import { TypeTabs } from "../COMPONENTS/TRANSACTION-CMP/TypeTabs";
 import { CategoryFilterRow } from "../COMPONENTS/TRANSACTION-CMP/CategoryFilterRow";
 import { JumpToDateModal } from "../COMPONENTS/TRANSACTION-CMP/JumpToDateModal";
@@ -70,6 +71,17 @@ const incoming = location.state ?? {};
       })
     );
   };
+  const handleDownload = () => {
+  exportTransactionsPDF({
+    transactions: filteredTransactions,
+    categories,
+    currency: currentUser.currency,
+    activeTab,
+    selectedCategoryIds,
+    currentMonth,
+    currentYear,
+  });
+};
 
 const filteredTransactions = useMemo(() => {
   return allTransactions
@@ -137,6 +149,22 @@ const filteredTransactions = useMemo(() => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
+        <div className="transactions-topbar">
+  <Menu size={22} />
+  <h1>Transactions</h1>
+  <div className="transactions-topbar-actions">
+    <button
+      onClick={handleDownload}
+      disabled={filteredTransactions.length === 0}
+      aria-label="Download as PDF"
+    >
+      <Download size={20} />
+    </button>
+    <button onClick={() => searchInputRef.current?.focus()} aria-label="Search">
+      <Search size={20} />
+    </button>
+  </div>
+</div>
       </div>
 
       <div className="transactions-list-container">
