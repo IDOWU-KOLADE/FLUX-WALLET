@@ -3,7 +3,7 @@ import { useNavigate, useLocation} from "react-router-dom";
 import { Search, Menu, CalendarDays, Download } from "lucide-react";
 import { useApp } from "../CONTEXT/AppContext";
 
-import { exportTransactionsPDF } from "../../utils/pdfExport";
+import { exportTransactionsPDF } from "../utils/pdfExport";
 import { TypeTabs } from "../COMPONENTS/TRANSACTION-CMP/TypeTabs";
 import { CategoryFilterRow } from "../COMPONENTS/TRANSACTION-CMP/CategoryFilterRow";
 import { JumpToDateModal } from "../COMPONENTS/TRANSACTION-CMP/JumpToDateModal";
