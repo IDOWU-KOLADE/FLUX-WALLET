@@ -733,3 +733,75 @@
   opacity: 0.35;
   cursor: not-allowed;
 }
+.download-confirm-modal {
+  background: var(--color-card);
+  width: 90%;
+  max-width: 340px;
+  border-radius: 14px;
+  padding: 22px 20px;
+}
+
+.download-confirm-title {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.download-confirm-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.download-confirm-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.download-confirm-label {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  flex-shrink: 0;
+}
+
+.download-confirm-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-align: right;
+}
+
+.download-confirm-filename {
+  font-size: 0.75rem;
+  font-weight: 500;
+  word-break: break-all; /* filenames can get long with category + month appended */
+}
+
+.download-confirm-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.download-confirm-cancel,
+.download-confirm-download {
+  flex: 1;
+  padding: 12px 0;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.download-confirm-cancel {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+}
+
+.download-confirm-download {
+  background: #111827;
+  color: #ffffff;
+}

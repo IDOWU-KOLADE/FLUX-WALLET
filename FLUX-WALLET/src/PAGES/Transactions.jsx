@@ -3,6 +3,8 @@ import { useNavigate, useLocation} from "react-router-dom";
 import { Search, Menu, CalendarDays, Download } from "lucide-react";
 import { useApp } from "../CONTEXT/AppContext";
 
+import { DownloadConfirmModal } from "../COMPONENTS/TRANSACTION-CMP/DownloadConfirmModal";
+import { exportTransactionsPDF, buildFilterSummary,buildFilename } from "../utils/pdfExport";
 import { exportTransactionsPDF } from "../utils/pdfExport";
 import { CategoryFilterRow } from "../COMPONENTS/TRANSACTION-CMP/CategoryFilterRow";
 import { JumpToDateModal } from "../COMPONENTS/TRANSACTION-CMP/JumpToDateModal";
@@ -43,6 +45,7 @@ const incoming = location.state ?? {};
   const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [dateModalOpen, setDateModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+ const [downloadModalOpen, setDownloadModalOpen] = useState(false);
 
   const mostRecent = getMostRecentDate(allTransactions);
   const [currentMonth, setCurrentMonth] = useState(incoming.month ?? mostRecent.getMonth());
@@ -70,7 +73,7 @@ const incoming = location.state ?? {};
       })
     );
   };
-  const handleDownload = () => {
+const handleDownload = () => {
   exportTransactionsPDF({
     transactions: filteredTransactions,
     categories,
@@ -80,6 +83,7 @@ const incoming = location.state ?? {};
     currentMonth,
     currentYear,
   });
+  setDownloadModalOpen(false);
 };
 
 const filteredTransactions = useMemo(() => {
@@ -137,7 +141,7 @@ const filteredTransactions = useMemo(() => {
         />
       </div>
       
-  // Replace the existing .transactions-searchbar-wrap block with this:
+
 <div className="transactions-searchbar-wrap">
   <div className="transactions-searchbar">
     <Search size={16} className="transactions-searchbar-icon" />
@@ -151,7 +155,7 @@ const filteredTransactions = useMemo(() => {
   </div>
   <button
     className="transactions-download-btn"
-    onClick={handleDownload}
+    onClick={() => setDownloadModalOpen(true)}
     disabled={filteredTransactions.length === 0}
     aria-label="Download as PDF"
   >
@@ -196,7 +200,14 @@ const filteredTransactions = useMemo(() => {
         initialSelected={selectedCategoryIds}
         onApply={setSelectedCategoryIds}
       />
-
+      <DownloadConfirmModal
+        isOpen={downloadModalOpen}
+        onClose={() => setDownloadModalOpen(false)}
+        onConfirm={handleDownload}
+        summary={buildFilterSummary(activeTab, selectedCategoryIds, categories)}
+        count={filteredTransactions.length}
+        filename={buildFilename({ activeTab, selectedCategoryIds, categories, currentMonth, currentYear })}
+      />
       <JumpToDateModal
         isOpen={dateModalOpen}
         onClose={() => setDateModalOpen(false)}

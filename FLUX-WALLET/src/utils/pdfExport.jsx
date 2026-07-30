@@ -27,7 +27,7 @@ function formatPdfDate(dateStr) {
   });
 }
 
-function buildFilterSummary(activeTab, selectedCategoryIds, categories) {
+export function buildFilterSummary(activeTab, selectedCategoryIds, categories) {
   if (activeTab === "all" && selectedCategoryIds.length === 0) return "All Transactions";
   const parts = [];
   if (activeTab !== "all") parts.push(activeTab === "income" ? "Income" : "Expense");
@@ -40,7 +40,7 @@ function buildFilterSummary(activeTab, selectedCategoryIds, categories) {
   return parts.join(" · ");
 }
 
-function buildFilename({ activeTab, selectedCategoryIds, categories, currentMonth, currentYear }) {
+export function buildFilename({ activeTab, selectedCategoryIds, categories, currentMonth, currentYear }) {
   const MONTH_ABBR = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
   const parts = [];
 
@@ -177,27 +177,57 @@ export async function exportTransactionsPDF({
   });
 
   // --- Footer totals ---
-  if (y + footerReserve > pageHeight) {
-    doc.addPage();
-    y = 20;
-  }
-  y += 4;
-  doc.setDrawColor(30, 30, 30);
-  doc.line(margin, y, pageWidth - margin, y);
-  y += 7;
+// Replace the footer totals section in pdfExport.js with this:
 
+const incomeTotal = transactions
+  .filter((t) => t.type === "income")
+  .reduce((sum, t) => sum + t.amount, 0);
+const expenseTotal = transactions
+  .filter((t) => t.type === "expense")
+  .reduce((sum, t) => sum + t.amount, 0);
+
+const hasIncome = incomeTotal > 0;
+const hasExpense = expenseTotal > 0;
+const code = CURRENCY_CODE[currency] ?? "";
+
+if (y + footerReserve > pageHeight) {
+  doc.addPage();
+  y = 20;
+}
+y += 4;
+doc.setDrawColor(30, 30, 30);
+doc.line(margin, y, pageWidth - margin, y);
+y += 7;
+
+doc.setFont("helvetica", "normal");
+doc.setFontSize(9);
+doc.setTextColor(60, 60, 60);
+
+// Only print each line if that type is actually present — no "Total Income: NGN 0" noise
+if (hasIncome) {
+  doc.text(`Total Income: ${code} ${incomeTotal.toLocaleString()}`, pageWidth - margin, y, { align: "right" });
+  y += 5;
+}
+if (hasExpense) {
+  doc.text(`Total Expenses: ${code} ${expenseTotal.toLocaleString()}`, pageWidth - margin, y, { align: "right" });
+  y += 5;
+}
+
+// Net Balance only makes sense — and is only shown — when BOTH types are mixed in the same export
+if (hasIncome && hasExpense) {
+  const net = incomeTotal - expenseTotal;
+  const sign = net >= 0 ? "+" : "-";
   doc.setFont("helvetica", "bold");
   doc.setFontSize(10);
   doc.setTextColor(30, 30, 30);
-  const code = CURRENCY_CODE[currency] ?? "";
-  doc.text(`Total: ${code} ${Math.abs(total).toLocaleString()}`, pageWidth - margin, y, { align: "right" });
+  doc.text(`Net Balance: ${sign} ${code} ${Math.abs(net).toLocaleString()}`, pageWidth - margin, y, { align: "right" });
+  y += 6;
+}
 
-  y += 5;
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(8);
-  doc.setTextColor(130, 130, 130);
-  doc.text(`${transactions.length} transaction${transactions.length === 1 ? "" : "s"}`, pageWidth - margin, y, { align: "right" });
-
+doc.setFont("helvetica", "normal");
+doc.setFontSize(8);
+doc.setTextColor(130, 130, 130);
+doc.text(`${transactions.length} transaction${transactions.length === 1 ? "" : "s"}`, pageWidth - margin, y, { align: "right" });
   const filename = buildFilename({ activeTab, selectedCategoryIds, categories, currentMonth, currentYear });
   doc.save(filename);
 }
