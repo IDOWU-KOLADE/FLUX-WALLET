@@ -58,12 +58,6 @@ export function ProfilePage() {
     navigate('/dashboard');
   };
 
-  const handleAddProfile = () => {
-    setSwitchModal(false);
-    logout();
-    setScreen('register'); // ⚠️ confirm this matches your actual screen name in AuthPage.jsx
-   navigate('/')
-  };
 
   return (
     <>
@@ -140,12 +134,6 @@ export function ProfilePage() {
                   );
                 })}
 
-                <button className="switch-profile-option switch-profile-add" onClick={handleAddProfile}>
-                  <div className="switch-profile-avatar switch-profile-avatar--add">
-                    <Plus size={18} />
-                  </div>
-                  <span className="switch-profile-name">Add Profile</span>
-                </button>
               </div>
             </div>
           </div>
