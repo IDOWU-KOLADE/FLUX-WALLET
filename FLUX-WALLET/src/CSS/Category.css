@@ -625,3 +625,9 @@
   font-size: 0.9rem;
   color: var(--color-text-light);
 }
+.category-form-error {
+  color: red;
+  font-size: 13px;
+  margin: 8px 0;
+  text-align: center;
+}

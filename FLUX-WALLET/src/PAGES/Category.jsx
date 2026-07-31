@@ -106,8 +106,9 @@ export function CategoryPage() {
       </section>
 
       <section className="category-section">
-        <CategoryForm
+         <CategoryForm
           editingCategory={editingCategory}
+          existingCategories={currentUser.categories.filter((c) => !c.isDeleted)}
           onSubmit={handleFormSubmit}
           onCancelEdit={() => setEditingCategory(null)}
         />

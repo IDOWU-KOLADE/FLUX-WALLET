@@ -20,11 +20,9 @@ import { BottomNav } from "../COMPONENTS/FREQUENT/NB";
 import { CategoryField } from "../COMPONENTS/CATEGORY-CMP/CategoryField";
 import { useApp } from "../CONTEXT/AppContext";
 import { addTransaction } from "../CONTEXT/UserStorage";
-import { getStorage } from "../CONTEXT/UserStorage";
 
-const [error, setError] = useState('');
 export function AddTransactionPage() {
-  const { currentUser, refreshUser} = useApp();
+  const { currentUser, refreshUser } = useApp();
   const navigate = useNavigate();
 
   // --- all form state lives here, in the parent, and gets passed down ---
@@ -34,6 +32,7 @@ export function AddTransactionPage() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [date, setDate] = useState("");
   const [notes, setNotes] = useState("");
+  const [error, setError] = useState(""); // moved inside the component — hooks can't live at module scope
 
   // if the user flips Expense/Income and the previously chosen category no
   // longer matches, clear it — this is the exact rule CategoryField's usage
@@ -44,41 +43,41 @@ export function AddTransactionPage() {
     }
   }, [transactionType]);
 
-function handleSubmit() {
-  if (!name.trim()) {
-    setError("Please enter a name or description");
-    return;
-  }
-  if (!amount || Number(amount) <= 0) {
-    setError("Please enter a valid amount greater than zero");
-    return;
-  }
-  if (!selectedCategory) {
-    setError("Please select a category");
-    return;
-  }
-  if (!date) {
-    setError("Please select a date");
-    return;
-  }
+  function handleSubmit() {
+    if (!name.trim()) {
+      setError("Please enter a name or description");
+      return;
+    }
+    if (!amount || Number(amount) <= 0) {
+      setError("Please enter a valid amount greater than zero");
+      return;
+    }
+    if (!selectedCategory) {
+      setError("Please select a category");
+      return;
+    }
+    if (!date) {
+      setError("Please select a date");
+      return;
+    }
 
-  setError('');
-  addTransaction(currentUser.username, {
-    type: transactionType,
-    amount,
-    description: name.trim(), // trimmed at the point of saving, matching the security-answer fix pattern
-    categoryId: selectedCategory.id,
-    date,
-    notes: notes.trim(),
-  });
-  refreshUser();
-  navigate('/transactions');
-}
+    setError("");
+    addTransaction(currentUser.username, {
+      type: transactionType,
+      amount,
+      description: name.trim().replace(/\s+/g, " "), // trims edges AND collapses internal double-spacing
+      categoryId: selectedCategory.id,
+      date,
+      notes: notes.trim().replace(/\s+/g, " "),
+    });
+    refreshUser();
+    navigate("/transactions");
+  }
 
   return (
     <div className="add-transaction-page">
       <Navbar />
-     
+
       <div className="add-transaction-form">
         <TransactionTypeToggle
           transactionType={transactionType}
@@ -95,21 +94,18 @@ function handleSubmit() {
         <DateField date={date} onChange={setDate} />
         <NotesField notes={notes} onChange={setNotes} />
       </div>
-      {error && <p style={{ color: 'red', fontSize: '13px', textAlign: 'center', padding: '0 20px' }}>{error}</p>}
+
+      {error && (
+        <p style={{ color: "red", fontSize: "13px", textAlign: "center", padding: "0 20px" }}>
+          {error}
+        </p>
+      )}
+
       <SubmitBar onSubmit={handleSubmit} />
       <BottomNav />
     </div>
   );
 }
-
-// function AddTransactionHeader() {
-//   return (
-//     <div className="at-header">
-//       <h1 className="at-title">Add Transaction</h1>
-//       <div className="at-header-spacer" />
-//     </div>
-//   );
-// }
 
 function TransactionTypeToggle({ transactionType, onChange }) {
   return (
@@ -150,7 +146,6 @@ function NameField({ name, onChange }) {
   );
 }
 
-// AmountField — block the minus key outright, so negative numbers can't even be typed:
 function AmountField({ amount, onChange }) {
   return (
     <div className="at-field-group">
@@ -162,7 +157,7 @@ function AmountField({ amount, onChange }) {
         value={amount}
         onChange={(e) => onChange(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "-") e.preventDefault();
+          if (e.key === "-") e.preventDefault(); // blocks typing a minus sign at all
         }}
         min="0"
       />

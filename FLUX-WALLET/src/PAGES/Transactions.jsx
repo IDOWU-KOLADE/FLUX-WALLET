@@ -34,7 +34,8 @@ const incoming = location.state ?? {};
   const searchInputRef = useRef(null);
 
   const allTransactions = currentUser?.transactions ?? [];
-  const categories = (currentUser?.categories ?? []).filter((c) => !c.isDeleted);
+  const allCategories = currentUser?.categories ?? []; // for LOOKUP — includes deleted, so history stays intact
+  const selectableCategories = allCategories.filter((c) => !c.isDeleted); // for PICKING — filters/pickers only ever offer these
 
   const [activeTab, setActiveTab] = useState(incoming.type ?? "all");
   const [selectedCategoryIds, setSelectedCategoryIds] = useState(
@@ -58,7 +59,7 @@ const incoming = location.state ?? {};
   const yearOptions = availableYears.length ? availableYears : [mostRecent.getFullYear()];
 
   const typeFilteredCategories = useMemo(
-    () => categories.filter((c) => activeTab === "all" || c.type === activeTab),
+    () => selectableCategories.filter((c) => activeTab === "all" || c.type === activeTab),
     [categories, activeTab]
   );
 
@@ -184,7 +185,7 @@ const filteredTransactions = useMemo(() => {
               <TransactionRow
                 key={t.id}
                 transaction={t}
-                category={categories.find((c) => c.id === t.categoryId)}
+                category={allCategories.find((c) => c.id === t.categoryId)}
                 currency={currentUser.currency}
                 onClick={() => setSelectedTransaction(t)}
               />
@@ -223,7 +224,7 @@ const filteredTransactions = useMemo(() => {
       {selectedTransaction && (
         <TransactionDetailsSheet
           transaction={selectedTransaction}
-          category={categories.find((c) => c.id === selectedTransaction.categoryId)}
+          category={allCategories.find((c) => c.id === selectedTransaction.categoryId)}
           currency={currentUser.currency}
           onClose={() => setSelectedTransaction(null)}
         />

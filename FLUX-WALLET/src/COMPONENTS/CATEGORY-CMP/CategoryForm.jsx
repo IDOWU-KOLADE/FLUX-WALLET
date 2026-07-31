@@ -3,29 +3,17 @@ import { EmojiPickerModal } from "./EmojiPickerModal";
 import { EMOJI_BACKGROUNDS, DEFAULT_EMOJI_BG } from "./EmojiData";
 
 const DEFAULT_EMOJI = { emoji: "😀", bg: "#f1f5f9" };
+const MAX_NAME_LENGTH = 24; // generous enough for real category names, short enough to never break layout
 
-/**
- * Add/Edit category form. One component, two modes — mode is derived from
- * whether `editingCategory` is set, matching the "editing X" label pattern
- * in the reference design rather than being a separate screen.
- *
- * editingCategory: category being edited, or null when in "add" mode.
- * onSubmit(formValues): called with { name, icon, type } — parent decides
- *   whether that means addCategory() or editCategory() later. No storage
- *   call happens here.
- * onCancelEdit(): called when the "Cancel" link is tapped in edit mode.
- */
-export function CategoryForm({ editingCategory, onSubmit, onCancelEdit }) {
+export function CategoryForm({ editingCategory, existingCategories, onSubmit, onCancelEdit }) {
   const [name, setName] = useState("");
   const [icon, setIcon] = useState(DEFAULT_EMOJI);
   const [type, setType] = useState("expense");
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [error, setError] = useState("");
 
   const isEditMode = Boolean(editingCategory);
 
-  // Whenever the parent hands us a new category to edit (or clears it back
-  // to null), sync the form fields to match. This is what makes tapping
-  // "Edit" on a different row instantly re-populate the same form.
   useEffect(() => {
     if (editingCategory) {
       setName(editingCategory.name);
@@ -36,12 +24,39 @@ export function CategoryForm({ editingCategory, onSubmit, onCancelEdit }) {
       setIcon(DEFAULT_EMOJI);
       setType("expense");
     }
+    setError(""); // clear any leftover error from a previous form session
   }, [editingCategory]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!name.trim()) return; // basic guard, no toast/error UI wired up yet
-    onSubmit({ name: name.trim(), icon, type });
+
+    const trimmedName = name.trim().replace(/\s+/g, " ");
+
+    if (!trimmedName) {
+      setError("Please enter a category name");
+      return;
+    }
+    if (trimmedName.length > MAX_NAME_LENGTH) {
+      setError(`Name must be ${MAX_NAME_LENGTH} characters or fewer`);
+      return;
+    }
+
+    const isDuplicate = existingCategories.some((cat) => {
+      const isSameCategory = editingCategory && cat.id === editingCategory.id;
+      if (isSameCategory) return false; // don't compare against itself when editing
+      return (
+        cat.type === type &&
+        cat.name.trim().toLowerCase() === trimmedName.toLowerCase()
+      );
+    });
+
+    if (isDuplicate) {
+      setError(`A ${type} category named "${trimmedName}" already exists`);
+      return;
+    }
+
+    setError("");
+    onSubmit({ name: trimmedName, icon, type });
   }
 
   return (
@@ -58,7 +73,11 @@ export function CategoryForm({ editingCategory, onSubmit, onCancelEdit }) {
             className="category-form-input"
             placeholder="e.g. Coffee, Gifts, Salary"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value);
+              setError("");
+            }}
+            maxLength={MAX_NAME_LENGTH}
           />
           <button
             type="button"
@@ -76,18 +95,20 @@ export function CategoryForm({ editingCategory, onSubmit, onCancelEdit }) {
           <button
             type="button"
             className={`type-toggle-btn ${type === "expense" ? "type-toggle-btn--active-expense" : ""}`}
-            onClick={() => setType("expense")}
+            onClick={() => { setType("expense"); setError(""); }}
           >
             Expense
           </button>
           <button
             type="button"
             className={`type-toggle-btn ${type === "income" ? "type-toggle-btn--active-income" : ""}`}
-            onClick={() => setType("income")}
+            onClick={() => { setType("income"); setError(""); }}
           >
             Income
           </button>
         </div>
+
+        {error && <p className="category-form-error">{error}</p>}
 
         {isEditMode ? (
           <div className="category-form-edit-actions">
@@ -109,8 +130,6 @@ export function CategoryForm({ editingCategory, onSubmit, onCancelEdit }) {
         <EmojiPickerModal
           selectedEmoji={icon.emoji}
           onSelect={(emoji) => {
-            // bg stays whatever it was, or falls back to a neutral tint —
-            // wire this to your real palette-per-emoji logic when you connect it
             setIcon({ emoji, bg: EMOJI_BACKGROUNDS[emoji] ?? DEFAULT_EMOJI_BG });
             setPickerOpen(false);
           }}
