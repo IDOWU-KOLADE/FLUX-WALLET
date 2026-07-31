@@ -11,7 +11,7 @@ import { BsWallet2 } from "react-icons/bs";      // wallet
 import { HiArrowTrendingUp } from "react-icons/hi2"; // income arrow
 import { HiMinus } from "react-icons/hi";          // expenses minus
 import { useState, useEffect } from "react";
-
+import { formatAmount } from "../COMPONENTS/STATS-CMP/statsUtils";
 import { useApp } from "../CONTEXT/AppContext";
 import { getCurrentUser } from "../CONTEXT/UserStorage";
 import { useNavigate } from "react-router-dom";
@@ -212,13 +212,7 @@ function Summary() {
     </div>
   );
 }
-const CURRENCY_SYMBOLS = { NGN: "₦", USD: "$" };
 
-function formatAmount(amount, currency) {
-  const symbol = CURRENCY_SYMBOLS[currency] ?? "";
-  const sign = amount < 0 ? "-" : "";
-  return `${sign}${symbol}${Math.abs(Number(amount)).toLocaleString()}`;
-}
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString("en-US", {

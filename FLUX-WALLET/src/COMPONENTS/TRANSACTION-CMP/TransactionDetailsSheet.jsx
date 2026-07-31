@@ -1,13 +1,8 @@
 import { X } from "lucide-react";
+import { formatAmount } from "../../utils/currency";
 
 const CURRENCY_SYMBOLS = { NGN: "₦", USD: "$" };
-function formatAmount(amount, currency) {
-  const symbol =  CURRENCY_SYMBOLS[currency] ?? "";
-  return `${symbol}${Number(amount).toLocaleString(undefined, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
-}
+
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString("en-US", {

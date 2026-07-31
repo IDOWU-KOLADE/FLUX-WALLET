@@ -1,9 +1,4 @@
-const CURRENCY_SYMBOLS = { NGN: "₦", USD: "$" };
-
-function formatAmount(amount, currency) {
-  const symbol = CURRENCY_SYMBOLS[currency] ?? "";
-  return `${symbol}${Number(amount).toLocaleString()}`;
-}
+import { formatAmount } from "../../utils/currency";
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString("en-US", {

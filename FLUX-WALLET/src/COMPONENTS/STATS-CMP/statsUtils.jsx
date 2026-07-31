@@ -1,9 +1,4 @@
-const CURRENCY_SYMBOLS = { NGN: "₦", USD: "$" };
-
-export function formatAmount(amount, currency) {
-  const symbol = CURRENCY_SYMBOLS[currency] ?? "";
-  return `${symbol}${Number(amount).toLocaleString()}`;
-}
+import { formatAmount } from "../../utils/currency";
 
 export function getPeriodRange(period) {
   const now = new Date();

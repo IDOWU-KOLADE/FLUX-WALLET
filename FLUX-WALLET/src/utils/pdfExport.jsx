@@ -1,6 +1,5 @@
 import jsPDF from "jspdf";
-
-const CURRENCY_CODE = { NGN: "NGN", USD: "USD" }; // text codes, not symbols — see earlier PDF font discussion
+import { CURRENCY_CODES } from "./currency";
 
 async function loadImageAsBase64(url) {
   const response = await fetch(url);
