@@ -21,6 +21,8 @@ import { CategoryField } from "../COMPONENTS/CATEGORY-CMP/CategoryField";
 import { useApp } from "../CONTEXT/AppContext";
 import { addTransaction } from "../CONTEXT/UserStorage";
 import { getStorage } from "../CONTEXT/UserStorage";
+
+const [error, setError] = useState('');
 export function AddTransactionPage() {
   const { currentUser, refreshUser} = useApp();
   const navigate = useNavigate();
@@ -42,15 +44,36 @@ export function AddTransactionPage() {
     }
   }, [transactionType]);
 
-  function handleSubmit() {
-    // no-empty-submission guard — basic version, expand later if you want
-    // per-field error messages instead of one blanket return
-    if (!name.trim() || !amount || !selectedCategory || !date) return;
-      addTransaction(currentUser.username,{type:transactionType,amount,description:name,categoryId: selectedCategory.id,date,notes})
-      refreshUser();
-      navigate('/transactions');
-      console.log(getStorage())
+function handleSubmit() {
+  if (!name.trim()) {
+    setError("Please enter a name or description");
+    return;
   }
+  if (!amount || Number(amount) <= 0) {
+    setError("Please enter a valid amount greater than zero");
+    return;
+  }
+  if (!selectedCategory) {
+    setError("Please select a category");
+    return;
+  }
+  if (!date) {
+    setError("Please select a date");
+    return;
+  }
+
+  setError('');
+  addTransaction(currentUser.username, {
+    type: transactionType,
+    amount,
+    description: name.trim(), // trimmed at the point of saving, matching the security-answer fix pattern
+    categoryId: selectedCategory.id,
+    date,
+    notes: notes.trim(),
+  });
+  refreshUser();
+  navigate('/transactions');
+}
 
   return (
     <div className="add-transaction-page">
@@ -72,6 +95,7 @@ export function AddTransactionPage() {
         <DateField date={date} onChange={setDate} />
         <NotesField notes={notes} onChange={setNotes} />
       </div>
+      {error && <p style={{ color: 'red', fontSize: '13px', textAlign: 'center', padding: '0 20px' }}>{error}</p>}
       <SubmitBar onSubmit={handleSubmit} />
       <BottomNav />
     </div>
@@ -126,6 +150,7 @@ function NameField({ name, onChange }) {
   );
 }
 
+// AmountField — block the minus key outright, so negative numbers can't even be typed:
 function AmountField({ amount, onChange }) {
   return (
     <div className="at-field-group">
@@ -136,6 +161,10 @@ function AmountField({ amount, onChange }) {
         placeholder="e.g. 50,000"
         value={amount}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "-") e.preventDefault();
+        }}
+        min="0"
       />
     </div>
   );
