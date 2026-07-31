@@ -1,4 +1,4 @@
-import { formatAmount } from "../../utils/currency";
+export { formatAmount } from "../../utils/currency";
 
 export function getPeriodRange(period) {
   const now = new Date();

@@ -11,6 +11,8 @@ export function AppProvider({ children }) {
   const [loginDetails, setLoginDetails] = useState({username:'',password:''})
   const [userdetails,setUserDetails] = useState({username:'',password: ''})
   const [selectedQuestions, setSelectedQuestions] = useState([]);
+  const [resetUsername, setResetUsername] = useState('');
+
   const logout = () => {
     logoutUser();
     setCurrentUser(null);
@@ -26,7 +28,7 @@ export function AppProvider({ children }) {
       //Global App State
     currentUser, setCurrentUser, logout, refreshUser,
       //  Auth Flow State
-    screen,setScreen,error,seterror,loginDetails,setLoginDetails,userdetails,setUserDetails,selectedQuestions,setSelectedQuestions
+    screen,setScreen,error,seterror,loginDetails,setLoginDetails,userdetails,setUserDetails,selectedQuestions,setSelectedQuestions,resetUsername, setResetUsername,
     
     }}>
       {children}

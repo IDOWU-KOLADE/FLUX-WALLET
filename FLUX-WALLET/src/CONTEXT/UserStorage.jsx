@@ -59,11 +59,7 @@ export function logoutUser () {
 
 
 }
-export const resetPassword = (username, newPassword) => {
-  const storage = getStorage();
-  storage.users[username].password = newPassword;
-  SetStorage(storage);
-}; 
+
 
 export function addCategory (username, name, icon, type) {
     const storage = getStorage();
@@ -105,3 +101,17 @@ export function switchUser(username) {
   storage.loggedInUser = username;
   SetStorage(storage);
 }
+export function normalizeAnswer(answer) {
+  return answer.trim().toLowerCase().replace(/\s+/g, " ");
+}
+export function findUserByUsername(username) {
+  const storage = getStorage();
+  return storage.users[username] ?? null;
+}
+export const resetPassword = (username, newPassword) => {
+  const storage = getStorage();
+  if (!storage.users[username]) return false;
+  storage.users[username].password = newPassword;
+  SetStorage(storage);
+  return true;
+};
