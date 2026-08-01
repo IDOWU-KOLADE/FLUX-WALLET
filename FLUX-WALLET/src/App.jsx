@@ -4,7 +4,7 @@ import {BrowserRouter, Routes, Route, Link, NavLink} from "react-router-dom"
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import { AppProvider } from './CONTEXT/AppContext.jsx'
-
+import { DesktopGate } from './COMPONENTS/FREQUENT/DesktopGate.jsx'
 import './CSS/index.css'
 
 import {AuthPage} from './PAGES/Auth.jsx'
@@ -20,6 +20,7 @@ import { AboutPage } from './PAGES/AboutPage.jsx'
 function App() {
   
 return (
+  <DesktopGate>
   <AppProvider>
     <BrowserRouter>
     <Routes>
@@ -34,6 +35,7 @@ return (
     </Routes>
     </BrowserRouter>
   </AppProvider>
+  </DesktopGate>
 )
 
 }

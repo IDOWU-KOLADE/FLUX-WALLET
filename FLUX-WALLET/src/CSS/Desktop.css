@@ -1,0 +1,71 @@
+.desktop-gate {
+  min-height: 100vh;
+  width: 100vw;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.desktop-gate-card {
+  max-width: 420px;
+  width: 100%;
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 40px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.desktop-gate-logo {
+  width: 140px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+.desktop-gate-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1.35;
+}
+
+.desktop-gate-body {
+  font-size: 0.92rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* remove: .desktop-gate-hint and .desktop-gate-hint span */
+
+/* add: */
+.desktop-gate-qr-wrap {
+  margin-top: 12px;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.desktop-gate-qr {
+  width: 160px;
+  height: 160px;
+  display: block;
+}
+
+.desktop-gate-caption {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+}
+/* add this, keep everything else from before */
+.desktop-gate-qr-loading {
+  width: 160px;
+  height: 160px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-secondary);
+}
