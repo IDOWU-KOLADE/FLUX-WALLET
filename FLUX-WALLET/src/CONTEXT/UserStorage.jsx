@@ -98,11 +98,7 @@ export function addTransaction (username,{type,amount,description,categoryId,dat
       SetStorage(storage);
 }
 
-export function switchUser(username) {
-  const storage = getStorage();
-  storage.loggedInUser = username;
-  SetStorage(storage);
-}
+
 export function normalizeAnswer(answer) {
   return answer.trim().toLowerCase().replace(/\s+/g, " ");
 }

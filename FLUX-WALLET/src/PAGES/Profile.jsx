@@ -1,26 +1,24 @@
 import { useState } from "react";
 import { useApp } from "../CONTEXT/AppContext";
-import { getStorage, SetStorage, switchUser, setMonthlyBudget } from "../CONTEXT/UserStorage";
+import { getStorage, SetStorage, setMonthlyBudget } from "../CONTEXT/UserStorage";
 import { useNavigate } from "react-router-dom";
 import { Navbar, BottomNav } from "../COMPONENTS/FREQUENT/NB";
-import { Check, Plus } from "lucide-react";
+
+import { CURRENCIES,formatAmount } from "../utils/currency";
 
 export function ProfilePage() {
   const { currentUser, logout, refreshUser, setScreen } = useApp();
   const navigate = useNavigate();
   const [currencyModal, setCurrencyModal] = useState(false);
   const [budgetModal, setBudgetModal] = useState(false);
-  const [switchModal, setSwitchModal] = useState(false);
+
   const [newBudget, setNewBudget] = useState('');
   const [budgetError, setBudgetError] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState(currentUser?.currency || 'NGN');
 
-  const CURRENCIES = [
-    { code: 'NGN', symbol: '₦', name: 'Nigerian Naira' },
-    { code: 'USD', symbol: '$', name: 'US Dollar' },
-  ];
 
-  const allUsernames = Object.keys(getStorage().users);
+
+
 
   const saveCurrency = () => {
     const storage = getStorage();
@@ -57,22 +55,13 @@ export function ProfilePage() {
     navigate('/');
   };
 
-  const handleSwitchProfile = (username) => {
-    if (username === currentUser.username) {
-      setSwitchModal(false);
-      return;
-    }
-    switchUser(username);
-    refreshUser();
-    setSwitchModal(false);
-    navigate('/dashboard');
-  };
+
 
   return (
     <>
       <Navbar />
       <div className="profile-page">
-        <div className="profile-avatar-section" onClick={() => setSwitchModal(true)}>
+        <div className="profile-avatar-section">
           <div className="profile-avatar">
             <span>{currentUser?.username?.charAt(0).toUpperCase()}</span>
           </div>
@@ -91,8 +80,8 @@ export function ProfilePage() {
             <span className="profile-item-label">Monthly Budget</span>
             <span className="profile-item-value">
               {currentUser?.monthlyBudget
-                ? `${CURRENCIES.find(c => c.code === (currentUser?.currency || 'NGN'))?.symbol}${Number(currentUser.monthlyBudget).toLocaleString()}`
-                : 'Not set'}
+              ? formatAmount(currentUser.monthlyBudget, currentUser?.currency || 'NGN')
+              : 'Not set'}
             </span>
           </button>
 
@@ -105,40 +94,13 @@ export function ProfilePage() {
             <span className="profile-item-label">About Flux Wallet</span>
             <span className="profile-item-value">v1.0.0</span>
           </button>
-          <button className="profile-item" onClick={() => setSwitchModal(true)}>
-            <span className="profile-item-label">Switch Profile</span>
-            <span className="profile-item-arrow">›</span>
-          </button>
+
           <button className="profile-item logout" onClick={handleLogout}>
             <span>Logout</span>
           </button>
         </div>
 
-        {switchModal && (
-          <div className="modal-overlay" onClick={() => setSwitchModal(false)}>
-            <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-              <h3 className="modal-title">Switch Profile</h3>
-              <div className="switch-profile-list">
-                {allUsernames.map((username) => {
-                  const isCurrent = username === currentUser.username;
-                  return (
-                    <button
-                      key={username}
-                      className={`switch-profile-option ${isCurrent ? 'selected' : ''}`}
-                      onClick={() => handleSwitchProfile(username)}
-                    >
-                      <div className="switch-profile-avatar">
-                        <span>{username.charAt(0).toUpperCase()}</span>
-                      </div>
-                      <span className="switch-profile-name">{username}</span>
-                      {isCurrent && <Check size={18} className="switch-profile-check" />}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        )}
+       
 
         {currencyModal && (
           <div className="modal-overlay" onClick={() => setCurrencyModal(false)}>
@@ -171,8 +133,8 @@ export function ProfilePage() {
               <h3 className="modal-title">Set Monthly Budget</h3>
               <p className="modal-subtitle">
                 Current: {currentUser?.monthlyBudget
-                  ? `${CURRENCIES.find(c => c.code === (currentUser?.currency || 'NGN'))?.symbol}${Number(currentUser.monthlyBudget).toLocaleString()}`
-                  : 'Not set'}
+                ? formatAmount(currentUser.monthlyBudget, currentUser?.currency || 'NGN')
+                : 'Not set'}
               </p>
               <input
                 className="modal-input"
