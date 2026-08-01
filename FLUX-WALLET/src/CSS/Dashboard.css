@@ -542,4 +542,4 @@
 .report-modal-actions .btn-text { flex: 1; }
 .report-modal-actions .btn-continue { flex: 1; }
 
-.modal-error { color: red; font-size: 13px; margin: 6px 0 12px; }
+.modal-error { color: red; font-size: 13px; }

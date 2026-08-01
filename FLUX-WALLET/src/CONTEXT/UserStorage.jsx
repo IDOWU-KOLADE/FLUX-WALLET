@@ -155,14 +155,14 @@ export function setMonthlyBudget(username, amount) {
 // until a newer entry appears. Falls back to the plain monthlyBudget field for
 // accounts that predate budgetHistory entirely.
 export function getEffectiveBudget(user, month, year) {
-  const history = user?.budgetHistory ?? [];
+  const history = Array.isArray(user?.budgetHistory) ? user.budgetHistory : [];
   const applicable = history
     .filter((e) => e.year < year || (e.year === year && e.month <= month))
     .sort((a, b) => (b.year - a.year) || (b.month - a.month));
 
   if (applicable.length > 0) return applicable[0].amount;
-  if (history.length === 0) return user?.monthlyBudget ?? null; // true legacy account, no history at all
-  return null; // history exists, but none of it predates this month — no budget was set yet
+  if (history.length === 0) return user?.monthlyBudget ?? null;
+  return null;
 }
 
 // Does a given month have enough real data to justify a report at all?
