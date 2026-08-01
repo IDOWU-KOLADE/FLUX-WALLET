@@ -25,6 +25,8 @@
     opacity: 97%;
     background-color: var(--color-bg);
     padding-bottom: 10px;
+    margin: 0 auto;
+    max-width: 480px;
 }
 .navbar {
     padding-top: 15px;
@@ -428,7 +430,9 @@
   position: fixed;
   bottom: 0;
   left: 0;
+  right: 0;
   width: 100%;
+  max-width: 480px;
   background-color: var(--color-card);
   display: flex;
   justify-content: space-around;
@@ -436,6 +440,7 @@
   padding: 10px 0;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
   z-index: 9999999;
+  margin: 0 auto;
 }
 
 .nav-item {
