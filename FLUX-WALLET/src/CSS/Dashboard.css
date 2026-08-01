@@ -507,3 +507,39 @@
 }
 .amount--income { color: var(--color-primary); }
 .amount--expense { color: var(--color-danger); }
+.navbar-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+
+.report-icon-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%; border: none;
+  background: var(--color-card); color: var(--color-text-secondary); cursor: pointer;
+}
+.report-icon-btn--glow {
+  color: #fff; background: #f97316;
+  box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.6);
+  animation: report-glow-pulse 1.8s infinite;
+}
+@keyframes report-glow-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.6); }
+  70%  { box-shadow: 0 0 0 10px rgba(249, 115, 22, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+}
+.report-dev-btn {
+  font-size: 9px; font-weight: 700; border-radius: 6px; width: auto; padding: 4px 8px;
+  background: #111827; color: #fff;
+}
+
+.report-modal {
+  background: var(--color-card); width: 90%; max-width: 340px; border-radius: 16px;
+  padding: 24px 20px; text-align: center;
+}
+.report-modal-title { font-size: 1.05rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 4px; }
+.report-modal-subtitle { font-size: 0.82rem; color: var(--color-text-secondary); margin-bottom: 18px; }
+.report-modal-stats { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; text-align: left; }
+.report-modal-row { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--color-text-secondary); }
+.report-modal-value { font-weight: 700; color: var(--color-text-primary); }
+.report-modal-actions { display: flex; gap: 10px; }
+.report-modal-actions .btn-text { flex: 1; }
+.report-modal-actions .btn-continue { flex: 1; }
+
+.modal-error { color: red; font-size: 13px; margin: 6px 0 12px; }

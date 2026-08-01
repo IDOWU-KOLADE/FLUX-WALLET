@@ -18,6 +18,8 @@ export function registerUser (username,password, securityQuestions, securityAnsw
     securityQuestions,
     securityAnswers,
     transactions: [],
+    budgetHistory: [],                 
+    lastReportDownloadedMonth: null,   
     categories:  [
     // Expense categories (5)
     { id: crypto.randomUUID(), name: "Food & Groceries", icon: {emoji:"🍔", bg: "#fff3e0"}, type: "expense", isDefault: true, isDeleted: false },
@@ -115,3 +117,61 @@ export const resetPassword = (username, newPassword) => {
   SetStorage(storage);
   return true;
 };
+// "YYYY-MM" — same key shape used to compare budget-history entries and to stamp
+// "last report downloaded" against, so both features speak the same language.
+export function budgetKey(month, year) {
+  return `${year}-${String(month + 1).padStart(2, "0")}`;
+}
+
+// Sets (or replaces) the budget entry for the CURRENT real-world month.
+// Editing your budget twice in the same month updates that one entry, not two.
+export function setMonthlyBudget(username, amount) {
+  const storage = getStorage();
+  const user = storage.users[username];
+  const now = new Date();
+  const entry = { amount: Number(amount), month: now.getMonth(), year: now.getFullYear() };
+
+  const history = user.budgetHistory ?? [];
+  const existingIndex = history.findIndex((e) => e.month === entry.month && e.year === entry.year);
+  user.budgetHistory = existingIndex >= 0
+    ? history.map((e, i) => (i === existingIndex ? entry : e))
+    : [...history, entry];
+
+  user.monthlyBudget = entry.amount; // mirror field — kept in sync for anything still reading it directly
+  SetStorage(storage);
+}
+
+// Finds whatever budget was actually in effect for a given month/year —
+// the most recent history entry dated ON OR BEFORE that month, carrying forward
+// until a newer entry appears. Falls back to the plain monthlyBudget field for
+// accounts that predate budgetHistory entirely.
+export function getEffectiveBudget(user, month, year) {
+  const history = user?.budgetHistory ?? [];
+  const applicable = history
+    .filter((e) => e.year < year || (e.year === year && e.month <= month))
+    .sort((a, b) => (b.year - a.year) || (b.month - a.month));
+
+  if (applicable.length > 0) return applicable[0].amount;
+  return user?.monthlyBudget ?? null; // legacy fallback
+}
+
+// Does a given month have enough real data to justify a report at all?
+export function hasMonthlyReportData(user, month, year) {
+  const hasTransactions = (user?.transactions ?? []).some((t) => {
+    const d = new Date(t.date);
+    return d.getMonth() === month && d.getFullYear() === year;
+  });
+  const hasBudget = getEffectiveBudget(user, month, year) != null;
+  return hasTransactions && hasBudget;
+}
+
+// Has THIS specific month's report already been downloaded/claimed?
+export function shouldShowMonthlyReport(user, month, year) {
+  return user?.lastReportDownloadedMonth !== budgetKey(month, year);
+}
+
+export function markReportDownloaded(username, month, year) {
+  const storage = getStorage();
+  storage.users[username].lastReportDownloadedMonth = budgetKey(month, year);
+  SetStorage(storage);
+}

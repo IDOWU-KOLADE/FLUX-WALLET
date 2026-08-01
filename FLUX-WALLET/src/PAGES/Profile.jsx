@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useApp } from "../CONTEXT/AppContext";
-import { getStorage, SetStorage, switchUser } from "../CONTEXT/UserStorage";
+import { getStorage, SetStorage, switchUser, setMonthlyBudget } from "../CONTEXT/UserStorage";
 import { useNavigate } from "react-router-dom";
 import { Navbar, BottomNav } from "../COMPONENTS/FREQUENT/NB";
 import { Check, Plus } from "lucide-react";
@@ -12,6 +12,7 @@ export function ProfilePage() {
   const [budgetModal, setBudgetModal] = useState(false);
   const [switchModal, setSwitchModal] = useState(false);
   const [newBudget, setNewBudget] = useState('');
+  const [budgetError, setBudgetError] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState(currentUser?.currency || 'NGN');
 
   const CURRENCIES = [
@@ -19,9 +20,6 @@ export function ProfilePage() {
     { code: 'USD', symbol: '$', name: 'US Dollar' },
   ];
 
-  // Read fresh every render so a just-registered profile shows up immediately
-  // without needing extra state/useEffect — same derived-during-render pattern
-  // used everywhere else in the app.
   const allUsernames = Object.keys(getStorage().users);
 
   const saveCurrency = () => {
@@ -33,13 +31,25 @@ export function ProfilePage() {
   };
 
   const saveBudget = () => {
-    if (!newBudget.trim()) return;
-    const storage = getStorage();
-    storage.users[currentUser.username].monthlyBudget = Number(newBudget);
-    SetStorage(storage);
+    if (!newBudget.trim()) {
+      setBudgetError("Please enter a budget amount");
+      return;
+    }
+    if (Number(newBudget) <= 0) {
+      setBudgetError("Budget must be greater than zero");
+      return;
+    }
+    setBudgetError('');
+    setMonthlyBudget(currentUser.username, Number(newBudget));
     refreshUser();
     setBudgetModal(false);
     setNewBudget('');
+  };
+
+  const closeBudgetModal = () => {
+    setBudgetModal(false);
+    setNewBudget('');
+    setBudgetError('');
   };
 
   const handleLogout = () => {
@@ -58,13 +68,10 @@ export function ProfilePage() {
     navigate('/dashboard');
   };
 
-
   return (
     <>
       <Navbar />
       <div className="profile-page">
-
-        {/* Avatar — tapping it opens the switcher too, matching the Netflix-picker pattern */}
         <div className="profile-avatar-section" onClick={() => setSwitchModal(true)}>
           <div className="profile-avatar">
             <span>{currentUser?.username?.charAt(0).toUpperCase()}</span>
@@ -73,9 +80,6 @@ export function ProfilePage() {
         </div>
 
         <div className="profile-list">
-
-         
-
           <button className="profile-item" onClick={() => setCurrencyModal(true)}>
             <span className="profile-item-label">Currency</span>
             <span className="profile-item-value">
@@ -108,10 +112,8 @@ export function ProfilePage() {
           <button className="profile-item logout" onClick={handleLogout}>
             <span>Logout</span>
           </button>
-
         </div>
 
-        {/* Switch Profile Modal */}
         {switchModal && (
           <div className="modal-overlay" onClick={() => setSwitchModal(false)}>
             <div className="modal-box" onClick={(e) => e.stopPropagation()}>
@@ -133,13 +135,11 @@ export function ProfilePage() {
                     </button>
                   );
                 })}
-
               </div>
             </div>
           </div>
         )}
 
-        {/* Currency Modal */}
         {currencyModal && (
           <div className="modal-overlay" onClick={() => setCurrencyModal(false)}>
             <div className="modal-box" onClick={(e) => e.stopPropagation()}>
@@ -165,9 +165,8 @@ export function ProfilePage() {
           </div>
         )}
 
-        {/* Budget Modal */}
         {budgetModal && (
-          <div className="modal-overlay" onClick={() => setBudgetModal(false)}>
+          <div className="modal-overlay" onClick={closeBudgetModal}>
             <div className="modal-box" onClick={(e) => e.stopPropagation()}>
               <h3 className="modal-title">Set Monthly Budget</h3>
               <p className="modal-subtitle">
@@ -180,8 +179,9 @@ export function ProfilePage() {
                 type="number"
                 placeholder="e.g. 100000"
                 value={newBudget}
-                onChange={(e) => setNewBudget(e.target.value)}
+                onChange={(e) => { setNewBudget(e.target.value); setBudgetError(''); }}
               />
+              {budgetError && <p className="modal-error">{budgetError}</p>}
               <button className="modal-save-btn" onClick={saveBudget}>Save</button>
             </div>
           </div>
