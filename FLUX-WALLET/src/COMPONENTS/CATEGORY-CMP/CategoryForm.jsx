@@ -71,7 +71,7 @@ export function CategoryForm({ editingCategory, existingCategories, onSubmit, on
           <input
             type="text"
             className="category-form-input"
-            placeholder="e.g. Coffee, Gifts, Salary"
+            placeholder="e.g. Urgencies"
             value={name}
             onChange={(e) => {
               setName(e.target.value);

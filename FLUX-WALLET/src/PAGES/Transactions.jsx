@@ -60,32 +60,32 @@ const incoming = location.state ?? {};
 
   const typeFilteredCategories = useMemo(
     () => selectableCategories.filter((c) => activeTab === "all" || c.type === activeTab),
-    [categories, activeTab]
+    [selectableCategories, activeTab]
   );
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    // Auto-clear: drop any selected category that no longer matches the new tab.
-    setSelectedCategoryIds((prev) =>
-      prev.filter((id) => {
-        const cat = categories.find((c) => c.id === id);
-        return cat && (tab === "all" || cat.type === tab);
-      })
-    );
-  };
-const handleDownload = (filename) => {
-  exportTransactionsPDF({
-    transactions: filteredTransactions,
-    categories,
-    currency: currentUser.currency,
-    activeTab,
-    selectedCategoryIds,
-    currentMonth,
-    currentYear,
-    overrideFilename: filename,
-  });
-  setDownloadModalOpen(false);
-};
+
+    const handleTabChange = (tab) => {
+      setActiveTab(tab);
+      setSelectedCategoryIds((prev) =>
+        prev.filter((id) => {
+          const cat = allCategories.find((c) => c.id === id); // was: categories
+          return cat && (tab === "all" || cat.type === tab);
+        })
+      );
+    };
+      const handleDownload = (filename) => {
+        exportTransactionsPDF({
+          transactions: filteredTransactions,
+          categories: allCategories, // was: categories
+          currency: currentUser.currency,
+          activeTab,
+          selectedCategoryIds,
+          currentMonth,
+          currentYear,
+          overrideFilename: filename,
+        });
+        setDownloadModalOpen(false);
+      };
 
 const filteredTransactions = useMemo(() => {
   return allTransactions
@@ -205,9 +205,9 @@ const filteredTransactions = useMemo(() => {
         isOpen={downloadModalOpen}
         onClose={() => setDownloadModalOpen(false)}
         onConfirm={handleDownload}
-        summary={buildFilterSummary(activeTab, selectedCategoryIds, categories)}
+        summary={buildFilterSummary(activeTab, selectedCategoryIds, allCategories)}
         count={filteredTransactions.length}
-        defaultFilename={buildFilename({ activeTab, selectedCategoryIds, categories, currentMonth, currentYear })}
+        defaultFilename={buildFilename({ activeTab, selectedCategoryIds, categories: allCategories, currentMonth, currentYear })}
       />
       <JumpToDateModal
         isOpen={dateModalOpen}

@@ -28,9 +28,8 @@ const TOP_SLOT_COUNT = 4;
 export function StatsPage() {
   const { currentUser } = useApp();
   const navigate = useNavigate();
+const { currentUser, statsType: activeType, setStatsType: setActiveType, statsPeriod: period, setStatsPeriod: setPeriod } = useApp()
 
-  const [activeType, setActiveType] = useState("expense");
-  const [period, setPeriod] = useState("this-month");
 
   const allTransactions = currentUser?.transactions ?? [];
   const categories = currentUser?.categories ?? [];

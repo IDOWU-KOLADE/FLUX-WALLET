@@ -150,9 +150,9 @@ function getPeriodRange(period) {
 }
 
 function Summary() {
-  const { currentUser } = useApp();
+  const { currentUser, dashboardPeriod,setDashboardPeriod } = useApp();
   const navigate = useNavigate();
-  const [period, setPeriod] = useState("this-month");
+
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -160,10 +160,10 @@ function Summary() {
       navigate("/stats");
       return; // don't update period state — the select shouldn't visually land on "Stats"
     }
-    setPeriod(value);
+    setDashboardPeriod(value)
   };
 
-  const { month, year } = getPeriodRange(period);
+  const { month, year } = getPeriodRange(dashboardPeriod);
 
   const periodTransactions = currentUser.transactions.filter((t) => {
     const d = new Date(t.date);

@@ -12,6 +12,9 @@ export function AppProvider({ children }) {
   const [userdetails,setUserDetails] = useState({username:'',password: ''})
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [resetUsername, setResetUsername] = useState('');
+  const [dashboardPeriod, setDashboardPeriod] = useState('this-month');
+  const [statsPeriod, setStatsPeriod] = useState('this-month');
+  const [statsType, setStatsType] = useState('expense'); 
 
   const logout = () => {
     logoutUser();
@@ -29,7 +32,8 @@ export function AppProvider({ children }) {
     currentUser, setCurrentUser, logout, refreshUser,
       //  Auth Flow State
     screen,setScreen,error,seterror,loginDetails,setLoginDetails,userdetails,setUserDetails,selectedQuestions,setSelectedQuestions,resetUsername, setResetUsername,
-    
+    //SAVING LITTLE CHNAGES ON PAGE LOAD
+    dashboardPeriod,setDashboardPeriod,statsPeriod,setStatsPeriod,statsType,setStatsType
     }}>
       {children}
     </AppContext.Provider>
