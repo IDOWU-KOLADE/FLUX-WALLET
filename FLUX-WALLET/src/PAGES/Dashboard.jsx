@@ -179,7 +179,7 @@ function Summary() {
       <div className="inner-summary">
         <div className="summary-head">
           <p>Summary</p>
-          <select className="month-select" value={period} onChange={handleChange}>
+          <select className="month-select" value={dashboardPeriod} onChange={handleChange}>
             <option value="this-month">This Month</option>
             <option value="last-month">Last Month</option>
             <option value="stats">Stats</option>
