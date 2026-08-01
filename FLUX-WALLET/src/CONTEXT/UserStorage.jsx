@@ -18,7 +18,8 @@ export function registerUser (username,password, securityQuestions, securityAnsw
     securityQuestions,
     securityAnswers,
     transactions: [],
-    budgetHistory: [],                 
+    budgetHistory: [],  
+      theme: 'light',   // NEW               
     lastReportDownloadedMonth: null,   
     categories:  [
     // Expense categories (5)
@@ -179,5 +180,10 @@ export function shouldShowMonthlyReport(user, month, year) {
 export function markReportDownloaded(username, month, year) {
   const storage = getStorage();
   storage.users[username].lastReportDownloadedMonth = budgetKey(month, year);
+  SetStorage(storage);
+}
+export function setTheme(username, theme) {
+  const storage = getStorage();
+  storage.users[username].theme = theme;
   SetStorage(storage);
 }

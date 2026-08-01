@@ -2,6 +2,7 @@
   min-height: 100vh;
   background: var(--color-bg);
   padding-bottom: 90px;
+  padding-top: 60px;
 }
 
 .about-topbar {
@@ -101,16 +102,33 @@
   color: var(--color-text-secondary);
 }
 
-.about-mission {
-  font-size: 0.85rem;
-  line-height: 1.6;
+.about-mission-card {
+  background: var(--color-card);
+  border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 20px;
+  border-left: 3px solid #f97316;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.about-mission-lead {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+.about-mission-body {
+  font-size: 0.83rem;
+  line-height: 1.65;
   color: var(--color-text-secondary);
-  padding: 0 2px;
 }
 
 .about-list-card {
   background: var(--color-card);
-  border-radius: var(--radius-lg);
+ 
   box-shadow: var(--shadow-md);
   overflow: hidden;
 }
