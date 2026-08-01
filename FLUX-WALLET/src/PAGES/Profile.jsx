@@ -90,7 +90,7 @@ export function ProfilePage() {
             <span className="profile-item-arrow">›</span>
           </button>
 
-          <button className="profile-item" onClick={() => {}}>
+          <button className="profile-item" onClick={() => {navigate('/about')}}>
             <span className="profile-item-label">About Flux Wallet</span>
             <span className="profile-item-value">v1.0.0</span>
           </button>

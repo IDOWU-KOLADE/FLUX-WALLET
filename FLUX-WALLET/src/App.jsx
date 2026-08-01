@@ -15,7 +15,8 @@ import { AddTransactionPage } from './PAGES/AddTransaction.jsx'
 import { CategoryPage } from './PAGES/Category.jsx'
 import { Transactions } from './PAGES/Transactions.jsx'
 import { StatsPage } from './PAGES/Stats.jsx'
-import { ProtectedRoute } from './COMPONENTS/FREQUENT/ProtectedRoute.jsx'
+import { ProtectedRoute } from './COMPONENTS/FREQUENT/ProtectedRoute.jsx';
+import { AboutPage } from './PAGES/AboutPage.jsx'
 function App() {
   
 return (
@@ -29,6 +30,7 @@ return (
       <Route path='/category' element={<ProtectedRoute><CategoryPage/></ProtectedRoute>}/>
       <Route path='/transactions' element={<ProtectedRoute><Transactions/></ProtectedRoute>}/>
       <Route path='/stats' element={<ProtectedRoute><StatsPage/></ProtectedRoute>}/>
+      <Route path='/about' element={<ProtectedRoute><AboutPage/></ProtectedRoute>}/>
     </Routes>
     </BrowserRouter>
   </AppProvider>

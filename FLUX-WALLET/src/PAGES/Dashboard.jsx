@@ -13,23 +13,14 @@ import { HiMinus } from "react-icons/hi";          // expenses minus
 import { useState, useEffect } from "react";
 import { formatAmount } from "../COMPONENTS/STATS-CMP/statsUtils";
 import { useApp } from "../CONTEXT/AppContext";
-import { getCurrentUser } from "../CONTEXT/UserStorage";
 import { useNavigate } from "react-router-dom";
 
 
 export function MainPage () {
-const {refreshUser,currentUser} = useApp()
-const navigate = useNavigate(); 
+const {refreshUser} = useApp()
 useEffect(()=> {
   refreshUser();
 },[])
-// separate useEffect that watches currentUser
-useEffect(() => {
-  //checks if there's no loggedIn user, if t
-  if (currentUser === null) {
-    navigate('/');
-  }
-}, [currentUser]);
 return (
   <>
   
