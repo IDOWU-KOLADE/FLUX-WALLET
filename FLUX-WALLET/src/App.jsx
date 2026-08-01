@@ -15,6 +15,7 @@ import { AddTransactionPage } from './PAGES/AddTransaction.jsx'
 import { CategoryPage } from './PAGES/Category.jsx'
 import { Transactions } from './PAGES/Transactions.jsx'
 import { StatsPage } from './PAGES/Stats.jsx'
+import { ProtectedRoute } from './COMPONENTS/FREQUENT/ProtectedRoute.jsx'
 function App() {
   
 return (
@@ -22,12 +23,12 @@ return (
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<AuthPage/>}/>
-      <Route path='/dashboard' element={<MainPage/>}/>
-      <Route path='/profile' element={<ProfilePage/>}/>
-      <Route path='/add' element={<AddTransactionPage/>}/>
-      <Route path='/category' element={<CategoryPage/>}/>
-      <Route path='/transactions' element={<Transactions/>}/>
-      <Route path='/stats' element={<StatsPage/>}/>
+      <Route path='/dashboard' element={<ProtectedRoute><MainPage/></ProtectedRoute>}/>
+      <Route path='/profile' element={<ProtectedRoute><ProfilePage/></ProtectedRoute>}/>
+      <Route path='/add' element={<ProtectedRoute><AddTransactionPage/></ProtectedRoute>}/>
+      <Route path='/category' element={<ProtectedRoute><CategoryPage/></ProtectedRoute>}/>
+      <Route path='/transactions' element={<ProtectedRoute><Transactions/></ProtectedRoute>}/>
+      <Route path='/stats' element={<ProtectedRoute><StatsPage/></ProtectedRoute>}/>
     </Routes>
     </BrowserRouter>
   </AppProvider>
