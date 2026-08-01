@@ -63,5 +63,17 @@ export function buildMonthlyReport(user, month, year) {
     disciplineDays: getDisciplineDays(monthTransactions, month, year),
     topCategoryConcentration: getTopCategoryConcentration(expenseStats.rows),
     expenseBreakdown: expenseStats.rows,
+      message: buildReportMessage({ budget, percentUsed }),
   };
+}
+// New function — add anywhere in the file
+function buildReportMessage(report) {
+  if (report.budget == null) {
+    return "You didn't set a budget last month — want to set one this month to keep track?";
+  }
+  if (report.percentUsed > 100) {
+    const over = report.percentUsed - 100;
+    return `You went ${over}% over budget last month — no worries, this month's a clean slate. Ready to reduce the impulse spending?`;
+  }
+  return "You stayed within budget last month — keep that momentum going this month!";
 }

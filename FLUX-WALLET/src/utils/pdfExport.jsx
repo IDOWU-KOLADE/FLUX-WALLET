@@ -213,6 +213,11 @@ export async function exportMonthlyReportPDF({ user, month, year, currency }) {
   line("Transactions Logged", `${report.monthTransactionCount}`);
 
   y += 4;
+doc.setFont("helvetica", "italic"); doc.setFontSize(9); doc.setTextColor(90, 90, 90);
+const messageLines = doc.splitTextToSize(report.message, pageWidth - margin * 2);
+doc.text(messageLines, margin, y);
+y += messageLines.length * 5 + 6;
+  y += 4;
   sectionHeader("Highlights");
   if (report.biggestExpenseCategory) {
     line("Biggest Expense Category", `${report.biggestExpenseCategory.name} · ${code} ${report.biggestExpenseCategory.total.toLocaleString()}`);

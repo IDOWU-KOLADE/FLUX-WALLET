@@ -129,15 +129,24 @@ export function setMonthlyBudget(username, amount) {
   const storage = getStorage();
   const user = storage.users[username];
   const now = new Date();
-  const entry = { amount: Number(amount), month: now.getMonth(), year: now.getFullYear() };
-
   const history = user.budgetHistory ?? [];
+
+  // MIGRATION: the very first edit made under the new history system needs to preserve
+  // whatever the OLD flat value was — otherwise it's silently lost the moment someone
+  // edits for the first time, and every past month incorrectly looks like "no budget set."
+  // Dated far in the past on purpose, so it's always the fallback answer for any month
+  // that doesn't have a more specific, later entry.
+  if (history.length === 0 && user.monthlyBudget != null) {
+    history.push({ amount: user.monthlyBudget, month: 0, year: 1970 });
+  }
+
+  const entry = { amount: Number(amount), month: now.getMonth(), year: now.getFullYear() };
   const existingIndex = history.findIndex((e) => e.month === entry.month && e.year === entry.year);
   user.budgetHistory = existingIndex >= 0
     ? history.map((e, i) => (i === existingIndex ? entry : e))
     : [...history, entry];
 
-  user.monthlyBudget = entry.amount; // mirror field — kept in sync for anything still reading it directly
+  user.monthlyBudget = entry.amount;
   SetStorage(storage);
 }
 
@@ -152,7 +161,8 @@ export function getEffectiveBudget(user, month, year) {
     .sort((a, b) => (b.year - a.year) || (b.month - a.month));
 
   if (applicable.length > 0) return applicable[0].amount;
-  return user?.monthlyBudget ?? null; // legacy fallback
+  if (history.length === 0) return user?.monthlyBudget ?? null; // true legacy account, no history at all
+  return null; // history exists, but none of it predates this month — no budget was set yet
 }
 
 // Does a given month have enough real data to justify a report at all?
