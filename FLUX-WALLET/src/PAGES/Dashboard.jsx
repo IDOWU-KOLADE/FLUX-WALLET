@@ -78,7 +78,7 @@ function getGreeting(name) {
     pool = [
       `Good evening, ${name}`,
       `Welcome back, ${name}`,
-      `Evening, ${name}, let's get prudent`,
+      `Evening ${name}, let's get prudent`,
     ];
   }
 
