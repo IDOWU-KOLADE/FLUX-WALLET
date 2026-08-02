@@ -3,10 +3,10 @@
   inset: 0;
   background: rgba(15, 23, 42, 0.5);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   z-index: 999999;
-  padding: 0 16px 24px;
+  padding: 0 16px;
 }
 .install-prompt-card {
   position: relative;
@@ -21,11 +21,11 @@
   align-items: center;
   text-align: center;
   gap: 10px;
-  animation: install-prompt-rise 0.25s ease-out;
+  animation: install-prompt-appear 0.25s ease-out;
 }
-@keyframes install-prompt-rise {
-  from { transform: translateY(24px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+@keyframes install-prompt-appear {
+  from { transform: scale(0.96); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 .install-prompt-close {
   position: absolute;
