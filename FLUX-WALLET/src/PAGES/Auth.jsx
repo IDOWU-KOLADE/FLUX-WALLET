@@ -548,7 +548,7 @@ function ResetSuccessStep() {
           <path d="M6 12l4 4 8-8" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </div>
-      <h1>Password Reset Successful! 🎉</h1>
+      <h1>Password Reset Successful!</h1>
       <p>You can now login with your new password.</p>
       <button className="btn-continue" onClick={() => setScreen('login')}>
         Go to Login

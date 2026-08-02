@@ -274,9 +274,10 @@
     background-color: var(--color-card);
 }
 .month-select {
-  font-size: 13px;
-  border: none;
-  cursor: pointer;
+   font-size: 12px;
+    color: var(--color-text-secondary);
+    background-color: var(--color-card);
+    cursor: pointer;
 }
 .month-select:focus {
   outline: none;
