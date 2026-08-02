@@ -6,8 +6,8 @@
 
 
 .dashboard-div{
-    margin-top: 45px;
-    padding: 20px;
+    margin-top: 40px;
+    padding: 18px;
 }
 .main-div {
     min-height: 75vh;
@@ -24,26 +24,26 @@
     z-index: 99999;
     opacity: 97%;
     background-color: var(--color-bg);
-    padding-bottom: 10px;
+    padding-bottom: 9px;
     margin: 0 auto;
     max-width: 480px;
 }
 .navbar {
-    padding-top: 15px;
+    padding-top: 13px;
     width: 90%;
     margin: auto;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
-    height: 40px;
+    height: 36px;
 }
 .flux-logo {
     height: inherit;
     width: auto;
 }
 .burger-icon {
- margin-right: 8px;
+ margin-right: 7px;
 }
 
 
@@ -51,7 +51,7 @@
 
 .hero-div {
     height: auto;
-    padding-bottom: 60px;
+    padding-bottom: 52px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -60,7 +60,7 @@
 .hero-section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
     position: relative;
     height: 100%;
 }
@@ -68,14 +68,14 @@
 .hero-texts {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 9px;
 }
 .hero-texts h4 {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--color-primary);
 }
 .hero-texts h1 {
-    font-size: 25px;
+    font-size: 22px;
     max-width: 70%;
     color: var(--color-text-primary);
     word-spacing: -1px;
@@ -84,13 +84,13 @@
 
 }
 .hero-texts p{
-    font-size: 13px;
+    font-size: 12px;
     width: max(100px,65%);
     color: var(--color-text-secondary);
 }
 .add-transact {
     width: 50%;
-    padding: 12px 10px;
+    padding: 10px 9px;
     color: var(--color-card);
     border-radius: 10px;
     border: none;
@@ -100,14 +100,14 @@
     height: 105%;
     position: absolute;
     right: 0px;
-    top: 50px;
+    top: 44px;
 }
 
             /* BUDGET ANALYSIS SECTION */
             /* MONTHLY BUDGET✅ */
 .progress-bar-container {
   width: 100%;
-  height: 10px;
+  height: 9px;
   background-color: #e0e0e0;
   border-radius: 10px;
 }
@@ -139,9 +139,9 @@
   background-color: var(--color-danger);
 }
 .dashAnalytics-div {
-    margin-top: 10px;
+    margin-top: 9px;
     box-shadow: var(--shadow-md);
-    padding: 15px;
+    padding: 13px;
     border-radius: 10px;
     background-color: var(--color-card);
     flex: 2;
@@ -151,7 +151,7 @@
 .innerAnalytics {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 13px;
     height: 100%;
     justify-content: space-evenly;
     flex: 1;
@@ -163,11 +163,11 @@
 }
 .innerAnalytics .head-p {
     font-weight: bold;
-    font-size: 15px;
+    font-size: 13px;
     color: var(--color-text-primary);
 }
 .price-usage-div p {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     letter-spacing: -0.5px;
     color: var(--color-text-secondary);
@@ -178,7 +178,7 @@
   background: var(--color-card);
   border-radius: 10px;
   box-shadow: var(--shadow-md);
-  padding: 15px 24px;
+  padding: 13px 21px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,9 +187,9 @@
 
 .budget-ghost-ring {
   position: relative;
-  width: 100px;
-  height: 100px;
-  margin-bottom: 16px;
+  width: 88px;
+  height: 88px;
+  margin-bottom: 14px;
 }
 
 .budget-ghost-ring svg:first-child {
@@ -206,27 +206,27 @@
 }
 
 .budget-empty-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0;
 }
 
 .budget-empty-subtext {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--color-text-secondary);
   max-width: 220px;
   line-height: 1.5;
-  margin: 6px 0 20px;
+  margin: 5px 0 18px;
 }
 
 .btn-set-budget {
   background: var(--color-primary);
   color: #fff;
   border: none;
-  padding: 10px 22px;
+  padding: 9px 19px;
   border-radius: 7px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition-fast);
@@ -239,15 +239,15 @@
 
                     /* SUMMARY SECTION */
 .summary-div{
-    margin-top: 15px;
+    margin-top: 13px;
     box-shadow: var(--shadow-md);
-    padding: 15px;
+    padding: 13px;
     background-color: var(--color-card);
     border-radius: 10px;
     flex: 2;
     display: flex;
     flex-direction: column;
-    max-height: 180px;
+    max-height: 158px;
     
 }
 .inner-summary {
@@ -255,7 +255,7 @@
     flex-direction: column;
     justify-content: space-between;
     
-    padding-bottom: 5px;
+    padding-bottom: 4px;
     flex: 1;
 }
 .summary-head {
@@ -263,18 +263,18 @@
     justify-content: space-between;
 }
 .summary-head p {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     color: var(--color-text-primary);
 
 }
 .summary-head select{
-    font-size: 12px;
+    font-size: 11px;
     color: var(--color-text-secondary);
     background-color: var(--color-card);
 }
 .month-select {
-   font-size: 12px;
+   font-size: 11px;
     color: var(--color-text-secondary);
     background-color: var(--color-card);
     cursor: pointer;
@@ -286,10 +286,10 @@
 .icon-summary {
     display: flex;
     justify-content: space-between;
-    padding-top: 10px;
+    padding-top: 9px;
 }
 .small-summary-p {
-    font-size: 10px;
+    font-size: 9px;
     font-weight: bold;
     
 }
@@ -304,18 +304,18 @@
 }
 .summary-amount {
     color: var(--color-text-primary);
-    font-size: 15px;
+    font-size: 13px;
     font-weight: bolder;
 }
 .balance-div, .expenses-div, .income-div {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
     align-items: center;
 }
 .icon-circle {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -328,9 +328,9 @@
                     /* RECENT TRANSCATIONS SECTION ✅*/
 
 .r-transaction-div {
-    margin-top: 20px;
+    margin-top: 18px;
   
-     padding: 15px;
+     padding: 13px;
     background-color: var(--color-card);
     
     overflow-x: auto;
@@ -346,44 +346,44 @@
     justify-content: space-between;
 }
 .top-transaction-p .first-p {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     color: var(--color-text-primary);
 }
 .top-transaction-p .sec-p {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     color: var(--color-text-secondary);
 }
 .analysis-flex {
     display: flex;
     flex-direction: column;
-    margin-top: 15px;
+    margin-top: 13px;
 }
 .analysis-element {
     display: flex;
     justify-content: space-between;
     align-items: center;
     overflow-x: auto;
-    gap:25px;
+    gap:22px;
     scrollbar-width: none;
 }
 .category-item {
   display: flex;
     min-width: 0;   /* new — lets this flex item shrink instead of forcing overflow */
   flex: 1;        /* new — takes remaining space so price-details keeps its own width */
-  gap: 14px;
-  padding: 10px 0;
+  gap: 12px;
+  padding: 9px 0;
 }
 
 .category-icon {
-  width: 40px;
-  height: 45px;
+  width: 35px;
+  height: 40px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 18px;
   flex-shrink: 0;
 }
 .detail{
@@ -395,7 +395,7 @@
     min-width: 0;
 }
 .detail .detail1 {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color:var(--color-text-primary);
     white-space: nowrap;      /* new */
@@ -403,7 +403,7 @@
   text-overflow: ellipsis;  /* new */
 }
 .detail .detail2 {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--color-text-secondary);
 }
@@ -414,16 +414,16 @@
   justify-content: space-between;
   padding-top: 1px;
   padding-bottom: 1px;
-  gap: 5px;
-  max-width: 100px;
+  gap: 4px;
+  max-width: 90px;
 }
 .price-details .first-p {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
     white-space: nowrap;
 }
 .price-details .sec-p{
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
     color: var(--color-text-secondary);
 }
@@ -439,7 +439,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 10px 0;
+  padding: 9px 0;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
   z-index: 9999999;
   margin: 0 auto;
@@ -452,17 +452,17 @@
   gap: 4px;
   color: var(--color-text-secondary);
   text-decoration: none;
-  font-size: 11px;
+  font-size: 10px;
 }
 
 .nav-item.active {
   color: var(--color-primary);
 }
 .dashboard-div {
-  padding-bottom: 70px;
+  padding-bottom: 62px;
 }
 .page{
-    padding-bottom: 50px;
+    padding-bottom: 44px;
 }
             /* RECENT TRANSCATIONS SECTION ❌*/
 
@@ -470,15 +470,15 @@
   background: var(--color-card);
  
 
-  padding: 20px;
-  margin-top: 20px;
+  padding: 18px;
+  margin-top: 18px;
 }
 
 .transactions-card-title {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-text-primary);
-  margin: 0 0 10px;
+  margin: 0 0 9px;
 }
 
 .transactions-empty {
@@ -486,39 +486,39 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 12px 0 20px;
+  padding: 11px 0 18px;
 }
 
 .transactions-empty-icon {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background: var(--color-primary-light);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .transactions-empty-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0 0 4px;
 }
 
 .transactions-empty-subtext {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--color-text-secondary);
   margin: 0;
 }
 .amount--income { color: var(--color-primary); }
 .amount--expense { color: var(--color-danger); }
-.navbar-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.navbar-actions { margin-left: auto; display: flex; align-items: center; gap: 7px; }
 
 .report-icon-btn {
   display: flex; align-items: center; justify-content: center;
-  width: 36px; height: 36px; border-radius: 50%; border: none;
+  width: 32px; height: 32px; border-radius: 50%; border: none;
   background: var(--color-card); color: var(--color-text-secondary); cursor: pointer;
 }
 .report-icon-btn--glow {
@@ -532,21 +532,21 @@
   100% { box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
 }
 .report-dev-btn {
-  font-size: 9px; font-weight: 700; border-radius: 6px; width: auto; padding: 4px 8px;
+  font-size: 8px; font-weight: 700; border-radius: 6px; width: auto; padding: 4px 7px;
   background: #111827; color: #fff;
 }
 
 .report-modal {
   background: var(--color-card); width: 90%; max-width: 340px; border-radius: 16px;
-  padding: 24px 20px; text-align: center;
+  padding: 21px 18px; text-align: center;
 }
-.report-modal-title { font-size: 1.05rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 4px; }
-.report-modal-subtitle { font-size: 0.82rem; color: var(--color-text-secondary); margin-bottom: 18px; }
-.report-modal-stats { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; text-align: left; }
-.report-modal-row { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--color-text-secondary); }
+.report-modal-title { font-size: 0.92rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 4px; }
+.report-modal-subtitle { font-size: 0.72rem; color: var(--color-text-secondary); margin-bottom: 16px; }
+.report-modal-stats { display: flex; flex-direction: column; gap: 9px; margin-bottom: 18px; text-align: left; }
+.report-modal-row { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--color-text-secondary); }
 .report-modal-value { font-weight: 700; color: var(--color-text-primary); }
-.report-modal-actions { display: flex; gap: 10px; }
+.report-modal-actions { display: flex; gap: 9px; }
 .report-modal-actions .btn-text { flex: 1; }
 .report-modal-actions .btn-continue { flex: 1; }
 
-.modal-error { color: red; font-size: 13px; }
+.modal-error { color: red; font-size: 12px; }
