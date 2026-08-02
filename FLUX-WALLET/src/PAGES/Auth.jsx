@@ -34,7 +34,7 @@ if (screen === "reset-success")   return <ResetSuccessStep/>
     return (
   <div className="login-page">
       <div className="logo-wrapper">
-        <img src="./public/IMAGES/Fluxlogo.png" alt="Flux Wallet" />
+        <img src="/IMAGES/Fluxlogo.png" alt="Flux Wallet" />
       </div>
       <div className="welcome-section">
         <h1>Welcome back</h1>
@@ -97,7 +97,7 @@ const Users = FluxData.users;
   return (
       <div className="register-page">
         <div className="logo-wrapper">
-          <img src="./public/IMAGES/Fluxlogo.png" alt="Flux Wallet" />
+          <img src="/IMAGES/Fluxlogo.png" alt="Flux Wallet" />
         </div>
         <div className="create-account-section">
           <h1>Create your account</h1>

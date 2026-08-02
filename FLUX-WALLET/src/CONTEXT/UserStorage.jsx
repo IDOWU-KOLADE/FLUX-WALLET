@@ -15,6 +15,7 @@ export function registerUser (username,password, securityQuestions, securityAnsw
     password,
     monthlyBudget: null,
     currency: 'NGN',
+    profilePicture: null,
     securityQuestions,
     securityAnswers,
     transactions: [],
@@ -180,5 +181,10 @@ export function shouldShowMonthlyReport(user, month, year) {
 export function markReportDownloaded(username, month, year) {
   const storage = getStorage();
   storage.users[username].lastReportDownloadedMonth = budgetKey(month, year);
+  SetStorage(storage);
+}
+export function setProfilePicture(username, base64Image) {
+  const storage = getStorage();
+  storage.users[username].profilePicture = base64Image;
   SetStorage(storage);
 }

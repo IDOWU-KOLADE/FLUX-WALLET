@@ -40,21 +40,65 @@ return (
     </>
 )
 }
+function getGreeting(name) {
+  const now = new Date();
+  const day = now.getDay(); // 0 = Sunday ... 5 = Friday, 6 = Saturday
+  const hour = now.getHours();
+  const isMorning = hour >= 5 && hour < 12;
+  const isAfternoon = hour >= 12 && hour < 17;
 
+  let pool;
+
+  if (day === 5 && isMorning) {
+    pool = [
+      `Happy Friday, ${name}`,
+      `Happy Friday, ${name}`,
+      `Good morning, ${name}, it's Friday!`,
+    ];
+  } else if (day === 0 && isMorning) {
+    pool = [
+      `Happy Sunday, ${name}`,
+      `Happy Sunday, ${name}`,
+      `Good morning, ${name}, enjoy your Sunday`,
+    ];
+  } else if (isMorning) {
+    pool = [
+      `Good morning, ${name}`,
+      `Morning, ${name}`,
+      `Rise and shine, ${name}`,
+      `Let's get saving, ${name}`,
+    ];
+  } else if (isAfternoon) {
+    pool = [
+      `Good afternoon, ${name}`,
+      `Hey ${name}, hope your day's going well`,
+      `Let's check in, ${name}`,
+    ];
+  } else {
+    pool = [
+      `Good evening, ${name}`,
+      `Welcome back, ${name}`,
+      `Evening, ${name}, let's get prudent`,
+    ];
+  }
+
+  return pool[Math.floor(Math.random() * pool.length)];
+}
 function DashHero () {
   const navigate = useNavigate()
 const {currentUser} = useApp()
 if (!currentUser) return null; // 👈 safety net
+const [greeting] = useState(() => getGreeting(currentUser.username));
     return(
 			<div className="hero-div">
 				<div className="hero-section">
 					<div className="hero-texts">
-						<h4>Good morning, {currentUser.username}</h4>
+						<h4>{greeting}</h4>
 						<h1>Take control of your money.</h1>
 						<p>Track your income, manage expenses and reach your financial goals.</p>
 					</div>
 					<button className="add-transact" onClick={()=> {navigate('/add')}}>+ Add Transaction</button>
-					<img className="hero-illustration" src="./PUBLIC/IMAGES/Hero-illustration.png"/>
+					<img className="hero-illustration" src="/IMAGES/Hero-illustration.png"/>
 				</div>
 			</div>
     )

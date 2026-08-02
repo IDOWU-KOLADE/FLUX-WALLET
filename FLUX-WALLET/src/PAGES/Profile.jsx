@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useApp } from "../CONTEXT/AppContext";
 import { getStorage, SetStorage, setMonthlyBudget } from "../CONTEXT/UserStorage";
 import { useNavigate } from "react-router-dom";
 import { Navbar, BottomNav } from "../COMPONENTS/FREQUENT/NB";
-
+import { setProfilePicture } from "../CONTEXT/UserStorage";
+import { resizeImageToBase64 } from "../utils/imageUtils";
 import { CURRENCIES,formatAmount } from "../utils/currency";
 
 export function ProfilePage() {
@@ -27,7 +28,15 @@ export function ProfilePage() {
     refreshUser();
     setCurrencyModal(false);
   };
+    const fileInputRef = useRef(null);
 
+    const handlePictureChange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const resizedBase64 = await resizeImageToBase64(file);
+      setProfilePicture(currentUser.username, resizedBase64);
+      refreshUser();
+    };
   const saveBudget = () => {
     if (!newBudget.trim()) {
       setBudgetError("Please enter a budget amount");
@@ -62,11 +71,22 @@ export function ProfilePage() {
       <Navbar />
       <div className="profile-page">
         <div className="profile-avatar-section">
-          <div className="profile-avatar">
-            <span>{currentUser?.username?.charAt(0).toUpperCase()}</span>
+          <div className="profile-avatar" onClick={() => fileInputRef.current.click()}>
+            {currentUser?.profilePicture ? (
+              <img className="profile-avatar-img" src={currentUser.profilePicture} alt="Profile" />
+            ) : (
+              <span>{currentUser?.username?.charAt(0).toUpperCase()}</span>
+            )}
           </div>
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handlePictureChange}
+            style={{ display: "none" }}
+          />
           <h2 className="profile-username">{currentUser?.username}</h2>
-        </div>
+       </div>
 
         <div className="profile-list">
           <button className="profile-item" onClick={() => setCurrencyModal(true)}>

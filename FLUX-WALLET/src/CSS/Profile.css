@@ -24,6 +24,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
 }
 
 .profile-avatar span {
@@ -204,6 +206,12 @@
 }
 .profile-avatar-section {
   cursor: pointer;
+}
+.profile-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 
