@@ -188,3 +188,18 @@ export function setProfilePicture(username, base64Image) {
   storage.users[username].profilePicture = base64Image;
   SetStorage(storage);
 }
+export function editTransaction(username, transactionId, updates) {
+  const storage = getStorage();
+  storage.users[username].transactions = storage.users[username].transactions.map((t) =>
+    t.id === transactionId ? { ...t, ...updates } : t
+  );
+  SetStorage(storage);
+}
+
+export function deleteTransaction(username, transactionId) {
+  const storage = getStorage();
+  storage.users[username].transactions = storage.users[username].transactions.filter(
+    (t) => t.id !== transactionId
+  );
+  SetStorage(storage);
+}

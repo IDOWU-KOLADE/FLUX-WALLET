@@ -19,19 +19,22 @@ import { Navbar } from "../COMPONENTS/FREQUENT/NB";
 import { BottomNav } from "../COMPONENTS/FREQUENT/NB";
 import { CategoryField } from "../COMPONENTS/CATEGORY-CMP/CategoryField";
 import { useApp } from "../CONTEXT/AppContext";
-import { addTransaction } from "../CONTEXT/UserStorage";
-
+import { addTransaction, editTransaction } from "../CONTEXT/UserStorage";
+import { useLocation } from "react-router-dom";
 export function AddTransactionPage() {
   const { currentUser, refreshUser } = useApp();
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const editingTransaction = location.state?.editTransaction ?? null;
   // --- all form state lives here, in the parent, and gets passed down ---
-  const [transactionType, setTransactionType] = useState("expense");
-  const [name, setName] = useState("");
-  const [amount, setAmount] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [date, setDate] = useState("");
-  const [notes, setNotes] = useState("");
+const [transactionType, setTransactionType] = useState(editingTransaction?.type ?? "expense");
+const [name, setName] = useState(editingTransaction?.description ?? "");
+const [amount, setAmount] = useState(editingTransaction?.amount != null ? String(editingTransaction.amount) : "");
+const [selectedCategory, setSelectedCategory] = useState(
+  editingTransaction ? currentUser.categories.find((c) => c.id === editingTransaction.categoryId) ?? null : null
+);
+const [date, setDate] = useState(editingTransaction?.date ?? "");
+const [notes, setNotes] = useState(editingTransaction?.notes ?? "");
   const [error, setError] = useState(""); // moved inside the component — hooks can't live at module scope
 
   // if the user flips Expense/Income and the previously chosen category no
@@ -44,32 +47,27 @@ export function AddTransactionPage() {
   }, [transactionType]);
 
   function handleSubmit() {
-    if (!name.trim()) {
-      setError("Please enter a name or description");
-      return;
-    }
-    if (!amount || Number(amount) <= 0) {
-      setError("Please enter a valid amount greater than zero");
-      return;
-    }
-    if (!selectedCategory) {
-      setError("Please select a category");
-      return;
-    }
-    if (!date) {
-      setError("Please select a date");
-      return;
-    }
-
+    if (!name.trim()) { setError("Please enter a name or description"); return; }
+    if (!amount || Number(amount) <= 0) { setError("Please enter a valid amount greater than zero"); return; }
+    if (!selectedCategory) { setError("Please select a category"); return; }
+    if (!date) { setError("Please select a date"); return; }
     setError("");
-    addTransaction(currentUser.username, {
+
+    const payload = {
       type: transactionType,
       amount,
-      description: name.trim().replace(/\s+/g, " "), // trims edges AND collapses internal double-spacing
+      description: name.trim().replace(/\s+/g, " "),
       categoryId: selectedCategory.id,
       date,
       notes: notes.trim().replace(/\s+/g, " "),
-    });
+    };
+
+    if (editingTransaction) {
+      editTransaction(currentUser.username, editingTransaction.id, { ...payload, amount: Number(amount) });
+    } else {
+      addTransaction(currentUser.username, payload);
+    }
+
     refreshUser();
     navigate("/transactions");
   }
@@ -101,7 +99,7 @@ export function AddTransactionPage() {
         </p>
       )}
 
-      <SubmitBar onSubmit={handleSubmit} />
+      <SubmitBar onSubmit={handleSubmit}  label={editingTransaction ? "Save Changes" : "Add Transaction"} />
       <BottomNav />
     </div>
   );
@@ -194,12 +192,10 @@ function NotesField({ notes, onChange }) {
   );
 }
 
-function SubmitBar({ onSubmit }) {
+function SubmitBar({ onSubmit, label }) {
   return (
     <div className="at-submit-bar">
-      <button type="button" className="btn-add-transaction" onClick={onSubmit}>
-        Add Transaction
-      </button>
+      <button type="button" className="btn-add-transaction" onClick={onSubmit}>{label}</button>
     </div>
   );
 }

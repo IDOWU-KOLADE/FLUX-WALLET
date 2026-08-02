@@ -3,6 +3,8 @@ import { useNavigate, useLocation} from "react-router-dom";
 import { Search, Menu, CalendarDays, Download } from "lucide-react";
 import { useApp } from "../CONTEXT/AppContext";
 
+import { deleteTransaction } from "../CONTEXT/UserStorage";
+import { DeleteTransactionModal } from "../COMPONENTS/TRANSACTION-CMP/DeleteTransactionModal";
 import { DownloadConfirmModal } from "../COMPONENTS/TRANSACTION-CMP/DownloadConfirmModal";
 import { exportTransactionsPDF, buildFilterSummary,buildFilename } from "../utils/pdfExport";
 import { CategoryFilterRow } from "../COMPONENTS/TRANSACTION-CMP/CategoryFilterRow";
@@ -27,12 +29,12 @@ function getMostRecentDate(transactions) {
 }
 
 export function Transactions() {
-  const { currentUser } = useApp();
+  const { currentUser, refreshUser } = useApp();
   const navigate = useNavigate();
   const location = useLocation();
 const incoming = location.state ?? {};
   const searchInputRef = useRef(null);
-
+  const [transactionToDelete, setTransactionToDelete] = useState(null);
   const allTransactions = currentUser?.transactions ?? [];
   const allCategories = currentUser?.categories ?? []; // for LOOKUP — includes deleted, so history stays intact
   const selectableCategories = allCategories.filter((c) => !c.isDeleted); // for PICKING — filters/pickers only ever offer these
@@ -86,7 +88,15 @@ const incoming = location.state ?? {};
         });
         setDownloadModalOpen(false);
       };
+      const handleEditTransaction = (t) => {
+        navigate("/add", { state: { editTransaction: t } });
+      };
 
+      const handleConfirmDelete = () => {
+        deleteTransaction(currentUser.username, transactionToDelete.id);
+        refreshUser();
+        setTransactionToDelete(null);
+      };
 const filteredTransactions = useMemo(() => {
   return allTransactions
     .map((t, index) => ({ ...t, __index: index })) // tag original position before sorting
@@ -188,6 +198,8 @@ const filteredTransactions = useMemo(() => {
                 category={allCategories.find((c) => c.id === t.categoryId)}
                 currency={currentUser.currency}
                 onClick={() => setSelectedTransaction(t)}
+                onEdit={handleEditTransaction}
+                onDelete={setTransactionToDelete}
               />
             ))
           )}
@@ -229,7 +241,11 @@ const filteredTransactions = useMemo(() => {
           onClose={() => setSelectedTransaction(null)}
         />
       )}
-
+      <DeleteTransactionModal
+  transaction={transactionToDelete}
+  onCancel={() => setTransactionToDelete(null)}
+  onConfirm={handleConfirmDelete}
+/>
       <BottomNav />
     </div>
   );

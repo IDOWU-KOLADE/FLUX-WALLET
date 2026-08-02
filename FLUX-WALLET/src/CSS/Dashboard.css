@@ -278,6 +278,7 @@
     color: var(--color-text-secondary);
     background-color: var(--color-card);
     cursor: pointer;
+    border: none;
 }
 .month-select:focus {
   outline: none;
