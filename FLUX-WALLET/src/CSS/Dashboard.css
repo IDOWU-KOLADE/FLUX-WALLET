@@ -550,3 +550,50 @@
 .report-modal-actions .btn-continue { flex: 1; }
 
 .modal-error { color: red; font-size: 12px; }
+
+/* ===== NARROW PHONE ADJUSTMENTS (≤360px, e.g. iPhone SE) ===== */
+@media (max-width: 360px) {
+  .hero-texts h1 {
+    font-size: 19px;
+    max-width: 62%;
+  }
+  .hero-texts p {
+    width: 60%;
+  }
+  .hero-illustration {
+    height: 90%;
+    top: 55px;
+  }
+  .add-transact {
+    width: 58%;
+  }
+  .icon-circle {
+    width: 38px;
+    height: 38px;
+  }
+  .summary-amount {
+    font-size: 12px;
+  }
+  .category-icon {
+    width: 32px;
+    height: 36px;
+    font-size: 16px;
+  }
+}
+
+/* ===== WIDER PHONE ADJUSTMENTS (481–600px) — use the extra room instead of looking sparse ===== */
+@media (min-width: 481px) {
+  .dashboard-div {
+    padding: 24px;
+  }
+  .hero-texts h1 {
+    font-size: 25px;
+  }
+  .icon-circle {
+    width: 46px;
+    height: 46px;
+  }
+  .summary-div {
+    max-height: 175px;
+  }
+}

@@ -1,15 +1,15 @@
 .add-transaction-page {
-    padding-top: 50px;
+    padding-top: 44px;
   min-height: 80vh;
   background: var(--color-bg);
-  padding-bottom: 100px;
+  padding-bottom: 88px;
 }
 
 .at-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 20px;
+  padding: 14px 18px;
 
 }
 
@@ -22,53 +22,53 @@
 }
 
 .at-title {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0;
 }
 
 .at-header-spacer {
-  width: 28px;
+  width: 25px;
 }
 
 .at-form {
-  padding: 20px;
+  padding: 18px;
 }
 
 .add-transaction-form {
-  padding: 20px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 17px;
 }
 
 .at-field-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 7px;
 
 }
 
 .at-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--color-text-secondary);
 }
 
 .at-toggle {
   display: flex;
-  gap: 10px;
+  gap: 9px;
 }
 
 .at-toggle-btn {
   flex: 1;
-  padding: 12px;
+  padding: 10px;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
   background: var(--color-card);
   color: var(--color-text-primary);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition-fast);
@@ -84,12 +84,12 @@
 .at-select,
 .at-textarea {
   width: 100%;
-  padding: 14px;
+  padding: 10px 12px;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
   background: var(--color-card);
   color: var(--color-text-primary);
-  font-size: 14px;
+  font-size: 13px;
   font-family: inherit;
   box-sizing: border-box;
 }
@@ -120,13 +120,13 @@
 
 .at-select-chevron {
   position: absolute;
-  right: 14px;
+  right: 12px;
   pointer-events: none;
 }
 
 .at-date-icon {
   position: absolute;
-  right: 14px;
+  right: 12px;
   pointer-events: none;
 }
 
@@ -137,19 +137,71 @@
 .at-submit-bar {
   
  
-  padding: 16px 20px;
+  padding: 14px 18px;
   background: var(--color-card);
   border-top: 1px solid var(--color-border-light);
 }
 
 .btn-add-transaction {
   width: 100%;
-  padding: 15px;
+  padding: 12px;
   border-radius: var(--radius-md);
   border: none;
   background: var(--color-text-primary);
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
+}
+/* ===== NARROW PHONE ADJUSTMENTS (≤360px, e.g. iPhone SE) ===== */
+@media (max-width: 360px) {
+  .at-form,
+  .add-transaction-form {
+    padding: 14px;
+  }
+  .at-toggle {
+    gap: 7px;
+  }
+  .at-toggle-btn {
+    padding: 9px;
+    font-size: 12px;
+  }
+  .at-input,
+  .at-select,
+  .at-textarea {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+  .at-submit-bar {
+    padding: 12px 14px;
+  }
+  .btn-add-transaction {
+    padding: 11px;
+    font-size: 13px;
+  }
+}
+
+/* ===== WIDER PHONE ADJUSTMENTS (481–600px) — use the extra room instead of stretching one fixed size ===== */
+@media (min-width: 481px) {
+  .at-form,
+  .add-transaction-form {
+    padding: 24px;
+  }
+  .at-toggle-btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+  .at-input,
+  .at-select,
+  .at-textarea {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  .at-submit-bar {
+    padding: 18px 24px;
+  }
+  .btn-add-transaction {
+    padding: 13px;
+    font-size: 15px;
+  }
 }
