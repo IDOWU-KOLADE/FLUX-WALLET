@@ -16,13 +16,15 @@ import { CategoryPage } from './PAGES/Category.jsx'
 import { Transactions } from './PAGES/Transactions.jsx'
 import { StatsPage } from './PAGES/Stats.jsx'
 import { ProtectedRoute } from './COMPONENTS/FREQUENT/ProtectedRoute.jsx';
-import { AboutPage } from './PAGES/AboutPage.jsx'
+import { AboutPage } from './PAGES/AboutPage.jsx';
+import { AutoInstallPrompt } from './COMPONENTS/FREQUENT/AutoInstallPrompt.jsx'
 function App() {
   
 return (
   <DesktopGate>
   <AppProvider>
     <BrowserRouter>
+    <AutoInstallPrompt/>
     <Routes>
       <Route path='/' element={<AuthPage/>}/>
       <Route path='/dashboard' element={<ProtectedRoute><MainPage/></ProtectedRoute>}/>

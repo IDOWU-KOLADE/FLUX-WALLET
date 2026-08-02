@@ -8,6 +8,7 @@
 @import './Transactions.css';
 @import './About.css';
 @import './Desktop.css';
+@import './InstallPrompt.css';
  :root {
   /* =========================
      PRIMARY BRAND COLORS

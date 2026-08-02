@@ -6,6 +6,8 @@ import { Navbar, BottomNav } from "../COMPONENTS/FREQUENT/NB";
 import { setProfilePicture } from "../CONTEXT/UserStorage";
 import { AvatarCropperModal } from "../COMPONENTS/PROFILE-CMP/AvatarCropperModal";
 import { CURRENCIES,formatAmount } from "../utils/currency";
+import { usePwaInstall } from "../hooks/usePwaInstall";
+import { InstallPromptModal } from "../COMPONENTS/FREQUENT/InstallPromptModal";
 
 export function ProfilePage() {
   const { currentUser, logout, refreshUser, setScreen } = useApp();
@@ -18,7 +20,16 @@ export function ProfilePage() {
   const [selectedCurrency, setSelectedCurrency] = useState(currentUser?.currency || 'NGN');
   const [cropperSrc, setCropperSrc] = useState(null);
 
+  const { platform: installPlatform, promptInstall } = usePwaInstall();
+const [showInstallModal, setShowInstallModal] = useState(false);
 
+const handleInstallRowClick = () => {
+  if (installPlatform === "android") {
+    promptInstall(); // fires native dialog directly, no need for the card
+  } else {
+    setShowInstallModal(true); // iOS: show the steps card
+  }
+};
 
 
   const saveCurrency = () => {
@@ -121,7 +132,14 @@ export function ProfilePage() {
             <span className="profile-item-label">About Flux Wallet</span>
             <span className="profile-item-value">v1.0.0</span>
           </button>
-
+               {installPlatform && (
+            <button className="profile-item" onClick={handleInstallRowClick}>
+              <span className="profile-item-label">Install App</span>
+              <span className="profile-item-value">
+                {installPlatform === "ios" ? "Add to Home Screen" : "Install"}
+              </span>
+            </button>
+          )}
           <button className="profile-item logout" onClick={handleLogout}>
             <span>Logout</span>
           </button>
@@ -175,6 +193,14 @@ export function ProfilePage() {
             </div>
           </div>
         )}
+      {showInstallModal && (
+          <InstallPromptModal
+            platform={installPlatform}
+            onInstall={async () => { await promptInstall(); setShowInstallModal(false); }}
+            onClose={() => setShowInstallModal(false)}
+          />
+        )}
+
           {cropperSrc && (
             <AvatarCropperModal
               imageSrc={cropperSrc}
