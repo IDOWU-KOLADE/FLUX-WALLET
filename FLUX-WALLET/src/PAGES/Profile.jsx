@@ -4,7 +4,7 @@ import { getStorage, SetStorage, setMonthlyBudget } from "../CONTEXT/UserStorage
 import { useNavigate } from "react-router-dom";
 import { Navbar, BottomNav } from "../COMPONENTS/FREQUENT/NB";
 import { setProfilePicture } from "../CONTEXT/UserStorage";
-import { resizeImageToBase64 } from "../utils/imageUtils";
+import { AvatarCropperModal } from "../COMPONENTS/PROFILE-CMP/AvatarCropperModal";
 import { CURRENCIES,formatAmount } from "../utils/currency";
 
 export function ProfilePage() {
@@ -16,7 +16,7 @@ export function ProfilePage() {
   const [newBudget, setNewBudget] = useState('');
   const [budgetError, setBudgetError] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState(currentUser?.currency || 'NGN');
-
+  const [cropperSrc, setCropperSrc] = useState(null);
 
 
 
@@ -30,12 +30,19 @@ export function ProfilePage() {
   };
     const fileInputRef = useRef(null);
 
-    const handlePictureChange = async (e) => {
+    const handlePictureChange = (e) => {
       const file = e.target.files[0];
       if (!file) return;
-      const resizedBase64 = await resizeImageToBase64(file);
-      setProfilePicture(currentUser.username, resizedBase64);
+      const reader = new FileReader();
+      reader.onload = (ev) => setCropperSrc(ev.target.result);
+      reader.readAsDataURL(file);
+      e.target.value = '';
+    };
+
+    const handleCropSave = (finalBase64) => {
+      setProfilePicture(currentUser.username, finalBase64);
       refreshUser();
+      setCropperSrc(null);
     };
   const saveBudget = () => {
     if (!newBudget.trim()) {
@@ -168,7 +175,13 @@ export function ProfilePage() {
             </div>
           </div>
         )}
-
+          {cropperSrc && (
+            <AvatarCropperModal
+              imageSrc={cropperSrc}
+              onCancel={() => setCropperSrc(null)}
+              onSave={handleCropSave}
+            />
+          )}
         <BottomNav />
       </div>
     </>

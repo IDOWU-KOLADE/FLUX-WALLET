@@ -213,5 +213,33 @@
   object-fit: cover;
   border-radius: 50%;
 }
+.avatar-cropper-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.avatar-cropper-viewport {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  background: var(--color-bg-secondary);
+  cursor: grab;
+  touch-action: none;
+}
+
+.avatar-cropper-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  user-select: none;
+}
+
+.avatar-cropper-zoom {
+  width: 200px;
+}
 
 
