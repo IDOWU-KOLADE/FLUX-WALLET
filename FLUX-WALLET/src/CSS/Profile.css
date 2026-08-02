@@ -102,7 +102,7 @@
 .modal-box {
   background: var(--color-card);
   border-radius: 8px;
-  padding: 24px;
+  padding: 20px;
   width: 100%;
   max-width: 340px;
   display: flex;
@@ -111,7 +111,7 @@
 }
 
 .modal-title {
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--color-text-primary);
   margin: 0;
@@ -161,7 +161,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px;
+  padding: 10px;
   border: 1.5px solid var(--color-border);
   border-radius: 10px;
   background: var(--color-bg);

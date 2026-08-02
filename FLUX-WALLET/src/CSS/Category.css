@@ -6,7 +6,7 @@
 .category-page {
   max-width: 480px;
   margin: 0 auto;
-  padding: 75px 16px 32px;
+  padding: 66px 14px 28px;
 }
 
 /* ---------- Header ---------- */
@@ -14,8 +14,8 @@
 .category-page-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: 7px;
+  margin-bottom: 18px;
 }
 
 .category-page-back {
@@ -25,8 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
   border-radius: var(--radius-sm);
   transition: background var(--transition-fast);
@@ -37,7 +37,7 @@
 }
 
 .category-page-header h1 {
-  font-size: 1.15rem;
+  font-size: 1.01rem;
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0;
@@ -46,16 +46,16 @@
 /* ---------- Sections ---------- */
 
 .category-section {
-  margin-bottom: 24px;
+  margin-bottom: 21px;
 }
 
 .category-section-label {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 600;
   color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  margin: 0 0 10px 2px;
+  margin: 0 0 9px 2px;
 }
 
 /* ---------- Category row ---------- */
@@ -63,24 +63,24 @@
 .category-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 11px;
   background: var(--color-card);
   border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-md);
-  padding: 12px 14px;
-  margin-bottom: 8px;
+  border-radius: 7px;
+  padding: 9px 11px;
+  margin-bottom: 7px;
   transition: background var(--transition-fast);
 }
 
 .category-row-icon {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 33px;
+  height: 33px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 0.97rem;
 }
 
 .category-row-main {
@@ -89,7 +89,7 @@
 }
 
 .category-row-name {
-  font-size: 0.92rem;
+  font-size: 0.81rem;
   font-weight: 500;
   color: var(--color-text-primary);
   white-space: nowrap;
@@ -99,9 +99,9 @@
 
 .category-type-tag {
   flex-shrink: 0;
-  font-size: 0.72rem;
+  font-size: 0.63rem;
   font-weight: 600;
-  padding: 3px 10px;
+  padding: 3px 9px;
   border-radius: 999px;
 }
 
@@ -123,8 +123,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 25px;
+  height: 25px;
   cursor: pointer;
   border-radius: var(--radius-sm);
   transition: background var(--transition-fast);
@@ -150,19 +150,19 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
-  padding: 6px;
-  min-width: 140px;
+  padding: 5px;
+  min-width: 123px;
 }
 
 .category-menu-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   width: 100%;
   background: none;
   border: none;
-  padding: 9px 10px;
-  font-size: 0.88rem;
+  padding: 8px 9px;
+  font-size: 0.77rem;
   font-weight: 500;
   color: var(--color-text-primary);
   border-radius: var(--radius-sm);
@@ -187,7 +187,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 18px;
   z-index: 50;
 }
 
@@ -197,40 +197,40 @@
   background: var(--color-card);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  padding: 28px 24px 24px;
+  padding: 25px 21px 21px;
   width: 100%;
-  max-width: 340px;
+  max-width: 299px;
   text-align: center;
 }
 
 .delete-modal-icon {
-  width: 56px;
-  height: 56px;
+  width: 49px;
+  height: 49px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
-  margin: 0 auto 16px;
+  font-size: 1.41rem;
+  margin: 0 auto 14px;
 }
 
 .delete-modal-title {
-  font-size: 1.05rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--color-text-primary);
-  margin: 0 0 8px;
+  margin: 0 0 7px;
 }
 
 .delete-modal-subtext {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--color-text-secondary);
   line-height: 1.4;
-  margin: 0 0 22px;
+  margin: 0 0 19px;
 }
 
 .delete-modal-actions {
   display: flex;
-  gap: 10px;
+  gap: 9px;
 }
 
 /* ---------- Shared buttons ---------- */
@@ -239,8 +239,8 @@
   flex: 1;
   border: none;
   border-radius: var(--radius-md);
-  padding: 12px 16px;
-  font-size: 0.9rem;
+  padding: 11px 14px;
+  font-size: 0.79rem;
   font-weight: 600;
   cursor: pointer;
   transition: opacity var(--transition-fast);
@@ -273,10 +273,10 @@
   background: none;
   border: none;
   color: var(--color-text-secondary);
-  font-size: 0.88rem;
+  font-size: 0.77rem;
   font-weight: 500;
   cursor: pointer;
-  padding: 12px 8px;
+  padding: 11px 7px;
 }
 
 .btn-text:hover {
@@ -289,9 +289,9 @@
   background: var(--color-card);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  padding: 20px;
+  padding: 18px;
   width: 100%;
-  max-width: 380px;
+  max-width: 334px;
   max-height: 50vh;
   overflow-y: auto;
 }
@@ -300,12 +300,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
  
 }
 
 .emoji-picker-header h3 {
-  font-size: 1rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0;
@@ -324,7 +324,7 @@
 .emoji-picker-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+  gap: 9px;
 }
 
 .emoji-picker-option {
@@ -332,7 +332,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.14rem;
   background: var(--color-bg-secondary);
   border: 2px solid transparent;
   border-radius: var(--radius-md);
@@ -355,20 +355,20 @@
   background: var(--color-card);
   border: 1px solid var(--color-border-light);
 
-  padding: 16px;
+  padding: 14px;
 }
 
 .category-form-editing-label {
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--color-accent);
-  margin: 0 0 12px;
+  margin: 0 0 11px;
 }
 
 .category-form-row {
   display: flex;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 9px;
+  margin-bottom: 14px;
 }
 
 .category-form-input {
@@ -376,8 +376,8 @@
   min-width: 0;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
-  padding: 11px 14px;
-  font-size: 0.9rem;
+  padding: 10px 12px;
+  font-size: 0.79rem;
   color: var(--color-text-primary);
   background: var(--color-bg);
 }
@@ -389,11 +389,11 @@
 
 .category-form-emoji-btn {
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
+  width: 39px;
+  height: 39px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--color-border);
-  font-size: 1.2rem;
+  font-size: 1.06rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -402,10 +402,10 @@
 
 .category-form-label {
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 500;
   color: var(--color-text-secondary);
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 
 .type-toggle {
@@ -413,15 +413,15 @@
   background: var(--color-bg-secondary);
   border-radius: var(--radius-sm);
   padding: 4px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .type-toggle-btn {
   flex: 1;
   border: none;
   background: none;
-  padding: 9px 0;
-  font-size: 0.86rem;
+  padding: 8px 0;
+  font-size: 0.76rem;
   font-weight: 600;
   color: var(--color-text-secondary);
   border-radius: calc(var(--radius-sm) - 2px);
@@ -448,7 +448,7 @@
 
 .category-form-edit-actions .btn {
   flex: none;
-  padding: 11px 20px;
+  padding: 10px 18px;
 }
 
 /* ---------- Empty state ---------- */
@@ -458,36 +458,36 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 32px 20px;
+  padding: 18px 10px;
   background: var(--color-card);
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
 }
 
 .empty-categories-icon {
-  width: 52px;
-  height: 52px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   background: var(--color-primary-light);
   color: var(--color-primary-dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .empty-categories-title {
-  font-size: 0.9rem;
+  font-size: 0.79rem;
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0 0 4px;
 }
 
 .empty-categories-subtext {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: var(--color-text-secondary);
   margin: 0;
-  max-width: 260px;
+  max-width: 229px;
 }
 
 /* ---------- Category Picker Modal (Add Transaction) ---------- */
@@ -498,9 +498,9 @@
   background: var(--color-card);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
-  padding: 20px;
+  padding: 18px;
   width: 100%;
-  max-width: 380px;
+  max-width: 334px;
   max-height: 80vh;        /* the cap you asked for */
   display: flex;            /* NEW — turns this into the 3-zone layout */
   flex-direction: column;
@@ -511,11 +511,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .category-picker-header h3 {
-  font-size: 1rem;
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0;
@@ -532,7 +532,7 @@
 }
 
 .category-picker-list {
-  max-height: 320px;
+  max-height: 282px;
   overflow-y: auto;         
   display: flex;
   flex-direction: column;
@@ -565,8 +565,8 @@
 .category-picker-empty {
   text-align: center;
   color: var(--color-text-secondary);
-  font-size: 0.85rem;
-  padding: 20px 0;
+  font-size: 0.75rem;
+  padding: 18px 0;
 }
 
 .category-picker-manage-btn {
@@ -574,9 +574,9 @@
   background: none;
   border: none;
   border-top: 1px solid var(--color-border-light);
-  margin-top: 8px;
-  padding: 14px 4px 4px;
-  font-size: 0.85rem;
+  margin-top: 7px;
+  padding: 12px 4px 4px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--color-accent);
   cursor: pointer;
@@ -586,7 +586,7 @@
 /* ---------- Category Field (the trigger on Add Transaction form) ---------- */
 
 .category-field {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .category-field-trigger {
@@ -597,7 +597,7 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-bg);
-  padding: 11px 14px;
+  padding: 10px 12px;
   cursor: pointer;
   color: var(--color-text-primary);
 }
@@ -605,29 +605,91 @@
 .category-field-selected {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.9rem;
+  gap: 9px;
+  font-size: 0.79rem;
   font-weight: 500;
 }
 
 .category-field-icon {
-  width: 28px;
-  height: 28px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
+  font-size: 0.84rem;
   flex-shrink: 0;
 }
 
 .category-field-placeholder {
-  font-size: 0.9rem;
+  font-size: 0.79rem;
   color: var(--color-text-light);
 }
 .category-form-error {
   color: red;
-  font-size: 13px;
-  margin: 8px 0;
+  font-size: 11px;
+  margin: 7px 0;
   text-align: center;
+}
+
+/* ===== NARROW PHONE ADJUSTMENTS (≤360px, e.g. iPhone SE) ===== */
+@media (max-width: 360px) {
+  .category-page {
+    padding: 66px 12px 24px;
+  }
+  .category-page-header h1 {
+    font-size: 0.92rem;
+  }
+  .category-row {
+    padding: 9px 10px;
+    gap: 9px;
+  }
+  .category-row-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 0.88rem;
+  }
+  .category-row-name {
+    font-size: 0.75rem;
+  }
+  .category-type-tag {
+    font-size: 0.58rem;
+    padding: 3px 7px;
+  }
+  .delete-modal {
+    max-width: 270px;
+    padding: 20px 16px 16px;
+  }
+  .emoji-picker,
+  .category-picker {
+    max-width: 290px;
+    padding: 14px;
+  }
+  .btn {
+    font-size: 0.72rem;
+    padding: 10px 11px;
+  }
+  .category-form-input,
+  .category-field-trigger {
+    padding: 9px 10px;
+    font-size: 0.74rem;
+  }
+}
+
+/* ===== WIDER PHONE ADJUSTMENTS (481–600px) ===== */
+@media (min-width: 481px) {
+  .category-page {
+    padding: 66px 24px 32px;
+  }
+  .category-row {
+    padding: 10px 12px;
+  }
+  .delete-modal,
+  .emoji-picker,
+  .category-picker {
+    max-width: 360px;
+  }
+  .btn {
+    font-size: 0.85rem;
+  }
 }
