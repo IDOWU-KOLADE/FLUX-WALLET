@@ -8,6 +8,7 @@ const MAX_NAME_LENGTH = 24; // generous enough for real category names, short en
 export function CategoryForm({ editingCategory, existingCategories, onSubmit, onCancelEdit }) {
   const [name, setName] = useState("");
   const [icon, setIcon] = useState(DEFAULT_EMOJI);
+    const [isTransfer, setIsTransfer] = useState(false);
   const [type, setType] = useState("expense");
   const [pickerOpen, setPickerOpen] = useState(false);
   const [error, setError] = useState("");
@@ -16,13 +17,15 @@ export function CategoryForm({ editingCategory, existingCategories, onSubmit, on
 
   useEffect(() => {
     if (editingCategory) {
-      setName(editingCategory.name);
+     setName(editingCategory.name);
       setIcon(editingCategory.icon);
       setType(editingCategory.type);
+      setIsTransfer(editingCategory.isTransfer ?? false);
     } else {
       setName("");
       setIcon(DEFAULT_EMOJI);
       setType("expense");
+      setIsTransfer(false);
     }
     setError(""); // clear any leftover error from a previous form session
   }, [editingCategory]);
@@ -56,7 +59,7 @@ export function CategoryForm({ editingCategory, existingCategories, onSubmit, on
     }
 
     setError("");
-    onSubmit({ name: trimmedName, icon, type });
+        onSubmit({ name: trimmedName, icon, type, isTransfer });
   }
 
   return (
@@ -107,7 +110,17 @@ export function CategoryForm({ editingCategory, existingCategories, onSubmit, on
             Income
           </button>
         </div>
-
+         <label className="category-form-transfer-toggle">
+          <input
+            type="checkbox"
+            checked={isTransfer}
+            onChange={(e) => setIsTransfer(e.target.checked)}
+          />
+          <span>
+            <strong>This is a transfer, not real income or expense</strong>
+            <small>Won't count toward your budget usage or income/expense totals</small>
+          </span>
+        </label>
         {error && <p className="category-form-error">{error}</p>}
 
         {isEditMode ? (

@@ -135,8 +135,12 @@ function BudgetProgressCard() {
   const budget = currentUser.monthlyBudget;
   const now = new Date();
 
-  const totalSpent = currentUser.transactions
+ const totalSpent = currentUser.transactions
     .filter((t) => t.type === "expense")
+    .filter((t) => {
+      const category = currentUser.categories.find((c) => c.id === t.categoryId);
+      return !category?.isTransfer;
+    })
     .filter((t) => {
       const d = new Date(t.date);
       return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
@@ -217,9 +221,11 @@ function Summary() {
 
   const { month, year } = getPeriodRange(dashboardPeriod);
 
-  const periodTransactions = currentUser.transactions.filter((t) => {
+const periodTransactions = currentUser.transactions.filter((t) => {
     const d = new Date(t.date);
-    return d.getMonth() === month && d.getFullYear() === year;
+    if (d.getMonth() !== month || d.getFullYear() !== year) return false;
+    const category = currentUser.categories.find((c) => c.id === t.categoryId);
+    return !category?.isTransfer;
   });
 
   const totalIncome = periodTransactions.filter((t) => t.type === "income").reduce((sum, t) => sum + t.amount, 0);

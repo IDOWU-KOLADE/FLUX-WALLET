@@ -20,7 +20,9 @@ export function getCategoryStats(transactions, categories, type, month, year) {
   const periodTransactions = transactions.filter((t) => {
     if (t.type !== type) return false;
     const d = new Date(t.date);
-    return d.getMonth() === month && d.getFullYear() === year;
+    if (d.getMonth() !== month || d.getFullYear() !== year) return false;
+    const category = categories.find((c) => c.id === t.categoryId);
+    return !category?.isTransfer;
   });
 
   const totalsByCategory = new Map();

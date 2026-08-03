@@ -39,10 +39,45 @@ export function registerUser (username,password, securityQuestions, securityAnsw
 }
   SetStorage(storage)
 }
-export function getCurrentUser () {
+const TRANSFER_DEFAULTS = [
+  { name: "Lending", icon: { emoji: "🤝", bg: "#cffafe" }, type: "expense" },
+  { name: "Savings", icon: { emoji: "🏦", bg: "#ede9fe" }, type: "expense" },
+  { name: "Loan Repayment", icon: { emoji: "💰", bg: "#d1fae5" }, type: "income" },
+];
+
+// Heals any account — brand new or years old — that's missing one or more of the
+// transfer categories. Runs inside getCurrentUser() below, so there's no separate
+// migration step to remember to run; it just self-corrects on every load.
+function ensureTransferCategories(username) {
   const storage = getStorage();
-  const username = storage.loggedInUser;
-  return username? {username,...storage.users[username]}: null;
+  const user = storage.users[username];
+  if (!user) return;
+
+  const existingNames = user.categories.map((c) => c.name.toLowerCase());
+  const missing = TRANSFER_DEFAULTS.filter(
+    (def) => !existingNames.includes(def.name.toLowerCase())
+  );
+  if (missing.length === 0) return;
+
+  const newCategories = missing.map((def) => ({
+    id: crypto.randomUUID(),
+    name: def.name,
+    icon: def.icon,
+    type: def.type,
+    isDefault: true,
+    isDeleted: false,
+    isTransfer: true,
+  }));
+
+  user.categories = [...user.categories, ...newCategories];
+  SetStorage(storage);
+}
+export function getCurrentUser () {
+ const storage = getStorage();
+ const username = storage.loggedInUser;
+ if (username) ensureTransferCategories(username);
+ const freshStorage = getStorage(); // re-read in case the heal above just wrote new data
+ return username? {username,...freshStorage.users[username]}: null;
 }
 export function loginUser (username, password) {
     const storage = getStorage();
@@ -65,11 +100,11 @@ export function logoutUser () {
 }
 
 
-export function addCategory (username, name, icon, type) {
-    const storage = getStorage();
-    const newCategory = {id:crypto.randomUUID(), name, icon ,type,isDefault:false, isDeleted: false}
-    storage.users[username].categories = [...storage.users[username].categories, newCategory];
-    SetStorage(storage)
+export function addCategory (username, name, icon, type, isTransfer = false) {
+ const storage = getStorage();
+ const newCategory = {id:crypto.randomUUID(), name, icon ,type,isDefault:false, isDeleted: false, isTransfer}
+ storage.users[username].categories = [...storage.users[username].categories, newCategory];
+ SetStorage(storage)
 }
 export function editCategory (username, id, updates) {
       const storage = getStorage();

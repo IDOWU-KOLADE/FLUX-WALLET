@@ -72,11 +72,11 @@ export function CategoryPage() {
     setCategoryToDelete(null);
   }
 
-  function handleFormSubmit(formValues) {
+function handleFormSubmit(formValues) {
     if (editingCategory) {
        editCategory(currentUser.username, editingCategory.id, formValues)
     } else {
-        addCategory(currentUser.username, formValues.name, formValues.icon, formValues.type)
+        addCategory(currentUser.username, formValues.name, formValues.icon, formValues.type, formValues.isTransfer)
       };
       refreshUser();
       setEditingCategory(null)

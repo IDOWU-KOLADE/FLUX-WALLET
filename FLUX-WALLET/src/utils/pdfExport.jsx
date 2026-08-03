@@ -126,8 +126,14 @@ export async function exportTransactionsPDF({
     y += 5; doc.setDrawColor(235, 235, 235); doc.line(margin, y, pageWidth - margin, y); y += 5;
   });
 
-  const incomeTotal = transactions.filter((t) => t.type === "income").reduce((s, t) => s + t.amount, 0);
-  const expenseTotal = transactions.filter((t) => t.type === "expense").reduce((s, t) => s + t.amount, 0);
+const incomeTotal = transactions
+    .filter((t) => t.type === "income")
+    .filter((t) => !categories.find((c) => c.id === t.categoryId)?.isTransfer)
+    .reduce((s, t) => s + t.amount, 0);
+  const expenseTotal = transactions
+    .filter((t) => t.type === "expense")
+    .filter((t) => !categories.find((c) => c.id === t.categoryId)?.isTransfer)
+    .reduce((s, t) => s + t.amount, 0);
   const hasIncome = incomeTotal > 0, hasExpense = expenseTotal > 0;
   const code = CURRENCY_CODES[currency] ?? "";
 

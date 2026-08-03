@@ -9,7 +9,7 @@ import { MoreVertical } from "lucide-react";
  * onMenuClick(category, anchorEvent): called when the ellipsis is tapped
  */
 export function CategoryRow({ category, onMenuClick }) {
-  const { name, icon, type } = category;
+  const { name, icon, type, isTransfer } = category;
 
   return (
     <div className="category-row">
@@ -19,6 +19,7 @@ export function CategoryRow({ category, onMenuClick }) {
 
       <div className="category-row-main">
         <span className="category-row-name">{name}</span>
+        {isTransfer && <span className="category-row-transfer-badge">Transfer</span>}
       </div>
 
       <span className={`category-type-tag category-type-tag--${type}`}>
