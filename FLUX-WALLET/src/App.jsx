@@ -17,7 +17,8 @@ import { Transactions } from './PAGES/Transactions.jsx'
 import { StatsPage } from './PAGES/Stats.jsx'
 import { ProtectedRoute } from './COMPONENTS/FREQUENT/ProtectedRoute.jsx';
 import { AboutPage } from './PAGES/AboutPage.jsx';
-import { AutoInstallPrompt } from './COMPONENTS/FREQUENT/AutoInstallPrompt.jsx'
+import { AutoInstallPrompt } from './COMPONENTS/FREQUENT/AutoInstallPrompt.jsx';
+import { InstallToast } from './COMPONENTS/FREQUENT/InstallToast.jsx'
 function App() {
   
 return (
@@ -25,6 +26,7 @@ return (
   <AppProvider>
     <BrowserRouter>
     <AutoInstallPrompt/>
+    <InstallToast/>
     <Routes>
       <Route path='/' element={<AuthPage/>}/>
       <Route path='/dashboard' element={<ProtectedRoute><MainPage/></ProtectedRoute>}/>

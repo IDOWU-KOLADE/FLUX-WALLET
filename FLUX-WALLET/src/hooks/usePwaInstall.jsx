@@ -17,6 +17,7 @@ let state = {
   isStandalone: detectStandalone(),
   isIOS: detectIOS(),
   deferredPrompt: null,
+   showInstallToast: false,   // NEW
 };
 
 const listeners = new Set();
@@ -55,8 +56,10 @@ function getSnapshot() {
 export function usePwaInstall() {
   const snapshot = useSyncExternalStore(subscribe, getSnapshot);
 
-  const promptInstall = useCallback(async () => {
+ const promptInstall = useCallback(async () => {
     if (!snapshot.deferredPrompt) return null;
+    setState({ showInstallToast: true });
+    setTimeout(() => setState({ showInstallToast: false }), 5000);
     snapshot.deferredPrompt.prompt();
     const choice = await snapshot.deferredPrompt.userChoice;
     setState({ deferredPrompt: null });
@@ -70,6 +73,10 @@ export function usePwaInstall() {
     : snapshot.deferredPrompt
     ? "android"
     : null;
-
-  return { isStandalone: snapshot.isStandalone, platform, promptInstall };
+return {
+    isStandalone: snapshot.isStandalone,
+    platform,
+    promptInstall,
+    showInstallToast: snapshot.showInstallToast,   // NEW
+  };
 }
