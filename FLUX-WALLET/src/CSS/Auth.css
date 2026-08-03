@@ -479,10 +479,14 @@
   min-height: 100vh;
 }
 .reset-newpass-page {
-  align-items: center;
-  justify-content: center;
+ justify-content: center;
+  
 }
-
+.reset-cancel-link {
+  align-self: center;
+  margin-top: 5px;
+  color: var(--color-text-secondary);
+}
 .reset-back-btn {
   background: none;
   border: none;
