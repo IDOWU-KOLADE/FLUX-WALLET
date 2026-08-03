@@ -212,3 +212,14 @@
 .about-social-btn:hover {
   transform: translateY(-2px);
 }
+.about-section-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 8px 2px;
+}
+.about-budget-card {
+  border-left-color: #3b82f6;
+}

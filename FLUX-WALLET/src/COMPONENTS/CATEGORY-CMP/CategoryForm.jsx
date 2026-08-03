@@ -3,7 +3,7 @@ import { EmojiPickerModal } from "./EmojiPickerModal";
 import { EMOJI_BACKGROUNDS, DEFAULT_EMOJI_BG } from "./EmojiData";
 
 const DEFAULT_EMOJI = { emoji: "😀", bg: "#f1f5f9" };
-const MAX_NAME_LENGTH = 24; // generous enough for real category names, short enough to never break layout
+const MAX_NAME_LENGTH = 20; // generous enough for real category names, short enough to never break layout
 
 export function CategoryForm({ editingCategory, existingCategories, onSubmit, onCancelEdit }) {
   const [name, setName] = useState("");

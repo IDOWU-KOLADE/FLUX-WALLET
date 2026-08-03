@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, Wallet, RefreshCw, PieChart, FileText, Info } from "lucide-react";
+import { ChevronLeft, Wallet, RefreshCw, PieChart, FileText, Info, HardDrive, Tags, Archive, ArrowLeftRight, Calendar, MoreVertical, Download, HelpCircle, Coins, Smartphone, TrendingDown, Search, Image } from "lucide-react";
 import { BottomNav, Navbar } from "../COMPONENTS/FREQUENT/NB";
 
 const FEATURES = [
@@ -28,6 +28,151 @@ const FEATURES = [
     bg: "#e8f5e9", color: "#22c55e",
   },
 ];
+const HOW_IT_WORKS = [
+  {
+    sectionTitle: "Your Data",
+    items: [
+      {
+        icon: HardDrive,
+        title: "Stored only on this device",
+        body: "Everything you log lives in this browser's local storage — there's no cloud account. Clearing your browser data, switching phones, or reinstalling will erase it for good.",
+        bg: "#fef3c7", color: "#d97706",
+      },
+    ],
+  },
+  {
+    sectionTitle: "Categories",
+    items: [
+      {
+        icon: Tags,
+        title: "Make categories your own",
+        body: "Add categories that fit your life, and edit or delete the ones you create anytime. Default categories can't be edited — that protects old transactions if one's ever renamed.",
+        bg: "#e0e7ff", color: "#6366f1",
+      },
+      {
+        icon: Archive,
+        title: "Deleting a category keeps your history intact",
+        body: "Old transactions keep their original name and emoji forever, even after their category is deleted. You just can't pick it for new ones.",
+        bg: "#fce7f3", color: "#db2777",
+      },
+    ],
+  },
+  {
+    sectionTitle: "Transfers",
+    items: [
+      {
+        icon: ArrowLeftRight,
+        title: "Lending, Savings & Loan Repayment aren't real spending",
+        body: "These exist by default because that money isn't gone — it's just moved. They're left out of your budget percentage and income/expense totals. You can mark any category you create the same way from the category form.",
+        bg: "#ccfbf1", color: "#0d9488",
+      },
+    ],
+  },
+  {
+    sectionTitle: "Budget & Reports",
+    items: [
+      {
+        icon: Calendar,
+        title: "Your budget carries forward on its own",
+        body: "Set it once and it keeps applying every month after, until you change it — no need to re-set it monthly.",
+        bg: "#dbeafe", color: "#2563eb",
+      },
+      {
+        icon: FileText,
+        title: "Monthly Report shows up by itself",
+        body: "A glowing download icon appears in the navbar once a new month starts, summarizing the one before. It's a one-time claim — once downloaded, it's gone until the next month.",
+        bg: "#dcfce7", color: "#16a34a",
+      },
+    ],
+  },
+  {
+    sectionTitle: "Editing & Exporting",
+    items: [
+      {
+        icon: MoreVertical,
+        title: "Edit or delete any transaction",
+        body: "Tap the ⋯ menu on any row in Transactions to fix a typo, adjust an amount, or remove it entirely.",
+        bg: "#f1f5f9", color: "#475569",
+      },
+      {
+        icon: Download,
+        title: "Export transactions as a PDF",
+        body: "Filter transactions the way you want, then download them — you can edit the filename before it saves.",
+        bg: "#ede9fe", color: "#7c3aed",
+      },
+    ],
+  },
+  {
+    sectionTitle: "Stats & Insights",
+    items: [
+      {
+        icon: PieChart,
+        title: "Switch between income and expense breakdowns",
+        body: "The Stats page shows one side of your money at a time — toggle between income and expense to see the full picture.",
+        bg: "#f3e5f5", color: "#a855f7",
+      },
+      {
+        icon: RefreshCw,
+        title: "Compare this month to last month",
+        body: "Both the Dashboard summary and Stats page let you switch between this month and last month, so you can see how you're trending.",
+        bg: "#e0f2fe", color: "#0284c7",
+      },
+    ],
+  },
+  {
+    sectionTitle: "Find Things Faster",
+    items: [
+      {
+        icon: Search,
+        title: "Filter transactions by type and category",
+        body: "On the Transactions page, narrow the list down to just income, just expenses, or a specific category, instead of scrolling through everything.",
+        bg: "#fef9c3", color: "#ca8a04",
+      },
+      {
+        icon: Calendar,
+        title: "Jump straight to a date",
+        body: "Use Jump to Date on the Transactions page to skip straight to a specific day instead of scrolling back through your history.",
+        bg: "#dbeafe", color: "#2563eb",
+      },
+    ],
+  },
+
+  {
+    sectionTitle: "Account",
+    items: [
+      {
+        icon: HelpCircle,
+        title: "Password recovery only needs 2 of 3 right",
+        body: "Resetting your password doesn't need every security answer correct — 2 out of 3 is enough to verify it's you.",
+        bg: "#fee2e2", color: "#dc2626",
+      },
+      {
+        icon: Coins,
+        title: "Currency is just a display symbol",
+        body: "Changing your currency in Profile updates how amounts are shown — it doesn't convert your existing numbers between currencies.",
+        bg: "#fff7ed", color: "#ea580c",
+      },
+      {
+        icon: Smartphone,
+        title: "Install it like a real app",
+        body: "Add Flux Wallet to your home screen for quick, full-screen access. Dismissed the prompt? Find it again anytime in Profile → Install App.",
+        bg: "#e0f2fe", color: "#0284c7",
+      },
+      {
+        icon: HelpCircle,
+        title: "Security answers are forgiving",
+        body: "Capitalization and extra spaces don't matter when answering security questions — 'Max' and 'max ' are treated the same.",
+        bg: "#fee2e2", color: "#dc2626",
+      },
+      {
+        icon: Image,
+        title: "Reposition and zoom your profile photo",
+        body: "When you upload a profile picture, you can drag to reposition and use the zoom slider to frame it exactly how you want before saving.",
+        bg: "#f3e8ff", color: "#9333ea",
+      },
+    ],
+  },
+];
 
 export function AboutPage() {
   const navigate = useNavigate();
@@ -48,17 +193,49 @@ export function AboutPage() {
         </div>
 
       <div className="about-mission-card">
-  <p className="about-mission-lead">
-    Most budgeting apps ask you to become an accountant. Flux Wallet doesn't.
-  </p>
-  <p className="about-mission-body">
-    It's built on one idea: money tracking only works if it's fast enough that
-    you actually keep doing it. Logging a transaction takes seconds, your
-    budget remembers itself, and every month closes with a clear picture of
-    what happened — no spreadsheets, no guilt, no giving up in week two.
-  </p>
-</div>
-
+        <p className="about-mission-lead">
+          Most budgeting apps ask you to become an accountant. Flux Wallet doesn't.
+        </p>
+        <p className="about-mission-body">
+          It's built on one idea: money tracking only works if it's fast enough that
+          you actually keep doing it. Logging a transaction takes seconds, your
+          budget remembers itself, and every month closes with a clear picture of
+          what happened — no spreadsheets, no guilt, no giving up in week two.
+        </p>
+      </div>
+        <div className="about-mission-card about-budget-card">
+          <p className="about-mission-lead">
+            Your budget is a ceiling, not a target.
+          </p>
+          <p className="about-mission-body">
+            You don't need to spend all of it every month — that's actually the goal working correctly.
+            Whatever's left unspent stays in your account; that's where real savings come from, not from a
+            separate effort. The progress bar changes color as a signal, not a scoreboard: green means you're
+            well within budget, yellow means you're halfway there, and red means you're close to or over your
+            limit. Staying in the green for longer each month is the whole point.
+          </p>
+        </div>
+                  {HOW_IT_WORKS.map((section) => (
+          <div key={section.sectionTitle}>
+            <h3 className="about-section-label">{section.sectionTitle}</h3>
+            <div className="about-list-card">
+              {section.items.map(({ icon: Icon, title, body, bg, color }, i) => (
+                <div
+                  className={`about-list-row ${i === section.items.length - 1 ? "about-list-row--last" : ""}`}
+                  key={title}
+                >
+                  <div className="about-list-icon" style={{ backgroundColor: bg, color }}>
+                    <Icon size={18} />
+                  </div>
+                  <div className="about-list-text">
+                    <span className="about-list-title">{title}</span>
+                    <span className="about-list-body">{body}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
         <div className="about-list-card">
           {FEATURES.map(({ icon: Icon, title, body, bg, color }, i) => (
             <div className={`about-list-row ${i === FEATURES.length - 1 ? "about-list-row--last" : ""}`} key={title}>

@@ -640,6 +640,31 @@
   margin: 7px 0;
   text-align: center;
 }
+.category-form-transfer-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  margin: 4px 0 14px;
+  cursor: pointer;
+}
+.category-form-transfer-toggle input {
+  margin-top: 3px;
+  accent-color: var(--color-primary);
+}
+.category-form-transfer-toggle strong {
+  display: block;
+  font-size: 0.83rem;
+  color: var(--color-text-primary);
+}
+.category-form-transfer-toggle small {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
 
 /* ===== NARROW PHONE ADJUSTMENTS (≤360px, e.g. iPhone SE) ===== */
 @media (max-width: 360px) {
