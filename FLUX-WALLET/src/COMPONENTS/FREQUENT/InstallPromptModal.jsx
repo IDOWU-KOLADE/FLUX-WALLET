@@ -21,15 +21,18 @@ export function InstallPromptModal({ platform, onInstall, onClose }) {
           </button>
         )}
 
-        {platform === "ios" && (
+      {platform === "ios" && (
           <div className="install-prompt-ios-steps">
+            <p className="install-prompt-ios-note">
+              Open this site in Safari if you haven't already, then:
+            </p>
             <div className="install-prompt-ios-step">
               <Share size={16} />
-              <span>Tap the Share icon in Safari</span>
+              <span>Tap the Share icon (square with an arrow) in the bottom toolbar</span>
             </div>
             <div className="install-prompt-ios-step">
               <PlusSquare size={16} />
-              <span>Then select "Add to Home Screen"</span>
+              <span>Scroll down and tap "Add to Home Screen"</span>
             </div>
           </div>
         )}

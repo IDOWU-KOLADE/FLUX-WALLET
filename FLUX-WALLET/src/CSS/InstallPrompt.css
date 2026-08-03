@@ -113,3 +113,8 @@
   from { opacity: 0; transform: translate(-50%, -8px); }
   to { opacity: 1; transform: translate(-50%, 0); }
 }
+.install-prompt-ios-note {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+  margin: 0;
+}
