@@ -44,8 +44,12 @@ function getGreeting(name) {
   const now = new Date();
   const day = now.getDay(); // 0 = Sunday ... 5 = Friday, 6 = Saturday
   const hour = now.getHours();
+
+  const isLateNight = hour >= 0 && hour < 5;
   const isMorning = hour >= 5 && hour < 12;
   const isAfternoon = hour >= 12 && hour < 17;
+  const isEvening = hour >= 17 && hour < 21;
+  // else: night, 21–23
 
   let pool;
 
@@ -61,6 +65,13 @@ function getGreeting(name) {
       `Happy Sunday, ${name}`,
       `Good morning, ${name}, enjoy your Sunday`,
     ];
+  } else if (isLateNight) {
+    pool = [
+      `Up so early, ${name}?`,
+      `You should be asleep, ${name}`,
+      `Burning the midnight oil, ${name}`,
+      `Good morning, ${name}`,
+    ];
   } else if (isMorning) {
     pool = [
       `Good morning, ${name}`,
@@ -74,11 +85,17 @@ function getGreeting(name) {
       `Hey ${name}, hope your day's going well`,
       `Let's check in, ${name}`,
     ];
-  } else {
+  } else if (isEvening) {
     pool = [
       `Good evening, ${name}`,
       `Welcome back, ${name}`,
-      `Evening ${name}, let's get prudent`,
+      `Evening, ${name}, let's get prudent`,
+    ];
+  } else {
+    pool = [
+      `Still up, ${name}?`,
+      `Late one tonight, ${name}`,
+      `Winding down, ${name}?`,
     ];
   }
 
