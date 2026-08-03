@@ -96,6 +96,9 @@ const FluxData= getStorage();
 const Users = FluxData.users;
   return (
       <div className="register-page">
+        <button className="reset-back-btn" onClick={() => { seterror(''); setScreen('login'); }}>
+          <ChevronLeft size={20} />
+        </button>
         <div className="logo-wrapper">
           <img src="/IMAGES/Fluxlogo.png" alt="Flux Wallet" />
         </div>
@@ -160,8 +163,8 @@ const SECURITY_QUESTIONS = [
 ];
 
 function ForgotStep1() {
-  const [selected, setSelected] = useState([]);
-  const {setScreen, setSelectedQuestions,userdetails,setUserDetails} = useApp()
+  const [selected, setSelected] = useState(selectedQuestions || []);
+  const {setScreen, setSelectedQuestions,userdetails,setUserDetails,selectedQuestions} = useApp()
   const toggle = (q) => {
     setSelected((prev) =>
       prev.includes(q)
@@ -176,6 +179,9 @@ function ForgotStep1() {
 
   return (
     <div className="security-page">
+        <button className="reset-back-btn" onClick={() => setScreen('register')}>
+        <ChevronLeft size={20} />
+      </button>
       <div className="security-header">
         <h1>Select 3 Security Questions</h1>
         <p>You'll use these to recover your account</p>
@@ -240,6 +246,10 @@ function ForgotStep2() {
 
   return (
     <div className="forgot2-page">
+       <button className="reset-back-btn" onClick={() => setScreen('forgot-step1')}>
+        <ChevronLeft size={20} />
+      </button>
+
       <div className="forgot2-header">
         <h1>Set Your Security Answers</h1>
         <p>These answers help verify your identity</p>
