@@ -163,8 +163,9 @@ const SECURITY_QUESTIONS = [
 ];
 
 function ForgotStep1() {
+    const {setScreen, setSelectedQuestions,userdetails,setUserDetails,selectedQuestions} = useApp()
   const [selected, setSelected] = useState(selectedQuestions || []);
-  const {setScreen, setSelectedQuestions,userdetails,setUserDetails,selectedQuestions} = useApp()
+
   const toggle = (q) => {
     setSelected((prev) =>
       prev.includes(q)
@@ -504,7 +505,7 @@ function ResetNewPasswordStep() {
   };
 
   return (
-    <div className="reset-page">
+    <div className="reset-page reset-newpass-page">
       <div className="reset-header">
         <h1>Set New Password</h1>
         <p>Choose a strong password</p>
@@ -544,6 +545,9 @@ function ResetNewPasswordStep() {
       {error && <p style={{ color: 'red', fontSize: '13px', textAlign: 'center' }}>{error}</p>}
 
       <button className="btn-continue" onClick={handleReset}>Reset Password</button>
+      <p className="reset-cancel-link" onClick={() => { seterror(''); setResetUsername(''); setScreen('login'); }}>
+        Cancel and return to login
+      </p>
     </div>
   );
 }
