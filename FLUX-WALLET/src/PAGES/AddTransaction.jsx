@@ -21,6 +21,15 @@ import { CategoryField } from "../COMPONENTS/CATEGORY-CMP/CategoryField";
 import { useApp } from "../CONTEXT/AppContext";
 import { addTransaction, editTransaction } from "../CONTEXT/UserStorage";
 import { useLocation } from "react-router-dom";
+
+// Add this helper near the top of the file, above the component:
+function getTodayDateString() {
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 export function AddTransactionPage() {
   const { currentUser, refreshUser } = useApp();
   const navigate = useNavigate();
@@ -33,7 +42,7 @@ const [amount, setAmount] = useState(editingTransaction?.amount != null ? String
 const [selectedCategory, setSelectedCategory] = useState(
   editingTransaction ? currentUser.categories.find((c) => c.id === editingTransaction.categoryId) ?? null : null
 );
-const [date, setDate] = useState(editingTransaction?.date ?? "");
+const [date, setDate] = useState(editingTransaction?.date ?? getTodayDateString());
 const [notes, setNotes] = useState(editingTransaction?.notes ?? "");
   const [error, setError] = useState(""); // moved inside the component — hooks can't live at module scope
 

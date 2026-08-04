@@ -18,6 +18,7 @@ export function registerUser (username,password, securityQuestions, securityAnsw
     profilePicture: null,
     securityQuestions,
     securityAnswers,
+    hasSeenWelcome: false,
     transactions: [],
     budgetHistory: [],  
           
@@ -236,5 +237,18 @@ export function deleteTransaction(username, transactionId) {
   storage.users[username].transactions = storage.users[username].transactions.filter(
     (t) => t.id !== transactionId
   );
+  SetStorage(storage);
+}
+// registerUser — add alongside the other new fields:
+
+
+// New helpers:
+export function shouldShowWelcome(user) {
+  return !user?.hasSeenWelcome;
+}
+
+export function markWelcomeShown(username) {
+  const storage = getStorage();
+  storage.users[username].hasSeenWelcome = true;
   SetStorage(storage);
 }

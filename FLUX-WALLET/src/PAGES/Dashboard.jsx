@@ -12,15 +12,29 @@ import { HiArrowTrendingUp } from "react-icons/hi2"; // income arrow
 import { HiMinus } from "react-icons/hi";          // expenses minus
 import { useState, useEffect } from "react";
 import { formatAmount } from "../COMPONENTS/STATS-CMP/statsUtils";
+import { shouldShowWelcome, markWelcomeShown } from "../CONTEXT/UserStorage";
+import { WelcomeModal } from "../COMPONENTS/DASHBOARD-CMP/WelcomeModal";
 import { useApp } from "../CONTEXT/AppContext";
 import { useNavigate } from "react-router-dom";
 
 
 export function MainPage () {
 const {refreshUser} = useApp()
+  const [showWelcome, setShowWelcome] = useState(false);
 useEffect(()=> {
   refreshUser();
 },[])
+  useEffect(() => {
+    if (!currentUser) return;
+    if (shouldShowWelcome(currentUser)) setShowWelcome(true);
+  }, [currentUser]);
+
+  const handleCloseWelcome = () => {
+    markWelcomeShown(currentUser.username);
+    refreshUser();
+    setShowWelcome(false);
+  };
+
 return (
   <>
   
@@ -36,7 +50,7 @@ return (
       </div>
     <BottomNav/>
   </div>
-
+ {showWelcome && <WelcomeModal onClose={handleCloseWelcome} />}
     </>
 )
 }
@@ -104,8 +118,9 @@ function getGreeting(name) {
 function DashHero () {
   const navigate = useNavigate()
 const {currentUser} = useApp()
-if (!currentUser) return null; // 👈 safety net
 const [greeting] = useState(() => getGreeting(currentUser.username));
+if (!currentUser) return null; // 👈 safety net
+
     return(
 			<div className="hero-div">
 				<div className="hero-section">
