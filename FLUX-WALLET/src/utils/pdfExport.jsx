@@ -118,10 +118,17 @@ export async function exportTransactionsPDF({
     doc.text(descLines[0], col.description, y);
 
     doc.text(category?.name ?? "Uncategorized", col.category, y);
-    doc.text(t.type === "income" ? "Income" : "Expense", col.type, y);
 
-    doc.setTextColor(t.type === "income" ? 34 : 200, t.type === "income" ? 150 : 50, t.type === "income" ? 80 : 50);
-    doc.text(formatPdfAmount(t.amount, t.type, currency), col.amount, y, { align: "right" });
+// Type column — append "(Transfer)" for categories flagged as transfers,
+// shrinking the font slightly so the longer label still fits before the Amount column.
+const typeLabel = t.type === "income" ? "Income" : "Expense";
+const typeText = category?.isTransfer ? `${typeLabel} (Transfer)` : typeLabel;
+doc.setFontSize(category?.isTransfer ? 7 : 9);
+doc.text(typeText, col.type, y);
+doc.setFontSize(9); // restore before the Amount text below, which still needs the normal size
+
+doc.setTextColor(t.type === "income" ? 34 : 200, t.type === "income" ? 150 : 50, t.type === "income" ? 80 : 50);
+doc.text(formatPdfAmount(t.amount, t.type, currency), col.amount, y, { align: "right" });
 
     y += 5; doc.setDrawColor(235, 235, 235); doc.line(margin, y, pageWidth - margin, y); y += 5;
   });
