@@ -11,9 +11,9 @@ export function WelcomeModal({ onClose }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="welcome-modal" onClick={(e) => e.stopPropagation()}>
-        <h3 className="welcome-modal-title">Welcome to Flux Wallet! 🎉</h3>
+        <h3 className="welcome-modal-title">Welcome to Flux Wallet!</h3>
         <p className="welcome-modal-text">
-          Before you dive in, head over to the About page — it walks through everything
+          Before you dive in, head over to the About page. It walks through everything
           the app can do. Read it all the way to the end so nothing important gets missed.
         </p>
         <div className="welcome-modal-actions">
