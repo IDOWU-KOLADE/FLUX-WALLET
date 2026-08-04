@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 
-const ITEM_HEIGHT = 44;
+const ITEM_HEIGHT = 39;
 const MONTHS = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
