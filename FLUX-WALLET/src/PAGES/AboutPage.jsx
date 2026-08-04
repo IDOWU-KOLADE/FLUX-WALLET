@@ -249,7 +249,16 @@ export function AboutPage() {
             </div>
           ))}
         </div>
-
+        <div className="about-mission-card about-roadmap-card">
+          <p className="about-mission-lead">
+            Version 1.0 is just the beginning.
+          </p>
+          <p className="about-mission-body">
+            This is v1.0. The next version moves to a real backend — Supabase — for
+            proper, persistent data storage. And... well, we'll let you think about
+            what else that opens up.
+          </p>
+        </div>
         <div className="about-list-card version">
           <div className="about-list-row about-list-row--last">
             <div className="about-list-icon" style={{ backgroundColor: "#f1f5f9", color: "#64748b" }}>
