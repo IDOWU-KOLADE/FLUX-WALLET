@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export function MainPage () {
-const {refreshUser} = useApp()
+const {refreshUser,currentUser} = useApp()
   const [showWelcome, setShowWelcome] = useState(false);
 useEffect(()=> {
   refreshUser();

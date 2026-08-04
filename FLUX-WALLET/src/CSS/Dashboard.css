@@ -550,6 +550,22 @@
 .report-modal-actions .btn-continue { flex: 1; }
 
 .modal-error { color: red; font-size: 12px; }
+.welcome-modal {
+  background: var(--color-card);
+  width: 90%;
+  max-width: 340px;
+  border-radius: 16px;
+  padding: 24px 20px;
+  text-align: center;
+}
+.welcome-modal-title { font-size: 1.05rem; font-weight: 700; color: var(--color-text-primary); margin-bottom: 10px; }
+.welcome-modal-text { font-size: 0.85rem; color: var(--color-text-secondary); line-height: 1.5; margin-bottom: 20px; }
+.welcome-modal-actions { display: flex; gap: 10px; }
+.welcome-modal-skip, .welcome-modal-goto {
+  flex: 1; padding: 12px 0; border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none;
+}
+.welcome-modal-skip { background: var(--color-bg-secondary); color: var(--color-text-secondary); }
+.welcome-modal-goto { background: #111827; color: #fff; }
 
 /* ===== NARROW PHONE ADJUSTMENTS (≤360px, e.g. iPhone SE) ===== */
 @media (max-width: 360px) {
